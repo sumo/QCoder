@@ -10,7 +10,7 @@ package biz.mediabag.qcoder.domain
 
 sealed case class Frame
 
-case class AudioFrame
+case class AudioFrame extends Frame
 
-case class VideoFrame
+case class VideoFrame extends Frame
 

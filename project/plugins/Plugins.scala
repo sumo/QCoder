@@ -1,5 +1,7 @@
 import sbt._
-class Plugins(info: ProjectInfo) extends PluginDefinition(info) {
-  val repo = "GH-pages repo" at "http://mpeltonen.github.com/maven/"
-  val idea = "com.github.mpeltonen" % "sbt-idea-plugin" % "0.1-SNAPSHOT"
+class QCoderPlugins(info: ProjectInfo) extends PluginDefinition(info) {
+	
+  val sumogitHub = "sumo.github.com" at "http://sumo.github.com/maven"
+  val eclipse = "de.element34" % "sbt-eclipsify" % "0.6.0"
+  val jna = "raja-consulting.co.uk" % "sbt-jna-plugin" % "0.2"
 }
