@@ -8,9 +8,9 @@ package biz.mediabag.qcoder.domain
  * To change this template use File | Settings | File Templates.
  */
 
-sealed case class Frame
+trait Frame
 
-case class AudioFrame extends Frame
+trait AudioFrame extends Frame
 
-case class VideoFrame extends Frame
+trait VideoFrame extends Frame
 
