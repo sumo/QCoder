@@ -1,9 +1,10 @@
 package biz.mediabag.qcoder.domain
                                      
 import java.io._
+import Codec._
 
 abstract class Stream[T <: Frame] {
-  def frames: Seq[T] 
+  def frames: Seq[T]
 }
 
 abstract class Container {

@@ -1,16 +1,23 @@
 package biz.mediabag.qcoder.domain
 
-/**
- * Created by IntelliJ IDEA.
- * User: sumitraja
- * Date: Jun 12, 2010
- * Time: 11:21:24 AM
- * To change this template use File | Settings | File Templates.
- */
+object Codec extends Enumeration {
+  type Codec = Value
+  val Video = Value("Video")
+  val Audio = Value("Audio") 
+  val Subtitle = Value("Subtitle")
+}
 
-trait Frame
+import Codec._
+	
+trait Frame {
+	def codecType:Codec
+}
 
-trait AudioFrame extends Frame
+trait AudioFrame extends Frame {
+	override val codecType = Codec.Audio
+}
 
-trait VideoFrame extends Frame
+trait VideoFrame extends Frame {
+	override val codecType = Codec.Video
+}
 

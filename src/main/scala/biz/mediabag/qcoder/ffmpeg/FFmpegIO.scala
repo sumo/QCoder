@@ -1,6 +1,7 @@
 package biz.mediabag.qcoder.ffmpeg
 
-import package biz.mediabag.qcoder.domain
+import biz.mediabag.qcoder.domain._
+import java.io._;
 import avformat._
                                               
 object FFmpegContainerFactory extends ContainerFactory {
