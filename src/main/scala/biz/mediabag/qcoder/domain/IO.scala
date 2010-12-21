@@ -14,7 +14,7 @@ abstract class Container {
 abstract class ContainerFactory {
   def loadFrom(file:File) : Container = {
     val fis = new FileInputStream(file)
-    loadFile(fis)
+    loadFrom(fis)
   }
   def loadFrom(is:InputStream) : Container  
 }
