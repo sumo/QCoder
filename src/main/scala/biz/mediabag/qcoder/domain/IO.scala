@@ -1,20 +1,26 @@
 package biz.mediabag.qcoder.domain
                                      
+import java.nio._
+import java.nio.channels._
 import java.io._
-import Codec._
 
 abstract class Stream[T <: Frame] {
   def frames: Seq[T]
 }
 
-abstract class Container {
-  def streams: Map[String, Stream[_]]
+abstract class Container[T <: Stream[_]] {
+  def formatName:String
+  def longFormatName:String
+  def startTime:Option[Long]
+  def duration:Option[Long]
+  def bitRate:Option[Long]
+  def streams:List[T]
 }
 
 abstract class ContainerFactory {
-  def loadFrom(file:File) : Container = {
+  def loadFrom(file:File) : Container[_] = {
     val fis = new FileInputStream(file)
-    loadFrom(fis)
+    loadFrom(fis.getChannel)
   }
-  def loadFrom(is:InputStream) : Container  
+  def loadFrom(is:ReadableByteChannel) : Container[_]  
 }
