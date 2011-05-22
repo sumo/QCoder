@@ -32,7 +32,7 @@ class FFmpegContainerFactory extends ContainerFactory {
       log.info("Probe successful: %s, %s".format(inputFmt.name.getString(0),
         inputFmt.long_name.getString(0)));
       
-      val formatCtx = new AVFormatContext
+      val formatCtx = FormatLibrary.avformat_alloc_context
       val bioContext = new ByteIOContext
       log.info("FormatLibrary.url_open_buf")
       FFmpegCall {
@@ -52,22 +52,6 @@ class FFmpegContainerFactory extends ContainerFactory {
       FormatLibrary.dump_format(formatCtx, 0, "stream", 0)
       log.info("/FormatLibrary.dump_format")
       new FFmpegContainer(formatCtx, false)
-    }
-  }
-
-  class ReadFunc(is: ReadableByteChannel) extends AvformatLibrary.read_packet {
-    override def apply(opaque: Pointer, buf: Pointer, bufSize: Int) = {
-      val byteBuffer = ByteBuffer.allocate(bufSize)
-      val read = is.read(byteBuffer)
-      buf.write(0, byteBuffer.array, 0, bufSize)
-      read
-    }
-  }
-
-  class SeekFunc(is: ReadableByteChannel) extends AvformatLibrary.seek {
-    def apply(opaque: Pointer, offset: Long, whence: Int) = {
-      log.info("Seek called")
-      -1
     }
   }
 

@@ -12,17 +12,17 @@ class FFmpegIOSuite extends FunSuite {
   //    val x = FFmpegUtils
   //  }
 
-    test("Load file") {
-      val formatCtx = FormatLibrary avformat_alloc_context()
-      val array = formatCtx.castToReferenceArray
-      println("-")
-      FFmpegCall { FormatLibrary.av_open_input_file(array, "src/test/data/short.avi", null, 0, null) }
-      println("--")
-      FFmpegCall { FormatLibrary.av_find_stream_info(formatCtx) }
-      println("---")
-      FormatLibrary.dump_format(formatCtx, 0, "", 0)
-      println("----")
-    }
+//  test("Load file") {
+//    val formatCtx = FormatLibrary.avformat_alloc_context
+//    println("-")
+//    FFmpegCall { FormatLibrary.av_open_input_file(formatCtx.castToReferenceArray, "src/test/data/short.avi", null, 0, null) }
+//    println("--")
+//    println(formatCtx.toString)
+//    FFmpegCall { FormatLibrary.av_find_stream_info(formatCtx) }
+//    println("---")
+//    FormatLibrary.dump_format(formatCtx, 0, "", 0)
+//    println("----")
+//  }
 
   test("Container factory loads file and returns correct streams") {
     val x = new FFmpegContainerFactory

@@ -6,7 +6,7 @@ class QCoderProject(info: ProjectInfo) extends DefaultProject(info) with Eclipsi
   override def libraries = List(
     "avformat" -> List("libavformat/avformat.h", "libavformat/avio.h"),
     "avcodec" -> List("libavcodec/avcodec.h"),
-    "avutil" -> List("libavutil/avutil.h", "libavutil/rational.h"))
+    "avutil" -> List("libavutil/avutil.h", "libavutil/rational.h", "libavutil/error.h"))
 
   /**
    * Include path for ubuntu is
@@ -14,11 +14,11 @@ class QCoderProject(info: ProjectInfo) extends DefaultProject(info) with Eclipsi
    */
   override def includePaths = List("src/main/headers")
   override lazy val verbose = true
-  //override lazy val runtime = JNAeratorRuntime.JNA
+  override lazy val scalaOut = false 
+  override lazy val runtime = JNAeratorRuntime.JNAerator
   val scalatest = "org.scalatest" % "scalatest" % "1.2" % "test"
   val sl4j = "org.clapper" %% "grizzled-slf4j" % "0.4"
   val sl4jSimple = "org.slf4j" % "slf4j-simple" % "1.6.1"
-  val bridj = "com.nativelibs4java" % "bridj" % "0.4"
 
   override def ivyXML =
     <dependencies>
