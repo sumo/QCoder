@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry including="**/*.scala" kind="src" output="target/scala_2.8.1/test-classes" path="src/test/scala"/>
 	<classpathentry including="**/*.scala" kind="src" path="src/main/scala"/>
-	<classpathentry kind="src" path="target/generated-sources/java"/>
+	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="lib" path="lib_managed/scala_2.8.1/compile/grizzled-slf4j_2.8.1-0.4.jar"/>
 	<classpathentry kind="lib" path="lib_managed/scala_2.8.1/compile/ochafik-util-0.9.7.jar"/>
 	<classpathentry kind="lib" path="lib_managed/scala_2.8.1/compile/stringtemplate-3.2.jar"/>
