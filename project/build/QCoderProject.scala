@@ -6,7 +6,8 @@ class QCoderProject(info: ProjectInfo) extends DefaultProject(info) with Eclipsi
   override def libraries = List(
     "avutil" -> List("libavutil/avutil.h", "libavutil/common.h", "libavutil/rational.h", "libavutil/error.h", "libavcodec/opt.h"),
     "avformat" -> List("libavformat/avformat.h", "libavutil/avutil.h", "libavformat/metadata.h", "libavformat/avio.h"),
-    "avcodec" -> List("libavutil/avutil.h", "libavcodec/opt.h", "libavcodec/avcodec.h"))
+    "avcodec" -> List("libavutil/avutil.h", "libavcodec/opt.h", "libavcodec/avcodec.h"),
+    "swscale" -> List("libavutil/avutil.h", "libswscale/swscale.h"))
 
   /**
    * Include path for ubuntu is
