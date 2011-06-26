@@ -20,7 +20,7 @@ public class AVCodec extends Structure<AVCodec, AVCodec.ByValue, AVCodec.ByRefer
 	 */
 	public Pointer name;
 	/**
-	 * @see avutil.AvutilLibrary#AVMediaType<br>
+	 * @see AVMediaType<br>
 	 * C type : AVMediaType
 	 */
 	public int type;
@@ -60,7 +60,7 @@ public class AVCodec extends Structure<AVCodec, AVCodec.ByValue, AVCodec.ByRefer
 	 * < array of supported pixel formats, or NULL if unknown, array is terminated by -1<br>
 	 * C type : PixelFormat*
 	 */
-	public Pointer pix_fmts;
+	public IntByReference pix_fmts;
 	/**
 	 * Descriptive name for the codec, meant to be more human readable than name.<br>
 	 * You should use the NULL_IF_CONFIG_SMALL() macro to define it.<br>

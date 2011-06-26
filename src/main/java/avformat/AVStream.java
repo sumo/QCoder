@@ -79,6 +79,11 @@ public class AVStream extends Structure<AVStream, AVStream.ByValue, AVStream.ByR
 	 */
 	public long duration;
 	/**
+	 * ISO 639-2/B 3-letter language code (empty string if undefined)<br>
+	 * C type : char[4]
+	 */
+	public byte[] language = new byte[(4)];
+	/**
 	 * av_read_frame() support<br>
 	 * @see AVStreamParseType<br>
 	 * C type : AVStreamParseType
@@ -100,6 +105,13 @@ public class AVStream extends Structure<AVStream, AVStream.ByValue, AVStream.ByR
 	public int index_entries_allocated_size;
 	/// < number of frames in this stream if known or 0
 	public long nb_frames;
+	/// C type : int64_t[4 + 1]
+	public long[] unused = new long[(4 + 1)];
+	/**
+	 * < source filename of the stream<br>
+	 * C type : char*
+	 */
+	public Pointer filename;
 	/// < AV_DISPOSITION_* bit field
 	public int disposition;
 	/// C type : AVProbeData
@@ -149,7 +161,7 @@ public class AVStream extends Structure<AVStream, AVStream.ByValue, AVStream.ByR
 		initFieldOrder();
 	}
 	protected void initFieldOrder() {
-		setFieldOrder(new java.lang.String[]{"index", "id", "codec", "r_frame_rate", "priv_data", "first_dts", "pts", "time_base", "pts_wrap_bits", "stream_copy", "discard", "quality", "start_time", "duration", "need_parsing", "parser", "cur_dts", "last_IP_duration", "last_IP_pts", "index_entries", "nb_index_entries", "index_entries_allocated_size", "nb_frames", "disposition", "probe_data", "pts_buffer", "sample_aspect_ratio", "metadata", "cur_ptr", "cur_len", "cur_pkt", "reference_dts", "probe_packets", "last_in_packet_buffer", "avg_frame_rate", "codec_info_nb_frames"});
+		setFieldOrder(new java.lang.String[]{"index", "id", "codec", "r_frame_rate", "priv_data", "first_dts", "pts", "time_base", "pts_wrap_bits", "stream_copy", "discard", "quality", "start_time", "duration", "language", "need_parsing", "parser", "cur_dts", "last_IP_duration", "last_IP_pts", "index_entries", "nb_index_entries", "index_entries_allocated_size", "nb_frames", "unused", "filename", "disposition", "probe_data", "pts_buffer", "sample_aspect_ratio", "metadata", "cur_ptr", "cur_len", "cur_pkt", "reference_dts", "probe_packets", "last_in_packet_buffer", "avg_frame_rate", "codec_info_nb_frames"});
 	}
 	protected ByReference newByReference() { return new ByReference(); }
 	protected ByValue newByValue() { return new ByValue(); }

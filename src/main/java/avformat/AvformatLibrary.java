@@ -28,25 +28,25 @@ public interface AvformatLibrary extends Library {
 	public static final NativeLibrary JNA_NATIVE_LIB = NativeLibrary.getInstance(avformat.AvformatLibrary.JNA_LIBRARY_NAME, com.ochafik.lang.jnaerator.runtime.MangledFunctionMapper.DEFAULT_OPTIONS);
 	public static final AvformatLibrary INSTANCE = (AvformatLibrary)Native.loadLibrary(avformat.AvformatLibrary.JNA_LIBRARY_NAME, avformat.AvformatLibrary.class, com.ochafik.lang.jnaerator.runtime.MangledFunctionMapper.DEFAULT_OPTIONS);
 	/**
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:370</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:369</i><br>
 	 * enum values
 	 */
 	public static interface AVStreamParseType {
-		/// <i>native declaration : src/main/headers/libavformat/avformat.h:371</i>
+		/// <i>native declaration : src/main/headers/libavformat/avformat.h:370</i>
 		public static final int AVSTREAM_PARSE_NONE = 0;
 		/**
 		 * < full parsing and repack<br>
-		 * <i>native declaration : src/main/headers/libavformat/avformat.h:372</i>
+		 * <i>native declaration : src/main/headers/libavformat/avformat.h:371</i>
 		 */
 		public static final int AVSTREAM_PARSE_FULL = 1;
 		/**
 		 * < Only parse headers, do not repack.<br>
-		 * <i>native declaration : src/main/headers/libavformat/avformat.h:373</i>
+		 * <i>native declaration : src/main/headers/libavformat/avformat.h:372</i>
 		 */
 		public static final int AVSTREAM_PARSE_HEADERS = 2;
 		/**
 		 * < full parsing and interpolation of timestamps for frames not starting on a packet boundary<br>
-		 * <i>native declaration : src/main/headers/libavformat/avformat.h:374</i>
+		 * <i>native declaration : src/main/headers/libavformat/avformat.h:373</i>
 		 */
 		public static final int AVSTREAM_PARSE_TIMESTAMPS = 3;
 	};
@@ -166,7 +166,7 @@ public interface AvformatLibrary extends Library {
 	public static final int AV_METADATA_MATCH_CASE = 1;
 	/// <i>native declaration : src/main/headers/libavformat/avformat.h</i>
 	public static final int AVFMT_GLOBALHEADER = 64;
-	/// <i>native declaration : src/main/headers/libavformat/avformat.h:1169</i>
+	/// <i>native declaration : src/main/headers/libavformat/avformat.h:1161</i>
 	public interface av_gen_search_arg1_read_timestamp_callback extends Callback {
 		long apply(AVFormatContext AVFormatContextPtr1, int int1, LongByReference int64_tPtr1, long int64_t1);
 	};
@@ -249,6 +249,11 @@ public interface AvformatLibrary extends Library {
 	@Mangling({"_Z15av_metadata_getP10AVMetadataPKcPK13AVMetadataTagi", "?av_metadata_get@@YAPAUAVMetadataTag@@PA10AVMetadataPADPAUAVMetadataTag@@H@Z"}) 
 	AVMetadataTag av_metadata_get(Pointer m, String key, AVMetadataTag prev, int flags);
 	/**
+	 * Sets the given tag in m, overwriting an existing tag.<br>
+	 * @param key tag key to add to m (will be av_strduped)<br>
+	 * @param value tag value to add to m (will be av_strduped)<br>
+	 * @return >= 0 on success otherwise an error code <0<br>
+	 * @deprecated Use av_metadata_set2() instead.<br>
 	 * Original signature : <code>int av_metadata_set(AVMetadata**, const char*, const char*)</code><br>
 	 * <i>native declaration : src/main/headers/libavformat/avformat.h:145</i><br>
 	 * @deprecated use the safer methods {@link #av_metadata_set(com.sun.jna.ptr.PointerByReference, java.lang.String, java.lang.String)} and {@link #av_metadata_set(com.sun.jna.ptr.PointerByReference, com.sun.jna.Pointer, com.sun.jna.Pointer)} instead
@@ -257,6 +262,11 @@ public interface AvformatLibrary extends Library {
 	@Deprecated 
 	int av_metadata_set(PointerByReference pm, Pointer key, Pointer value);
 	/**
+	 * Sets the given tag in m, overwriting an existing tag.<br>
+	 * @param key tag key to add to m (will be av_strduped)<br>
+	 * @param value tag value to add to m (will be av_strduped)<br>
+	 * @return >= 0 on success otherwise an error code <0<br>
+	 * @deprecated Use av_metadata_set2() instead.<br>
 	 * Original signature : <code>int av_metadata_set(AVMetadata**, const char*, const char*)</code><br>
 	 * <i>native declaration : src/main/headers/libavformat/avformat.h:145</i>
 	 */
@@ -318,7 +328,7 @@ public interface AvformatLibrary extends Library {
 	 * if f is non-NULL, returns the next registered input format after f<br>
 	 * or NULL if f is the last one.<br>
 	 * Original signature : <code>AVInputFormat* av_iformat_next(AVInputFormat*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:763</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:755</i>
 	 */
 	@Mangling({"_Z15av_iformat_nextP13AVInputFormat", "?av_iformat_next@@YAPAUAVInputFormat@@PAUAVInputFormat@@@Z"}) 
 	AVInputFormat av_iformat_next(AVInputFormat f);
@@ -327,13 +337,13 @@ public interface AvformatLibrary extends Library {
 	 * if f is non-NULL, returns the next registered output format after f<br>
 	 * or NULL if f is the last one.<br>
 	 * Original signature : <code>AVOutputFormat* av_oformat_next(AVOutputFormat*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:770</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:762</i>
 	 */
 	@Mangling({"_Z15av_oformat_nextP14AVOutputFormat", "?av_oformat_next@@YAPAUAVOutputFormat@@PAUAVOutputFormat@@@Z"}) 
 	AVOutputFormat av_oformat_next(AVOutputFormat f);
 	/**
 	 * Original signature : <code>CodecID av_guess_image2_codec(const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:772</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:764</i><br>
 	 * @deprecated use the safer methods {@link #av_guess_image2_codec(java.lang.String)} and {@link #av_guess_image2_codec(com.sun.jna.Pointer)} instead
 	 */
 	@Mangling({"_Z21av_guess_image2_codecPKc", "?av_guess_image2_codec@@YA7CodecIDPAD@Z"}) 
@@ -343,7 +353,7 @@ public interface AvformatLibrary extends Library {
 	 */int av_guess_image2_codec(Pointer filename);
 	/**
 	 * Original signature : <code>CodecID av_guess_image2_codec(const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:772</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:764</i>
 	 */
 	@Mangling({"_Z21av_guess_image2_codecPKc", "?av_guess_image2_codec@@YA7CodecIDPAD@Z"}) 
 	/**
@@ -352,19 +362,19 @@ public interface AvformatLibrary extends Library {
 	/**
 	 * utils.c<br>
 	 * Original signature : <code>void av_register_input_format(AVInputFormat*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:778</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:770</i>
 	 */
 	@Mangling({"_Z24av_register_input_formatP13AVInputFormat", "?av_register_input_format@@YAXPAUAVInputFormat@@@Z"}) 
 	void av_register_input_format(AVInputFormat format);
 	/**
 	 * Original signature : <code>void av_register_output_format(AVOutputFormat*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:779</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:771</i>
 	 */
 	@Mangling({"_Z25av_register_output_formatP14AVOutputFormat", "?av_register_output_format@@YAXPAUAVOutputFormat@@@Z"}) 
 	void av_register_output_format(AVOutputFormat format);
 	/**
 	 * Original signature : <code>AVOutputFormat* guess_stream_format(const char*, const char*, const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:781</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:773</i><br>
 	 * @deprecated use the safer methods {@link #guess_stream_format(java.lang.String, java.lang.String, java.lang.String)} and {@link #guess_stream_format(com.sun.jna.Pointer, com.sun.jna.Pointer, com.sun.jna.Pointer)} instead
 	 */
 	@Mangling({"_Z19guess_stream_formatPKcPKcPKc", "?guess_stream_format@@YAPAUAVOutputFormat@@PADPADPAD@Z"}) 
@@ -372,21 +382,23 @@ public interface AvformatLibrary extends Library {
 	AVOutputFormat guess_stream_format(Pointer short_name, Pointer filename, Pointer mime_type);
 	/**
 	 * Original signature : <code>AVOutputFormat* guess_stream_format(const char*, const char*, const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:781</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:773</i>
 	 */
 	@Mangling({"_Z19guess_stream_formatPKcPKcPKc", "?guess_stream_format@@YAPAUAVOutputFormat@@PADPADPAD@Z"}) 
 	AVOutputFormat guess_stream_format(String short_name, String filename, String mime_type);
 	/**
+	 * @deprecated Use av_guess_format() instead.<br>
 	 * Original signature : <code>AVOutputFormat* guess_format(const char*, const char*, const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:788</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:780</i><br>
 	 * @deprecated use the safer methods {@link #guess_format(java.lang.String, java.lang.String, java.lang.String)} and {@link #guess_format(com.sun.jna.Pointer, com.sun.jna.Pointer, com.sun.jna.Pointer)} instead
 	 */
 	@Mangling({"_Z12guess_formatPKcPKcPKc", "?guess_format@@YAPAUAVOutputFormat@@PADPADPAD@Z"}) 
 	@Deprecated 
 	AVOutputFormat guess_format(Pointer short_name, Pointer filename, Pointer mime_type);
 	/**
+	 * @deprecated Use av_guess_format() instead.<br>
 	 * Original signature : <code>AVOutputFormat* guess_format(const char*, const char*, const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:788</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:780</i>
 	 */
 	@Mangling({"_Z12guess_formatPKcPKcPKc", "?guess_format@@YAPAUAVOutputFormat@@PADPADPAD@Z"}) 
 	AVOutputFormat guess_format(String short_name, String filename, String mime_type);
@@ -401,7 +413,7 @@ public interface AvformatLibrary extends Library {
 	 * @param mime_type if non-NULL checks if mime_type matches with the<br>
 	 * MIME type of the registered formats<br>
 	 * Original signature : <code>AVOutputFormat* av_guess_format(const char*, const char*, const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:805</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:797</i><br>
 	 * @deprecated use the safer methods {@link #av_guess_format(java.lang.String, java.lang.String, java.lang.String)} and {@link #av_guess_format(com.sun.jna.Pointer, com.sun.jna.Pointer, com.sun.jna.Pointer)} instead
 	 */
 	@Mangling({"_Z15av_guess_formatPKcPKcPKc", "?av_guess_format@@YAPAUAVOutputFormat@@PADPADPAD@Z"}) 
@@ -418,16 +430,16 @@ public interface AvformatLibrary extends Library {
 	 * @param mime_type if non-NULL checks if mime_type matches with the<br>
 	 * MIME type of the registered formats<br>
 	 * Original signature : <code>AVOutputFormat* av_guess_format(const char*, const char*, const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:805</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:797</i>
 	 */
 	@Mangling({"_Z15av_guess_formatPKcPKcPKc", "?av_guess_format@@YAPAUAVOutputFormat@@PADPADPAD@Z"}) 
 	AVOutputFormat av_guess_format(String short_name, String filename, String mime_type);
 	/**
 	 * Guesses the codec ID based upon muxer and filename.<br>
 	 * Original signature : <code>CodecID av_guess_codec(AVOutputFormat*, const char*, const char*, const char*, AVMediaType)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:812</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:804</i><br>
 	 * @deprecated use the safer methods {@link #av_guess_codec(avformat.AVOutputFormat, java.lang.String, java.lang.String, java.lang.String, int)} and {@link #av_guess_codec(avformat.AVOutputFormat, com.sun.jna.Pointer, com.sun.jna.Pointer, com.sun.jna.Pointer, int)} instead<br>
-	 * @param type @see avutil.AvutilLibrary#AVMediaType
+	 * @param type @see avcodec.AvcodecLibrary#AVMediaType
 	 */
 	@Mangling({"_Z14av_guess_codecP14AVOutputFormatPKcPKcPKc11AVMediaType", "?av_guess_codec@@YA7CodecIDPAUAVOutputFormat@@PADPADPAD11AVMediaType@Z"}) 
 	@Deprecated 
@@ -437,8 +449,8 @@ public interface AvformatLibrary extends Library {
 	/**
 	 * Guesses the codec ID based upon muxer and filename.<br>
 	 * Original signature : <code>CodecID av_guess_codec(AVOutputFormat*, const char*, const char*, const char*, AVMediaType)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:812</i><br>
-	 * @param type @see avutil.AvutilLibrary#AVMediaType
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:804</i><br>
+	 * @param type @see avcodec.AvcodecLibrary#AVMediaType
 	 */
 	@Mangling({"_Z14av_guess_codecP14AVOutputFormatPKcPKcPKc11AVMediaType", "?av_guess_codec@@YA7CodecIDPAUAVOutputFormat@@PADPADPAD11AVMediaType@Z"}) 
 	/**
@@ -451,7 +463,7 @@ public interface AvformatLibrary extends Library {
 	 * @param size buffer size<br>
 	 * * @see av_hex_dump_log, av_pkt_dump, av_pkt_dump_log<br>
 	 * Original signature : <code>void av_hex_dump(FILE*, uint8_t*, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:825</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:817</i><br>
 	 * @deprecated use the safer methods {@link #av_hex_dump(com.sun.jna.Pointer, java.nio.ByteBuffer, int)} and {@link #av_hex_dump(com.sun.jna.Pointer, com.sun.jna.Pointer, int)} instead
 	 */
 	@Mangling({"_Z11av_hex_dumpP8_IO_FILEP7uint8_ti", "?av_hex_dump@@YAXPA8_IO_FILEPA7uint8_tH@Z"}) 
@@ -464,7 +476,7 @@ public interface AvformatLibrary extends Library {
 	 * @param size buffer size<br>
 	 * * @see av_hex_dump_log, av_pkt_dump, av_pkt_dump_log<br>
 	 * Original signature : <code>void av_hex_dump(FILE*, uint8_t*, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:825</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:817</i>
 	 */
 	@Mangling({"_Z11av_hex_dumpP8_IO_FILEP7uint8_ti", "?av_hex_dump@@YAXPA8_IO_FILEPA7uint8_tH@Z"}) 
 	void av_hex_dump(Pointer f, ByteBuffer buf, int size);
@@ -478,7 +490,7 @@ public interface AvformatLibrary extends Library {
 	 * @param size buffer size<br>
 	 * * @see av_hex_dump, av_pkt_dump, av_pkt_dump_log<br>
 	 * Original signature : <code>void av_hex_dump_log(void*, int, uint8_t*, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:839</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:831</i><br>
 	 * @deprecated use the safer methods {@link #av_hex_dump_log(com.sun.jna.Pointer, int, java.nio.ByteBuffer, int)} and {@link #av_hex_dump_log(com.sun.jna.Pointer, int, com.sun.jna.Pointer, int)} instead
 	 */
 	@Mangling({"_Z15av_hex_dump_logPviP7uint8_ti", "?av_hex_dump_log@@YAXPAXHPA7uint8_tH@Z"}) 
@@ -494,7 +506,7 @@ public interface AvformatLibrary extends Library {
 	 * @param size buffer size<br>
 	 * * @see av_hex_dump, av_pkt_dump, av_pkt_dump_log<br>
 	 * Original signature : <code>void av_hex_dump_log(void*, int, uint8_t*, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:839</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:831</i>
 	 */
 	@Mangling({"_Z15av_hex_dump_logPviP7uint8_ti", "?av_hex_dump_log@@YAXPAXHPA7uint8_tH@Z"}) 
 	void av_hex_dump_log(Pointer avcl, int level, ByteBuffer buf, int size);
@@ -504,7 +516,7 @@ public interface AvformatLibrary extends Library {
 	 * @param pkt packet to dump<br>
 	 * @param dump_payload True if the payload must be displayed, too.<br>
 	 * Original signature : <code>void av_pkt_dump(FILE*, AVPacket*, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:848</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:840</i>
 	 */
 	@Mangling({"_Z11av_pkt_dumpP8_IO_FILEP8AVPacketi", "?av_pkt_dump@@YAXPA8_IO_FILEPAUAVPacket@@H@Z"}) 
 	void av_pkt_dump(Pointer f, AVPacket pkt, int dump_payload);
@@ -517,7 +529,7 @@ public interface AvformatLibrary extends Library {
 	 * @param pkt packet to dump<br>
 	 * @param dump_payload True if the payload must be displayed, too.<br>
 	 * Original signature : <code>void av_pkt_dump_log(void*, int, AVPacket*, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:860</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:852</i>
 	 */
 	@Mangling({"_Z15av_pkt_dump_logPviP8AVPacketi", "?av_pkt_dump_log@@YAXPAXHPAUAVPacket@@H@Z"}) 
 	void av_pkt_dump_log(Pointer avcl, int level, AVPacket pkt, int dump_payload);
@@ -529,14 +541,14 @@ public interface AvformatLibrary extends Library {
 	 * @see av_register_output_format()<br>
 	 * @see av_register_protocol()<br>
 	 * Original signature : <code>void av_register_all()</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:871</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:863</i>
 	 */
 	@Mangling({"_Z15av_register_allv", "?av_register_all@@YAXXZ"}) 
 	void av_register_all();
 	/**
 	 * codec tag <-> codec id<br>
 	 * Original signature : <code>CodecID av_codec_get_id(const AVCodecTag**, unsigned int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:874</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:866</i><br>
 	 * @deprecated use the safer methods {@link #av_codec_get_id(com.sun.jna.Pointer[], int)} and {@link #av_codec_get_id(com.sun.jna.ptr.PointerByReference, int)} instead
 	 */
 	@Mangling({"_Z15av_codec_get_idKPP10AVCodecTagj", "?av_codec_get_id@@YA7CodecIDQBPA10AVCodecTagI@Z"}) 
@@ -547,7 +559,7 @@ public interface AvformatLibrary extends Library {
 	/**
 	 * codec tag <-> codec id<br>
 	 * Original signature : <code>CodecID av_codec_get_id(const AVCodecTag**, unsigned int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:874</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:866</i>
 	 */
 	@Mangling({"_Z15av_codec_get_idKPP10AVCodecTagj", "?av_codec_get_id@@YA7CodecIDQBPA10AVCodecTagI@Z"}) 
 	/**
@@ -555,7 +567,7 @@ public interface AvformatLibrary extends Library {
 	 */int av_codec_get_id(Pointer tags[], int tag);
 	/**
 	 * Original signature : <code>int av_codec_get_tag(const AVCodecTag**, CodecID)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:875</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:867</i><br>
 	 * @deprecated use the safer methods {@link #av_codec_get_tag(com.sun.jna.Pointer[], int)} and {@link #av_codec_get_tag(com.sun.jna.ptr.PointerByReference, int)} instead<br>
 	 * @param id @see avcodec.AvcodecLibrary#CodecID
 	 */
@@ -564,7 +576,7 @@ public interface AvformatLibrary extends Library {
 	int av_codec_get_tag(PointerByReference tags, int id);
 	/**
 	 * Original signature : <code>int av_codec_get_tag(const AVCodecTag**, CodecID)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:875</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:867</i><br>
 	 * @param id @see avcodec.AvcodecLibrary#CodecID
 	 */
 	@Mangling({"_Z16av_codec_get_tagKPP10AVCodecTag7CodecID", "?av_codec_get_tag@@YAIQBPA10AVCodecTag7CodecID@Z"}) 
@@ -572,7 +584,7 @@ public interface AvformatLibrary extends Library {
 	/**
 	 * Finds AVInputFormat based on the short name of the input format.<br>
 	 * Original signature : <code>AVInputFormat* av_find_input_format(const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:882</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:874</i><br>
 	 * @deprecated use the safer methods {@link #av_find_input_format(java.lang.String)} and {@link #av_find_input_format(com.sun.jna.Pointer)} instead
 	 */
 	@Mangling({"_Z20av_find_input_formatPKc", "?av_find_input_format@@YAPAUAVInputFormat@@PAD@Z"}) 
@@ -581,7 +593,7 @@ public interface AvformatLibrary extends Library {
 	/**
 	 * Finds AVInputFormat based on the short name of the input format.<br>
 	 * Original signature : <code>AVInputFormat* av_find_input_format(const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:882</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:874</i>
 	 */
 	@Mangling({"_Z20av_find_input_formatPKc", "?av_find_input_format@@YAPAUAVInputFormat@@PAD@Z"}) 
 	AVInputFormat av_find_input_format(String short_name);
@@ -590,7 +602,7 @@ public interface AvformatLibrary extends Library {
 	 * * @param is_opened Whether the file is already opened; determines whether<br>
 	 *                  demuxers with or without AVFMT_NOFILE are probed.<br>
 	 * Original signature : <code>AVInputFormat* av_probe_input_format(AVProbeData*, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:890</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:882</i>
 	 */
 	@Mangling({"_Z21av_probe_input_formatP11AVProbeDatai", "?av_probe_input_format@@YAPAUAVInputFormat@@PAUAVProbeData@@H@Z"}) 
 	AVInputFormat av_probe_input_format(AVProbeData pd, int is_opened);
@@ -604,7 +616,7 @@ public interface AvformatLibrary extends Library {
 	 *                  If the score is <= AVPROBE_SCORE_MAX / 4 it is recommended<br>
 	 *                  to retry with a larger probe buffer.<br>
 	 * Original signature : <code>AVInputFormat* av_probe_input_format2(AVProbeData*, int, int*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:903</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:895</i><br>
 	 * @deprecated use the safer methods {@link #av_probe_input_format2(avformat.AVProbeData, int, java.nio.IntBuffer)} and {@link #av_probe_input_format2(avformat.AVProbeData, int, com.sun.jna.ptr.IntByReference)} instead
 	 */
 	@Mangling({"_Z22av_probe_input_format2P11AVProbeDataiPi", "?av_probe_input_format2@@YAPAUAVInputFormat@@PAUAVProbeData@@HPAH@Z"}) 
@@ -620,7 +632,7 @@ public interface AvformatLibrary extends Library {
 	 *                  If the score is <= AVPROBE_SCORE_MAX / 4 it is recommended<br>
 	 *                  to retry with a larger probe buffer.<br>
 	 * Original signature : <code>AVInputFormat* av_probe_input_format2(AVProbeData*, int, int*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:903</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:895</i>
 	 */
 	@Mangling({"_Z22av_probe_input_format2P11AVProbeDataiPi", "?av_probe_input_format2@@YAPAUAVInputFormat@@PAUAVProbeData@@HPAH@Z"}) 
 	AVInputFormat av_probe_input_format2(AVProbeData pd, int is_opened, IntBuffer score_max);
@@ -628,7 +640,7 @@ public interface AvformatLibrary extends Library {
 	 * Allocates all the structures needed to read an input stream.<br>
 	 *        This does not open the needed codecs for decoding the stream[s].<br>
 	 * Original signature : <code>int av_open_input_stream(AVFormatContext**, ByteIOContext*, const char*, AVInputFormat*, AVFormatParameters*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:909</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:901</i><br>
 	 * @deprecated use the safer methods {@link #av_open_input_stream(avformat.AVFormatContext.ByReference[], avformat.ByteIOContext, java.lang.String, avformat.AVInputFormat, avformat.AVFormatParameters)} and {@link #av_open_input_stream(avformat.AVFormatContext.ByReference[], avformat.ByteIOContext, com.sun.jna.Pointer, avformat.AVInputFormat, avformat.AVFormatParameters)} instead
 	 */
 	@Mangling({"_Z20av_open_input_streamPP15AVFormatContextP13ByteIOContextPKcP13AVInputFormatP18AVFormatParameters", "?av_open_input_stream@@YAHPAPAUAVFormatContext@@PAUByteIOContext@@PADPAUAVInputFormat@@PAUAVFormatParameters@@@Z"}) 
@@ -638,7 +650,7 @@ public interface AvformatLibrary extends Library {
 	 * Allocates all the structures needed to read an input stream.<br>
 	 *        This does not open the needed codecs for decoding the stream[s].<br>
 	 * Original signature : <code>int av_open_input_stream(AVFormatContext**, ByteIOContext*, const char*, AVInputFormat*, AVFormatParameters*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:909</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:901</i>
 	 */
 	@Mangling({"_Z20av_open_input_streamPP15AVFormatContextP13ByteIOContextPKcP13AVInputFormatP18AVFormatParameters", "?av_open_input_stream@@YAHPAPAUAVFormatContext@@PAUByteIOContext@@PADPAUAVInputFormat@@PAUAVFormatParameters@@@Z"}) 
 	int av_open_input_stream(AVFormatContext.ByReference ic_ptr[], ByteIOContext pb, String filename, AVInputFormat fmt, AVFormatParameters ap);
@@ -646,7 +658,7 @@ public interface AvformatLibrary extends Library {
 	 * Allocates all the structures needed to read an input stream.<br>
 	 *        This does not open the needed codecs for decoding the stream[s].<br>
 	 * Original signature : <code>int av_open_input_stream(AVFormatContext**, ByteIOContext*, const char*, AVInputFormat*, AVFormatParameters*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:909</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:901</i>
 	 */
 	@Mangling({"_Z20av_open_input_streamPP15AVFormatContextP13ByteIOContextPKcP13AVInputFormatP18AVFormatParameters", "?av_open_input_stream@@YAHPAPAUAVFormatContext@@PAUByteIOContext@@PADPAUAVInputFormat@@PAUAVFormatParameters@@@Z"}) 
 	int av_open_input_stream(AVFormatContext.ByReference ic_ptr[], ByteIOContext pb, Pointer filename, AVInputFormat fmt, AVFormatParameters ap);
@@ -661,7 +673,7 @@ public interface AvformatLibrary extends Library {
 	 *           (NULL if default).<br>
 	 * @return 0 if OK, AVERROR_xxx otherwise<br>
 	 * Original signature : <code>int av_open_input_file(AVFormatContext**, const char*, AVInputFormat*, int, AVFormatParameters*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:925</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:917</i><br>
 	 * @deprecated use the safer methods {@link #av_open_input_file(avformat.AVFormatContext.ByReference[], java.lang.String, avformat.AVInputFormat, int, avformat.AVFormatParameters)} and {@link #av_open_input_file(avformat.AVFormatContext.ByReference[], com.sun.jna.Pointer, avformat.AVInputFormat, int, avformat.AVFormatParameters)} instead
 	 */
 	@Mangling({"_Z18av_open_input_filePP15AVFormatContextPKcP13AVInputFormatiP18AVFormatParameters", "?av_open_input_file@@YAHPAPAUAVFormatContext@@PADPAUAVInputFormat@@HPAUAVFormatParameters@@@Z"}) 
@@ -678,7 +690,7 @@ public interface AvformatLibrary extends Library {
 	 *           (NULL if default).<br>
 	 * @return 0 if OK, AVERROR_xxx otherwise<br>
 	 * Original signature : <code>int av_open_input_file(AVFormatContext**, const char*, AVInputFormat*, int, AVFormatParameters*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:925</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:917</i>
 	 */
 	@Mangling({"_Z18av_open_input_filePP15AVFormatContextPKcP13AVInputFormatiP18AVFormatParameters", "?av_open_input_file@@YAHPAPAUAVFormatContext@@PADPAUAVInputFormat@@HPAUAVFormatParameters@@@Z"}) 
 	int av_open_input_file(AVFormatContext.ByReference ic_ptr[], String filename, AVInputFormat fmt, int buf_size, AVFormatParameters ap);
@@ -693,13 +705,14 @@ public interface AvformatLibrary extends Library {
 	 *           (NULL if default).<br>
 	 * @return 0 if OK, AVERROR_xxx otherwise<br>
 	 * Original signature : <code>int av_open_input_file(AVFormatContext**, const char*, AVInputFormat*, int, AVFormatParameters*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:925</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:917</i>
 	 */
 	@Mangling({"_Z18av_open_input_filePP15AVFormatContextPKcP13AVInputFormatiP18AVFormatParameters", "?av_open_input_file@@YAHPAPAUAVFormatContext@@PADPAUAVInputFormat@@HPAUAVFormatParameters@@@Z"}) 
 	int av_open_input_file(AVFormatContext.ByReference ic_ptr[], Pointer filename, AVInputFormat fmt, int buf_size, AVFormatParameters ap);
 	/**
+	 * @deprecated Use avformat_alloc_context() instead.<br>
 	 * Original signature : <code>AVFormatContext* av_alloc_format_context()</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:934</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:926</i>
 	 */
 	@Mangling({"_Z23av_alloc_format_contextv", "?av_alloc_format_context@@YAPAUAVFormatContext@@XZ"}) 
 	AVFormatContext av_alloc_format_context();
@@ -708,7 +721,7 @@ public interface AvformatLibrary extends Library {
 	 * Can be freed with av_free() but do not forget to free everything you<br>
 	 * explicitly allocated as well!<br>
 	 * Original signature : <code>AVFormatContext* avformat_alloc_context()</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:942</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:934</i>
 	 */
 	@Mangling({"_Z22avformat_alloc_contextv", "?avformat_alloc_context@@YAPAUAVFormatContext@@XZ"}) 
 	AVFormatContext avformat_alloc_context();
@@ -724,7 +737,7 @@ public interface AvformatLibrary extends Library {
 	 * @todo Let the user decide somehow what information is needed so that<br>
 	 *       we do not waste time getting stuff the user does not need.<br>
 	 * Original signature : <code>int av_find_stream_info(AVFormatContext*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:957</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:949</i>
 	 */
 	@Mangling({"_Z19av_find_stream_infoP15AVFormatContext", "?av_find_stream_info@@YAHPAUAVFormatContext@@@Z"}) 
 	int av_find_stream_info(AVFormatContext ic);
@@ -736,7 +749,7 @@ public interface AvformatLibrary extends Library {
 	 * @param pkt is filled<br>
 	 * @return 0 if OK, AVERROR_xxx on error<br>
 	 * Original signature : <code>int av_read_packet(AVFormatContext*, AVPacket*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:969</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:961</i>
 	 */
 	@Mangling({"_Z14av_read_packetP15AVFormatContextP8AVPacket", "?av_read_packet@@YAHPAUAVFormatContext@@PAUAVPacket@@@Z"}) 
 	int av_read_packet(AVFormatContext s, AVPacket pkt);
@@ -756,7 +769,7 @@ public interface AvformatLibrary extends Library {
 	 * decompress the payload.<br>
 	 * * @return 0 if OK, < 0 on error or end of file<br>
 	 * Original signature : <code>int av_read_frame(AVFormatContext*, AVPacket*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:990</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:982</i>
 	 */
 	@Mangling({"_Z13av_read_frameP15AVFormatContextP8AVPacket", "?av_read_frame@@YAHPAUAVFormatContext@@PAUAVPacket@@@Z"}) 
 	int av_read_frame(AVFormatContext s, AVPacket pkt);
@@ -771,7 +784,7 @@ public interface AvformatLibrary extends Library {
 	 * @param flags flags which select direction and seeking mode<br>
 	 * @return >= 0 on success<br>
 	 * Original signature : <code>int av_seek_frame(AVFormatContext*, int, int64_t, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1003</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:995</i>
 	 */
 	@Mangling({"_Z13av_seek_frameP15AVFormatContexti7int64_ti", "?av_seek_frame@@YAHPAUAVFormatContext@@H7int64_tH@Z"}) 
 	int av_seek_frame(AVFormatContext s, int stream_index, long timestamp, int flags);
@@ -798,7 +811,7 @@ public interface AvformatLibrary extends Library {
 	 *       Thus do not use this yet. It may change at any time, do not expect<br>
 	 *       ABI compatibility yet!<br>
 	 * Original signature : <code>int avformat_seek_file(AVFormatContext*, int, int64_t, int64_t, int64_t, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1032</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1024</i>
 	 */
 	@Mangling({"_Z18avformat_seek_fileP15AVFormatContexti7int64_t7int64_t7int64_ti", "?avformat_seek_file@@YAHPAUAVFormatContext@@H7int64_t7int64_t7int64_tH@Z"}) 
 	int avformat_seek_file(AVFormatContext s, int stream_index, long min_ts, long ts, long max_ts, int flags);
@@ -806,7 +819,7 @@ public interface AvformatLibrary extends Library {
 	 * Starts playing a network-based stream (e.g. RTSP stream) at the<br>
 	 * current position.<br>
 	 * Original signature : <code>int av_read_play(AVFormatContext*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1038</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1030</i>
 	 */
 	@Mangling({"_Z12av_read_playP15AVFormatContext", "?av_read_play@@YAHPAUAVFormatContext@@@Z"}) 
 	int av_read_play(AVFormatContext s);
@@ -814,7 +827,7 @@ public interface AvformatLibrary extends Library {
 	 * Pauses a network-based stream (e.g. RTSP stream).<br>
 	 * * Use av_read_play() to resume it.<br>
 	 * Original signature : <code>int av_read_pause(AVFormatContext*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1045</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1037</i>
 	 */
 	@Mangling({"_Z13av_read_pauseP15AVFormatContext", "?av_read_pause@@YAHPAUAVFormatContext@@@Z"}) 
 	int av_read_pause(AVFormatContext s);
@@ -822,7 +835,7 @@ public interface AvformatLibrary extends Library {
 	 * Frees a AVFormatContext allocated by av_open_input_stream.<br>
 	 * @param s context to free<br>
 	 * Original signature : <code>void av_close_input_stream(AVFormatContext*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1051</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1043</i>
 	 */
 	@Mangling({"_Z21av_close_input_streamP15AVFormatContext", "?av_close_input_stream@@YAXPAUAVFormatContext@@@Z"}) 
 	void av_close_input_stream(AVFormatContext s);
@@ -830,7 +843,7 @@ public interface AvformatLibrary extends Library {
 	 * Closes a media file (but not its codecs).<br>
 	 * * @param s media file handle<br>
 	 * Original signature : <code>void av_close_input_file(AVFormatContext*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1058</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1050</i>
 	 */
 	@Mangling({"_Z19av_close_input_fileP15AVFormatContext", "?av_close_input_file@@YAXPAUAVFormatContext@@@Z"}) 
 	void av_close_input_file(AVFormatContext s);
@@ -842,13 +855,13 @@ public interface AvformatLibrary extends Library {
 	 * * @param s media file handle<br>
 	 * @param id file-format-dependent stream ID<br>
 	 * Original signature : <code>AVStream* av_new_stream(AVFormatContext*, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1070</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1062</i>
 	 */
 	@Mangling({"_Z13av_new_streamP15AVFormatContexti", "?av_new_stream@@YAPAUAVStream@@PAUAVFormatContext@@H@Z"}) 
 	AVStream av_new_stream(AVFormatContext s, int id);
 	/**
 	 * Original signature : <code>AVProgram* av_new_program(AVFormatContext*, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1071</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1063</i>
 	 */
 	@Mangling({"_Z14av_new_programP15AVFormatContexti", "?av_new_program@@YAPAUAVProgram@@PAUAVFormatContext@@H@Z"}) 
 	AVProgram av_new_program(AVFormatContext s, int id);
@@ -863,7 +876,7 @@ public interface AvformatLibrary extends Library {
 	 * @param title chapter title<br>
 	 * * @return AVChapter or NULL on error<br>
 	 * Original signature : <code>AVChapter* ff_new_chapter(AVFormatContext*, int, AVRational, int64_t, int64_t, const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1086</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1078</i><br>
 	 * @deprecated use the safer methods {@link #ff_new_chapter(avformat.AVFormatContext, int, avutil.AVRational.ByValue, long, long, java.lang.String)} and {@link #ff_new_chapter(avformat.AVFormatContext, int, avutil.AVRational.ByValue, long, long, com.sun.jna.Pointer)} instead
 	 */
 	@Mangling({"_Z14ff_new_chapterP15AVFormatContexti10AVRational7int64_t7int64_tPKc", "?ff_new_chapter@@YAPAUAVChapter@@PAUAVFormatContext@@HUAVRational@@7int64_t7int64_tPAD@Z"}) 
@@ -880,7 +893,7 @@ public interface AvformatLibrary extends Library {
 	 * @param title chapter title<br>
 	 * * @return AVChapter or NULL on error<br>
 	 * Original signature : <code>AVChapter* ff_new_chapter(AVFormatContext*, int, AVRational, int64_t, int64_t, const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1086</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1078</i>
 	 */
 	@Mangling({"_Z14ff_new_chapterP15AVFormatContexti10AVRational7int64_t7int64_tPKc", "?ff_new_chapter@@YAPAUAVChapter@@PAUAVFormatContext@@HUAVRational@@7int64_t7int64_tPAD@Z"}) 
 	AVChapter ff_new_chapter(AVFormatContext s, int id, ByValue time_base, long start, long end, String title);
@@ -892,13 +905,13 @@ public interface AvformatLibrary extends Library {
 	 * @param pts_num numerator to convert to seconds (MPEG: 1)<br>
 	 * @param pts_den denominator to convert to seconds (MPEG: 90000)<br>
 	 * Original signature : <code>void av_set_pts_info(AVStream*, int, unsigned int, unsigned int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1098</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1090</i>
 	 */
 	@Mangling({"_Z15av_set_pts_infoP8AVStreamijj", "?av_set_pts_info@@YAXPAUAVStream@@HII@Z"}) 
 	void av_set_pts_info(AVStream s, int pts_wrap_bits, int pts_num, int pts_den);
 	/**
 	 * Original signature : <code>int av_find_default_stream_index(AVFormatContext*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1106</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1098</i>
 	 */
 	@Mangling({"_Z28av_find_default_stream_indexP15AVFormatContext", "?av_find_default_stream_index@@YAHPAUAVFormatContext@@@Z"}) 
 	int av_find_default_stream_index(AVFormatContext s);
@@ -910,7 +923,7 @@ public interface AvformatLibrary extends Library {
 	 *              if AVSEEK_FLAG_ANY seek to any frame, only keyframes otherwise<br>
 	 * @return < 0 if no such timestamp could be found<br>
 	 * Original signature : <code>int av_index_search_timestamp(AVStream*, int64_t, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1116</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1108</i>
 	 */
 	@Mangling({"_Z25av_index_search_timestampP8AVStream7int64_ti", "?av_index_search_timestamp@@YAHPAUAVStream@@7int64_tH@Z"}) 
 	int av_index_search_timestamp(AVStream st, long timestamp, int flags);
@@ -921,7 +934,7 @@ public interface AvformatLibrary extends Library {
 	 * This function is not part of the public API and should only be called<br>
 	 * by demuxers.<br>
 	 * Original signature : <code>void ff_reduce_index(AVFormatContext*, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1125</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1117</i>
 	 */
 	@Mangling({"_Z15ff_reduce_indexP15AVFormatContexti", "?ff_reduce_index@@YAXPAUAVFormatContext@@H@Z"}) 
 	void ff_reduce_index(AVFormatContext s, int stream_index);
@@ -930,7 +943,7 @@ public interface AvformatLibrary extends Library {
 	 * already contains it.<br>
 	 * * @param timestamp timestamp in the time base of the given stream<br>
 	 * Original signature : <code>int av_add_index_entry(AVStream*, int64_t, int64_t, int, int, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1133</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1125</i>
 	 */
 	@Mangling({"_Z18av_add_index_entryP8AVStream7int64_t7int64_tiii", "?av_add_index_entry@@YAHPAUAVStream@@7int64_t7int64_tHHH@Z"}) 
 	int av_add_index_entry(AVStream st, long pos, long timestamp, int size, int distance, int flags);
@@ -942,7 +955,7 @@ public interface AvformatLibrary extends Library {
 	 * @param target_ts target timestamp in the time base of the given stream<br>
 	 * @param stream_index stream number<br>
 	 * Original signature : <code>int av_seek_frame_binary(AVFormatContext*, int, int64_t, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1144</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1136</i>
 	 */
 	@Mangling({"_Z20av_seek_frame_binaryP15AVFormatContexti7int64_ti", "?av_seek_frame_binary@@YAHPAUAVFormatContext@@H7int64_tH@Z"}) 
 	int av_seek_frame_binary(AVFormatContext s, int stream_index, long target_ts, int flags);
@@ -953,7 +966,7 @@ public interface AvformatLibrary extends Library {
 	 * @param timestamp new dts expressed in time_base of param ref_st<br>
 	 * @param ref_st reference stream giving time_base of param timestamp<br>
 	 * Original signature : <code>void av_update_cur_dts(AVFormatContext*, AVStream*, int64_t)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1155</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1147</i>
 	 */
 	@Mangling({"_Z17av_update_cur_dtsP15AVFormatContextP8AVStream7int64_t", "?av_update_cur_dts@@YAXPAUAVFormatContext@@PAUAVStream@@7int64_t@Z"}) 
 	void av_update_cur_dts(AVFormatContext s, AVStream ref_st, long timestamp);
@@ -964,7 +977,7 @@ public interface AvformatLibrary extends Library {
 	 * @param target_ts target timestamp in the time base of the given stream<br>
 	 * @param stream_index stream number<br>
 	 * Original signature : <code>int64_t av_gen_search(AVFormatContext*, int, int64_t, int64_t, int64_t, int64_t, int64_t, int64_t, int, int64_t*, av_gen_search_arg1_read_timestamp_callback)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1164</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1156</i><br>
 	 * @deprecated use the safer methods {@link #av_gen_search(avformat.AVFormatContext, int, long, long, long, long, long, long, int, java.nio.LongBuffer, avformat.AvformatLibrary.av_gen_search_arg1_read_timestamp_callback)} and {@link #av_gen_search(avformat.AVFormatContext, int, long, long, long, long, long, long, int, com.sun.jna.ptr.LongByReference, avformat.AvformatLibrary.av_gen_search_arg1_read_timestamp_callback)} instead
 	 */
 	@Mangling({"_Z13av_gen_searchP15AVFormatContexti7int64_t7int64_t7int64_t7int64_t7int64_t7int64_tiP7int64_tPF7int64_tP15AVFormatContextiP7int64_t7int64_tE", "?av_gen_search@@YA7int64_tPAUAVFormatContext@@H7int64_t7int64_t7int64_t7int64_t7int64_t7int64_tHPA7int64_tPF7int64_tPAUAVFormatContext@@HPA7int64_t7int64_t@E@Z"}) 
@@ -977,14 +990,14 @@ public interface AvformatLibrary extends Library {
 	 * @param target_ts target timestamp in the time base of the given stream<br>
 	 * @param stream_index stream number<br>
 	 * Original signature : <code>int64_t av_gen_search(AVFormatContext*, int, int64_t, int64_t, int64_t, int64_t, int64_t, int64_t, int, int64_t*, av_gen_search_arg1_read_timestamp_callback)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1164</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1156</i>
 	 */
 	@Mangling({"_Z13av_gen_searchP15AVFormatContexti7int64_t7int64_t7int64_t7int64_t7int64_t7int64_tiP7int64_tPF7int64_tP15AVFormatContextiP7int64_t7int64_tE", "?av_gen_search@@YA7int64_tPAUAVFormatContext@@H7int64_t7int64_t7int64_t7int64_t7int64_t7int64_tHPA7int64_tPF7int64_tPAUAVFormatContext@@HPA7int64_t7int64_t@E@Z"}) 
 	long av_gen_search(AVFormatContext s, int stream_index, long target_ts, long pos_min, long pos_max, long pos_limit, long ts_min, long ts_max, int flags, LongBuffer ts_ret, AvformatLibrary.av_gen_search_arg1_read_timestamp_callback arg1);
 	/**
 	 * media file output<br>
 	 * Original signature : <code>int av_set_parameters(AVFormatContext*, AVFormatParameters*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1172</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1164</i>
 	 */
 	@Mangling({"_Z17av_set_parametersP15AVFormatContextP18AVFormatParameters", "?av_set_parameters@@YAHPAUAVFormatContext@@PAUAVFormatParameters@@@Z"}) 
 	int av_set_parameters(AVFormatContext s, AVFormatParameters ap);
@@ -994,7 +1007,7 @@ public interface AvformatLibrary extends Library {
 	 * * @param s media file handle<br>
 	 * @return 0 if OK, AVERROR_xxx on error<br>
 	 * Original signature : <code>int av_write_header(AVFormatContext*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1181</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1173</i>
 	 */
 	@Mangling({"_Z15av_write_headerP15AVFormatContext", "?av_write_header@@YAHPAUAVFormatContext@@@Z"}) 
 	int av_write_header(AVFormatContext s);
@@ -1008,7 +1021,7 @@ public interface AvformatLibrary extends Library {
 	 * dts/pts, ...<br>
 	 * @return < 0 on error, = 0 if OK, 1 if end of stream wanted<br>
 	 * Original signature : <code>int av_write_frame(AVFormatContext*, AVPacket*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1195</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1187</i>
 	 */
 	@Mangling({"_Z14av_write_frameP15AVFormatContextP8AVPacket", "?av_write_frame@@YAHPAUAVFormatContext@@PAUAVPacket@@@Z"}) 
 	int av_write_frame(AVFormatContext s, AVPacket pkt);
@@ -1025,7 +1038,7 @@ public interface AvformatLibrary extends Library {
 	 * dts/pts, ...<br>
 	 * @return < 0 on error, = 0 if OK, 1 if end of stream wanted<br>
 	 * Original signature : <code>int av_interleaved_write_frame(AVFormatContext*, AVPacket*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1212</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1204</i>
 	 */
 	@Mangling({"_Z26av_interleaved_write_frameP15AVFormatContextP8AVPacket", "?av_interleaved_write_frame@@YAHPAUAVFormatContext@@PAUAVPacket@@@Z"}) 
 	int av_interleaved_write_frame(AVFormatContext s, AVPacket pkt);
@@ -1042,7 +1055,7 @@ public interface AvformatLibrary extends Library {
 	 * @return 1 if a packet was output, 0 if no packet could be output,<br>
 	 *         < 0 if an error occurred<br>
 	 * Original signature : <code>int av_interleave_packet_per_dts(AVFormatContext*, AVPacket*, AVPacket*, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1229</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1221</i>
 	 */
 	@Mangling({"_Z28av_interleave_packet_per_dtsP15AVFormatContextP8AVPacketP8AVPacketi", "?av_interleave_packet_per_dts@@YAHPAUAVFormatContext@@PAUAVPacket@@PAUAVPacket@@H@Z"}) 
 	int av_interleave_packet_per_dts(AVFormatContext s, AVPacket out, AVPacket pkt, int flush);
@@ -1053,13 +1066,13 @@ public interface AvformatLibrary extends Library {
 	 * * @param s media file handle<br>
 	 * @return 0 if OK, AVERROR_xxx on error<br>
 	 * Original signature : <code>int av_write_trailer(AVFormatContext*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1241</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1233</i>
 	 */
 	@Mangling({"_Z16av_write_trailerP15AVFormatContext", "?av_write_trailer@@YAHPAUAVFormatContext@@@Z"}) 
 	int av_write_trailer(AVFormatContext s);
 	/**
 	 * Original signature : <code>void dump_format(AVFormatContext*, int, const char*, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1243</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1235</i><br>
 	 * @deprecated use the safer methods {@link #dump_format(avformat.AVFormatContext, int, java.lang.String, int)} and {@link #dump_format(avformat.AVFormatContext, int, com.sun.jna.Pointer, int)} instead
 	 */
 	@Mangling({"_Z11dump_formatP15AVFormatContextiPKci", "?dump_format@@YAXPAUAVFormatContext@@HPADH@Z"}) 
@@ -1067,35 +1080,43 @@ public interface AvformatLibrary extends Library {
 	void dump_format(AVFormatContext ic, int index, Pointer url, int is_output);
 	/**
 	 * Original signature : <code>void dump_format(AVFormatContext*, int, const char*, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1243</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1235</i>
 	 */
 	@Mangling({"_Z11dump_formatP15AVFormatContextiPKci", "?dump_format@@YAXPAUAVFormatContext@@HPADH@Z"}) 
 	void dump_format(AVFormatContext ic, int index, String url, int is_output);
 	/**
+	 * Parses width and height out of string str.<br>
+	 * @deprecated Use av_parse_video_frame_size instead.<br>
 	 * Original signature : <code>int parse_image_size(int*, int*, const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1253</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1245</i><br>
 	 * @deprecated use the safer methods {@link #parse_image_size(java.nio.IntBuffer, java.nio.IntBuffer, java.lang.String)} and {@link #parse_image_size(com.sun.jna.ptr.IntByReference, com.sun.jna.ptr.IntByReference, com.sun.jna.Pointer)} instead
 	 */
 	@Mangling({"_Z16parse_image_sizePiPiPKc", "?parse_image_size@@YAHPAHPAHPAD@Z"}) 
 	@Deprecated 
 	int parse_image_size(IntByReference width_ptr, IntByReference height_ptr, Pointer str);
 	/**
+	 * Parses width and height out of string str.<br>
+	 * @deprecated Use av_parse_video_frame_size instead.<br>
 	 * Original signature : <code>int parse_image_size(int*, int*, const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1253</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1245</i>
 	 */
 	@Mangling({"_Z16parse_image_sizePiPiPKc", "?parse_image_size@@YAHPAHPAHPAD@Z"}) 
 	int parse_image_size(IntBuffer width_ptr, IntBuffer height_ptr, String str);
 	/**
+	 * Converts framerate from a string to a fraction.<br>
+	 * @deprecated Use av_parse_video_frame_rate instead.<br>
 	 * Original signature : <code>int parse_frame_rate(int*, int*, const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1260</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1252</i><br>
 	 * @deprecated use the safer methods {@link #parse_frame_rate(java.nio.IntBuffer, java.nio.IntBuffer, java.lang.String)} and {@link #parse_frame_rate(com.sun.jna.ptr.IntByReference, com.sun.jna.ptr.IntByReference, com.sun.jna.Pointer)} instead
 	 */
 	@Mangling({"_Z16parse_frame_ratePiPiPKc", "?parse_frame_rate@@YAHPAHPAHPAD@Z"}) 
 	@Deprecated 
 	int parse_frame_rate(IntByReference frame_rate, IntByReference frame_rate_base, Pointer arg);
 	/**
+	 * Converts framerate from a string to a fraction.<br>
+	 * @deprecated Use av_parse_video_frame_rate instead.<br>
 	 * Original signature : <code>int parse_frame_rate(int*, int*, const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1260</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1252</i>
 	 */
 	@Mangling({"_Z16parse_frame_ratePiPiPKc", "?parse_frame_rate@@YAHPAHPAHPAD@Z"}) 
 	int parse_frame_rate(IntBuffer frame_rate, IntBuffer frame_rate_base, String arg);
@@ -1125,7 +1146,7 @@ public interface AvformatLibrary extends Library {
 	 * not zero datestr is interpreted as a duration, otherwise as a<br>
 	 * date.<br>
 	 * Original signature : <code>int64_t parse_date(const char*, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1290</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1282</i><br>
 	 * @deprecated use the safer methods {@link #parse_date(java.lang.String, int)} and {@link #parse_date(com.sun.jna.Pointer, int)} instead
 	 */
 	@Mangling({"_Z10parse_datePKci", "?parse_date@@YA7int64_tPADH@Z"}) 
@@ -1157,32 +1178,32 @@ public interface AvformatLibrary extends Library {
 	 * not zero datestr is interpreted as a duration, otherwise as a<br>
 	 * date.<br>
 	 * Original signature : <code>int64_t parse_date(const char*, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1290</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1282</i>
 	 */
 	@Mangling({"_Z10parse_datePKci", "?parse_date@@YA7int64_tPADH@Z"}) 
 	long parse_date(String datestr, int duration);
 	/**
 	 * Gets the current time in microseconds.<br>
 	 * Original signature : <code>int64_t av_gettime()</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1293</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1285</i>
 	 */
 	@Mangling({"_Z10av_gettimev", "?av_gettime@@YA7int64_tXZ"}) 
 	long av_gettime();
 	/**
 	 * Original signature : <code>int64_t ffm_read_write_index(int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1297</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1289</i>
 	 */
 	@Mangling({"_Z20ffm_read_write_indexi", "?ffm_read_write_index@@YA7int64_tH@Z"}) 
 	long ffm_read_write_index(int fd);
 	/**
 	 * Original signature : <code>int ffm_write_write_index(int, int64_t)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1298</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1290</i>
 	 */
 	@Mangling({"_Z21ffm_write_write_indexi7int64_t", "?ffm_write_write_index@@YAHH7int64_t@Z"}) 
 	int ffm_write_write_index(int fd, long pos);
 	/**
 	 * Original signature : <code>void ffm_set_write_index(AVFormatContext*, int64_t, int64_t)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1299</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1291</i>
 	 */
 	@Mangling({"_Z19ffm_set_write_indexP15AVFormatContext7int64_t7int64_t", "?ffm_set_write_index@@YAXPAUAVFormatContext@@7int64_t7int64_t@Z"}) 
 	void ffm_set_write_index(AVFormatContext s, long pos, long file_size);
@@ -1191,7 +1212,7 @@ public interface AvformatLibrary extends Library {
 	 * * syntax: '?tag1=val1&tag2=val2...'. Little URL decoding is done.<br>
 	 * Return 1 if found.<br>
 	 * Original signature : <code>int find_info_tag(char*, int, const char*, const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1307</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1299</i><br>
 	 * @deprecated use the safer methods {@link #find_info_tag(java.nio.ByteBuffer, int, java.lang.String, java.lang.String)} and {@link #find_info_tag(com.sun.jna.Pointer, int, com.sun.jna.Pointer, com.sun.jna.Pointer)} instead
 	 */
 	@Mangling({"_Z13find_info_tagPciPKcPKc", "?find_info_tag@@YAHPADHPADPAD@Z"}) 
@@ -1202,7 +1223,7 @@ public interface AvformatLibrary extends Library {
 	 * * syntax: '?tag1=val1&tag2=val2...'. Little URL decoding is done.<br>
 	 * Return 1 if found.<br>
 	 * Original signature : <code>int find_info_tag(char*, int, const char*, const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1307</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1299</i>
 	 */
 	@Mangling({"_Z13find_info_tagPciPKcPKc", "?find_info_tag@@YAHPADHPADPAD@Z"}) 
 	int find_info_tag(ByteBuffer arg, int arg_size, String tag1, String info);
@@ -1216,7 +1237,7 @@ public interface AvformatLibrary extends Library {
 	 * @param number frame number<br>
 	 * @return 0 if OK, -1 on format error<br>
 	 * Original signature : <code>int av_get_frame_filename(char*, int, const char*, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1321</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1313</i><br>
 	 * @deprecated use the safer methods {@link #av_get_frame_filename(java.nio.ByteBuffer, int, java.lang.String, int)} and {@link #av_get_frame_filename(com.sun.jna.Pointer, int, com.sun.jna.Pointer, int)} instead
 	 */
 	@Mangling({"_Z21av_get_frame_filenamePciPKci", "?av_get_frame_filename@@YAHPADHPADH@Z"}) 
@@ -1232,7 +1253,7 @@ public interface AvformatLibrary extends Library {
 	 * @param number frame number<br>
 	 * @return 0 if OK, -1 on format error<br>
 	 * Original signature : <code>int av_get_frame_filename(char*, int, const char*, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1321</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1313</i>
 	 */
 	@Mangling({"_Z21av_get_frame_filenamePciPKci", "?av_get_frame_filename@@YAHPADHPADH@Z"}) 
 	int av_get_frame_filename(ByteBuffer buf, int buf_size, String path, int number);
@@ -1241,7 +1262,7 @@ public interface AvformatLibrary extends Library {
 	 * * @param filename possible numbered sequence string<br>
 	 * @return 1 if a valid numbered sequence string, 0 otherwise<br>
 	 * Original signature : <code>int av_filename_number_test(const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1330</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1322</i><br>
 	 * @deprecated use the safer methods {@link #av_filename_number_test(java.lang.String)} and {@link #av_filename_number_test(com.sun.jna.Pointer)} instead
 	 */
 	@Mangling({"_Z23av_filename_number_testPKc", "?av_filename_number_test@@YAHPAD@Z"}) 
@@ -1252,7 +1273,7 @@ public interface AvformatLibrary extends Library {
 	 * * @param filename possible numbered sequence string<br>
 	 * @return 1 if a valid numbered sequence string, 0 otherwise<br>
 	 * Original signature : <code>int av_filename_number_test(const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1330</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1322</i>
 	 */
 	@Mangling({"_Z23av_filename_number_testPKc", "?av_filename_number_test@@YAHPAD@Z"}) 
 	int av_filename_number_test(String filename);
@@ -1269,7 +1290,7 @@ public interface AvformatLibrary extends Library {
 	 * @param size the size of the buffer<br>
 	 * @return 0 if OK, AVERROR_xxx on error<br>
 	 * Original signature : <code>int avf_sdp_create(AVFormatContext*[], int, char*, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1346</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1338</i><br>
 	 * @deprecated use the safer methods {@link #avf_sdp_create(avformat.AVFormatContext.ByReference[], int, java.nio.ByteBuffer, int)} and {@link #avf_sdp_create(avformat.AVFormatContext.ByReference[], int, com.sun.jna.Pointer, int)} instead
 	 */
 	@Mangling({"_Z14avf_sdp_createPP15AVFormatContextiPci", "?avf_sdp_create@@YAHQAPAUAVFormatContext@@HPADH@Z"}) 
@@ -1288,7 +1309,7 @@ public interface AvformatLibrary extends Library {
 	 * @param size the size of the buffer<br>
 	 * @return 0 if OK, AVERROR_xxx on error<br>
 	 * Original signature : <code>int avf_sdp_create(AVFormatContext*[], int, char*, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1346</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1338</i>
 	 */
 	@Mangling({"_Z14avf_sdp_createPP15AVFormatContextiPci", "?avf_sdp_create@@YAHQAPAUAVFormatContext@@HPADH@Z"}) 
 	int avf_sdp_create(AVFormatContext.ByReference ac[], int n_files, ByteBuffer buff, int size);
@@ -1305,7 +1326,7 @@ public interface AvformatLibrary extends Library {
 	 * @param size the size of the buffer<br>
 	 * @return 0 if OK, AVERROR_xxx on error<br>
 	 * Original signature : <code>int avf_sdp_create(AVFormatContext*[], int, char*, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1346</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1338</i>
 	 */
 	@Mangling({"_Z14avf_sdp_createPP15AVFormatContextiPci", "?avf_sdp_create@@YAHQAPAUAVFormatContext@@HPADH@Z"}) 
 	int avf_sdp_create(AVFormatContext.ByReference ac[], int n_files, Pointer buff, int size);
@@ -1314,7 +1335,7 @@ public interface AvformatLibrary extends Library {
 	 * extensions, 0 otherwise.<br>
 	 * * @param extensions a comma-separated list of filename extensions<br>
 	 * Original signature : <code>int av_match_ext(const char*, const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1354</i><br>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1346</i><br>
 	 * @deprecated use the safer methods {@link #av_match_ext(java.lang.String, java.lang.String)} and {@link #av_match_ext(com.sun.jna.Pointer, com.sun.jna.Pointer)} instead
 	 */
 	@Mangling({"_Z12av_match_extPKcPKc", "?av_match_ext@@YAHPADPAD@Z"}) 
@@ -1325,7 +1346,7 @@ public interface AvformatLibrary extends Library {
 	 * extensions, 0 otherwise.<br>
 	 * * @param extensions a comma-separated list of filename extensions<br>
 	 * Original signature : <code>int av_match_ext(const char*, const char*)</code><br>
-	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1354</i>
+	 * <i>native declaration : src/main/headers/libavformat/avformat.h:1346</i>
 	 */
 	@Mangling({"_Z12av_match_extPKcPKc", "?av_match_ext@@YAHPADPAD@Z"}) 
 	int av_match_ext(String filename, String extensions);
@@ -2275,6 +2296,8 @@ public interface AvformatLibrary extends Library {
 	 */
 	@Mangling({"_Z19udp_get_file_handleP10URLContext", "?udp_get_file_handle@@YAHPAUURLContext@@@Z"}) 
 	int udp_get_file_handle(URLContext h);
+	public static final GlobalStruct<AVInputFormat > first_iformat = new GlobalStruct<AVInputFormat >(avformat.AvformatLibrary.JNA_NATIVE_LIB, avformat.AVInputFormat.class, "first_iformat");
+	public static final GlobalStruct<AVOutputFormat > first_oformat = new GlobalStruct<AVOutputFormat >(avformat.AvformatLibrary.JNA_NATIVE_LIB, avformat.AVOutputFormat.class, "first_oformat");
 	public static final GlobalStruct<URLProtocol > first_protocol = new GlobalStruct<URLProtocol >(avformat.AvformatLibrary.JNA_NATIVE_LIB, avformat.URLProtocol.class, "first_protocol");
 	public static final class url_interrupt_cb {
 		private static PointerByReference url_interrupt_cb;
@@ -2293,86 +2316,6 @@ public interface AvformatLibrary extends Library {
 	/// Undefined type
 	public static interface AVCodecTag {
 		
-	};
-	/// Undefined type
-	public static interface PixelFormat {
-		public static final int PIX_FMT_NONE= -1;
-	    public static final int PIX_FMT_YUV420P=0;   ///< planar YUV 4:2:0=; 12bpp=; (1 Cr & Cb sample per 2x2 Y samples)
-	    public static final int PIX_FMT_YUYV422=1;   ///< packed YUV 4:2:2=; 16bpp=; Y0 Cb Y1 Cr
-	    public static final int PIX_FMT_RGB24=2;     ///< packed RGB 8:8:8=; 24bpp=; RGBRGB...
-	    public static final int PIX_FMT_BGR24=3;     ///< packed RGB 8:8:8=; 24bpp=; BGRBGR...
-	    public static final int PIX_FMT_YUV422P=4;   ///< planar YUV 4:2:2=; 16bpp=; (1 Cr & Cb sample per 2x1 Y samples)
-	    public static final int PIX_FMT_YUV444P=5;   ///< planar YUV 4:4:4=; 24bpp=; (1 Cr & Cb sample per 1x1 Y samples)
-	    public static final int PIX_FMT_YUV410P=6;   ///< planar YUV 4:1:0=;  9bpp=; (1 Cr & Cb sample per 4x4 Y samples)
-	    public static final int PIX_FMT_YUV411P=7;   ///< planar YUV 4:1:1=; 12bpp=; (1 Cr & Cb sample per 4x1 Y samples)
-	    public static final int PIX_FMT_GRAY8=8;     ///<        Y        =;  8bpp
-	    public static final int PIX_FMT_MONOWHITE=9; ///<        Y        =;  1bpp=; 0 is white=; 1 is black=; in each byte pixels are ordered from the msb to the lsb
-	    public static final int PIX_FMT_MONOBLACK=10; ///<        Y        =;  1bpp=; 0 is black=; 1 is white=; in each byte pixels are ordered from the msb to the lsb
-	    public static final int PIX_FMT_PAL8=11;      ///< 8 bit with public static final int PIX_FMT_RGB32 palette
-	    public static final int PIX_FMT_YUVJ420P=12;  ///< planar YUV 4:2:0=; 12bpp=; full scale (JPEG)
-	    public static final int PIX_FMT_YUVJ422P=13;  ///< planar YUV 4:2:2=; 16bpp=; full scale (JPEG)
-	    public static final int PIX_FMT_YUVJ444P=14; ///< planar YUV 4:4:4=; 24bpp=; full scale (JPEG)
-	    public static final int PIX_FMT_XVMC_MPEG2_MC=15;///< XVideo Motion Acceleration via common packet passing
-	    public static final int PIX_FMT_XVMC_MPEG2_IDCT=16;
-	    public static final int PIX_FMT_UYVY422=17;   ///< packed YUV 4:2:2=; 16bpp=; Cb Y0 Cr Y1
-	    public static final int PIX_FMT_UYYVYY411=18; ///< packed YUV 4:1:1=; 12bpp=; Cb Y0 Y1 Cr Y2 Y3
-	    public static final int PIX_FMT_BGR8=19;      ///< packed RGB 3:3:2=;  8bpp=; (msb)2B 3G 3R(lsb)
-	    public static final int PIX_FMT_BGR4=20;      ///< packed RGB 1:2:1 bitstream=;  4bpp=; (msb)1B 2G 1R(lsb)=; a byte contains two pixels=; the first pixel in the byte is the one composed by the 4 msb bits
-	    public static final int PIX_FMT_BGR4_BYTE=21; ///< packed RGB 1:2:1=;  8bpp=; (msb)1B 2G 1R(lsb)
-	    public static final int PIX_FMT_RGB8=22;      ///< packed RGB 3:3:2=;  8bpp=; (msb)2R 3G 3B(lsb)
-	    public static final int PIX_FMT_RGB4=23;      ///< packed RGB 1:2:1 bitstream=;  4bpp=; (msb)1R 2G 1B(lsb)=; a byte contains two pixels=; the first pixel in the byte is the one composed by the 4 msb bits
-	    public static final int PIX_FMT_RGB4_BYTE=24; ///< packed RGB 1:2:1=;  8bpp=; (msb)1R 2G 1B(lsb)
-	    public static final int PIX_FMT_NV12=25;      ///< planar YUV 4:2:0=; 12bpp=; 1 plane for Y and 1 plane for the UV components=; which are interleaved (first byte U and the following byte V)
-	    public static final int PIX_FMT_NV21=26;      ///< as above=; but U and V bytes are swapped
-
-	    public static final int PIX_FMT_ARGB=27;      ///< packed ARGB 8:8:8:8=; 32bpp=; ARGBARGB...
-	    public static final int PIX_FMT_RGBA=28;      ///< packed RGBA 8:8:8:8=; 32bpp=; RGBARGBA...
-	    public static final int PIX_FMT_ABGR=29;      ///< packed ABGR 8:8:8:8=; 32bpp=; ABGRABGR...
-	    public static final int PIX_FMT_BGRA=30;      ///< packed BGRA 8:8:8:8=; 32bpp=; BGRABGRA...
-
-	    public static final int PIX_FMT_GRAY16BE=31;  ///<        Y        =; 16bpp=; big-endian
-	    public static final int PIX_FMT_GRAY16LE=32;  ///<        Y        =; 16bpp=; little-endian
-	    public static final int PIX_FMT_YUV440P=33;   ///< planar YUV 4:4:0 (1 Cr & Cb sample per 1x2 Y samples)
-	    public static final int PIX_FMT_YUVJ440P=34;  ///< planar YUV 4:4:0 full scale (JPEG)
-	    public static final int PIX_FMT_YUVA420P=35;  ///< planar YUV 4:2:0=; 20bpp=; (1 Cr & Cb sample per 2x2 Y & A samples)
-	    public static final int PIX_FMT_VDPAU_H264=36;///< H.264 HW decoding with VDPAU=; data[0] contains a vdpau_render_state struct which contains the bitstream of the slices as well as various fields extracted from headers
-	    public static final int PIX_FMT_VDPAU_MPEG1=37;///< MPEG-1 HW decoding with VDPAU=; data[0] contains a vdpau_render_state struct which contains the bitstream of the slices as well as various fields extracted from headers
-	    public static final int PIX_FMT_VDPAU_MPEG2=38;///< MPEG-2 HW decoding with VDPAU=; data[0] contains a vdpau_render_state struct which contains the bitstream of the slices as well as various fields extracted from headers
-	    public static final int PIX_FMT_VDPAU_WMV3=39;///< WMV3 HW decoding with VDPAU=; data[0] contains a vdpau_render_state struct which contains the bitstream of the slices as well as various fields extracted from headers
-	    public static final int PIX_FMT_VDPAU_VC1=40; ///< VC-1 HW decoding with VDPAU=; data[0] contains a vdpau_render_state struct which contains the bitstream of the slices as well as various fields extracted from headers
-	    public static final int PIX_FMT_RGB48BE=41;   ///< packed RGB 16:16:16=; 48bpp=; 16R=; 16G=; 16B=; the 2-byte value for each R/G/B component is stored as big-endian
-	    public static final int PIX_FMT_RGB48LE=42;   ///< packed RGB 16:16:16=; 48bpp=; 16R=; 16G=; 16B=; the 2-byte value for each R/G/B component is stored as little-endian
-
-	    public static final int PIX_FMT_RGB565BE=43;  ///< packed RGB 5:6:5=; 16bpp=; (msb)   5R 6G 5B(lsb)=; big-endian
-	    public static final int PIX_FMT_RGB565LE=44;  ///< packed RGB 5:6:5=; 16bpp=; (msb)   5R 6G 5B(lsb)=; little-endian
-	    public static final int PIX_FMT_RGB555BE=45;  ///< packed RGB 5:5:5=; 16bpp=; (msb)1A 5R 5G 5B(lsb)=; big-endian=; most significant bit to 0
-	    public static final int PIX_FMT_RGB555LE=46;  ///< packed RGB 5:5:5=; 16bpp=; (msb)1A 5R 5G 5B(lsb)=; little-endian=; most significant bit to 0
-
-	    public static final int PIX_FMT_BGR565BE=47;  ///< packed BGR 5:6:5=; 16bpp=; (msb)   5B 6G 5R(lsb)=; big-endian
-	    public static final int PIX_FMT_BGR565LE=48;  ///< packed BGR 5:6:5=; 16bpp=; (msb)   5B 6G 5R(lsb)=; little-endian
-	    public static final int PIX_FMT_BGR555BE=49;  ///< packed BGR 5:5:5=; 16bpp=; (msb)1A 5B 5G 5R(lsb)=; big-endian=; most significant bit to 1
-	    public static final int PIX_FMT_BGR555LE=50;  ///< packed BGR 5:5:5=; 16bpp=; (msb)1A 5B 5G 5R(lsb)=; little-endian=; most significant bit to 1
-
-	    public static final int PIX_FMT_VAAPI_MOCO=51; ///< HW acceleration through VA API at motion compensation entry-point=; Picture.data[3] contains a vaapi_render_state struct which contains macroblocks as well as various fields extracted from headers
-	    public static final int PIX_FMT_VAAPI_IDCT=52; ///< HW acceleration through VA API at IDCT entry-point=; Picture.data[3] contains a vaapi_render_state struct which contains fields extracted from headers
-	    public static final int PIX_FMT_VAAPI_VLD=53;  ///< HW decoding through VA API=; Picture.data[3] contains a vaapi_render_state struct which contains the bitstream of the slices as well as various fields extracted from headers
-
-	    public static final int PIX_FMT_YUV420P16LE=54;  ///< planar YUV 4:2:0=; 24bpp=; (1 Cr & Cb sample per 2x2 Y samples)=; little-endian
-	    public static final int PIX_FMT_YUV420P16BE=55;  ///< planar YUV 4:2:0=; 24bpp=; (1 Cr & Cb sample per 2x2 Y samples)=; big-endian
-	    public static final int PIX_FMT_YUV422P16LE=56;  ///< planar YUV 4:2:2=; 32bpp=; (1 Cr & Cb sample per 2x1 Y samples)=; little-endian
-	    public static final int PIX_FMT_YUV422P16BE=57;  ///< planar YUV 4:2:2=; 32bpp=; (1 Cr & Cb sample per 2x1 Y samples)=; big-endian
-	    public static final int PIX_FMT_YUV444P16LE=58;  ///< planar YUV 4:4:4=; 48bpp=; (1 Cr & Cb sample per 1x1 Y samples)=; little-endian
-	    public static final int PIX_FMT_YUV444P16BE=59;  ///< planar YUV 4:4:4=; 48bpp=; (1 Cr & Cb sample per 1x1 Y samples)=; big-endian
-	    public static final int PIX_FMT_VDPAU_MPEG4=60;  ///< MPEG4 HW decoding with VDPAU=; data[0] contains a vdpau_render_state struct which contains the bitstream of the slices as well as various fields extracted from headers
-	    public static final int PIX_FMT_DXVA2_VLD=61;    ///< HW decoding through DXVA2=; Picture.data[3] contains a LPDIRECT3DSURFACE9 pointer
-
-	    public static final int PIX_FMT_RGB444BE=62;  ///< packed RGB 4:4:4=; 16bpp=; (msb)4A 4R 4G 4B(lsb)=; big-endian=; most significant bits to 0
-	    public static final int PIX_FMT_RGB444LE=63;  ///< packed RGB 4:4:4=; 16bpp=; (msb)4A 4R 4G 4B(lsb)=; little-endian=; most significant bits to 0
-	    public static final int PIX_FMT_BGR444BE=64;  ///< packed BGR 4:4:4=; 16bpp=; (msb)4A 4B 4G 4R(lsb)=; big-endian=; most significant bits to 1
-	    public static final int PIX_FMT_BGR444LE=65;  ///< packed BGR 4:4:4=; 16bpp=; (msb)4A 4B 4G 4R(lsb)=; little-endian=; most significant bits to 1
-	    public static final int PIX_FMT_Y400A=66;     ///< 8bit gray=; 8bit alpha
-	    public static final int PIX_FMT_NB=67;        ///< number of pixel formats, DO NOT USE THIS if you want to link with shared libav* because the number of formats might differ between versions
-
 	};
 	/// Undefined type
 	public static interface _IO_FILE {

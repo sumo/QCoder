@@ -1,5 +1,6 @@
 package avcodec;
-import avformat.AvformatLibrary.PixelFormat;
+import avcodec.AVOption.ByReference;
+import avutil.AVRational.ByValue;
 import avutil.AVRational;
 import com.ochafik.lang.jnaerator.runtime.LibraryExtractor;
 import com.ochafik.lang.jnaerator.runtime.MangledFunctionMapper;
@@ -25,6 +26,53 @@ public interface AvcodecLibrary extends Library {
 	public static final String JNA_LIBRARY_NAME = LibraryExtractor.getLibraryPath("avcodec", true, avcodec.AvcodecLibrary.class);
 	public static final NativeLibrary JNA_NATIVE_LIB = NativeLibrary.getInstance(avcodec.AvcodecLibrary.JNA_LIBRARY_NAME, com.ochafik.lang.jnaerator.runtime.MangledFunctionMapper.DEFAULT_OPTIONS);
 	public static final AvcodecLibrary INSTANCE = (AvcodecLibrary)Native.loadLibrary(avcodec.AvcodecLibrary.JNA_LIBRARY_NAME, avcodec.AvcodecLibrary.class, com.ochafik.lang.jnaerator.runtime.MangledFunctionMapper.DEFAULT_OPTIONS);
+	/**
+	 * <i>native declaration : src/main/headers/libavutil/avutil.h:71</i><br>
+	 * enum values
+	 */
+	public static interface AVMediaType {
+		/// <i>native declaration : src/main/headers/libavutil/avutil.h:72</i>
+		public static final int AVMEDIA_TYPE_UNKNOWN = -1;
+		/// <i>native declaration : src/main/headers/libavutil/avutil.h:73</i>
+		public static final int AVMEDIA_TYPE_VIDEO = 0;
+		/// <i>native declaration : src/main/headers/libavutil/avutil.h:74</i>
+		public static final int AVMEDIA_TYPE_AUDIO = 1;
+		/// <i>native declaration : src/main/headers/libavutil/avutil.h:75</i>
+		public static final int AVMEDIA_TYPE_DATA = 2;
+		/// <i>native declaration : src/main/headers/libavutil/avutil.h:76</i>
+		public static final int AVMEDIA_TYPE_SUBTITLE = 3;
+		/// <i>native declaration : src/main/headers/libavutil/avutil.h:77</i>
+		public static final int AVMEDIA_TYPE_ATTACHMENT = 4;
+		/// <i>native declaration : src/main/headers/libavutil/avutil.h:78</i>
+		public static final int AVMEDIA_TYPE_NB = 5;
+	};
+	/**
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:32</i><br>
+	 * enum values
+	 */
+	public static interface AVOptionType {
+		/// <i>native declaration : src/main/headers/libavcodec/opt.h:33</i>
+		public static final int FF_OPT_TYPE_FLAGS = 0;
+		/// <i>native declaration : src/main/headers/libavcodec/opt.h:34</i>
+		public static final int FF_OPT_TYPE_INT = 1;
+		/// <i>native declaration : src/main/headers/libavcodec/opt.h:35</i>
+		public static final int FF_OPT_TYPE_INT64 = 2;
+		/// <i>native declaration : src/main/headers/libavcodec/opt.h:36</i>
+		public static final int FF_OPT_TYPE_DOUBLE = 3;
+		/// <i>native declaration : src/main/headers/libavcodec/opt.h:37</i>
+		public static final int FF_OPT_TYPE_FLOAT = 4;
+		/// <i>native declaration : src/main/headers/libavcodec/opt.h:38</i>
+		public static final int FF_OPT_TYPE_STRING = 5;
+		/// <i>native declaration : src/main/headers/libavcodec/opt.h:39</i>
+		public static final int FF_OPT_TYPE_RATIONAL = 6;
+		/**
+		 * < offset must point to a pointer immediately followed by an int for the length<br>
+		 * <i>native declaration : src/main/headers/libavcodec/opt.h:40</i>
+		 */
+		public static final int FF_OPT_TYPE_BINARY = 7;
+		/// <i>native declaration : src/main/headers/libavcodec/opt.h:41</i>
+		public static final int FF_OPT_TYPE_CONST = 128;
+	};
 	/**
 	 * Identifies the syntax and semantics of the bitstream.<br>
 	 * The principle is roughly:<br>
@@ -1118,6 +1166,8 @@ public interface AvcodecLibrary extends Library {
 	public static final int FF_DEBUG_MV = 32;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
 	public static final int MB_TYPE_P0L0 = 4096;
+	/// <i>native declaration : src/main/headers/libavutil/avutil.h</i>
+	public static final int LIBAVUTIL_VERSION_MICRO = 1;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
 	public static final int FF_MM_ALTIVEC = 1;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
@@ -1164,6 +1214,8 @@ public interface AvcodecLibrary extends Library {
 	public static final int FF_DCT_MMX = 3;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
 	public static final int PARSER_FLAG_COMPLETE_FRAMES = 1;
+	/// <i>native declaration : src/main/headers/libavcodec/opt.h</i>
+	public static final int AV_OPT_FLAG_DECODING_PARAM = 2;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
 	public static final int FF_IDCT_XVIDMMX = 14;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
@@ -1176,6 +1228,10 @@ public interface AvcodecLibrary extends Library {
 	public static final int FF_CMP_RD = 6;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
 	public static final int CODEC_FLAG2_WPRED = 32;
+	/// <i>native declaration : src/main/headers/libavcodec/opt.h</i>
+	public static final int AV_OPT_FLAG_ENCODING_PARAM = 1;
+	/// <i>native declaration : src/main/headers/libavcodec/opt.h</i>
+	public static final int AV_OPT_FLAG_METADATA = 4;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
 	public static final int X264_PART_I4X4 = 1;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
@@ -1266,12 +1322,16 @@ public interface AvcodecLibrary extends Library {
 	public static final int FF_MM_SSE4 = 256;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
 	public static final int CODEC_FLAG2_MBTREE = 262144;
+	/// <i>native declaration : src/main/headers/libavcodec/opt.h</i>
+	public static final int AV_OPT_FLAG_VIDEO_PARAM = 16;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
 	public static final int AVCODEC_MAX_AUDIO_FRAME_SIZE = 192000;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
 	public static final int CODEC_FLAG_EXTERN_HUFF = 4096;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
 	public static final int CODEC_FLAG_4MV = 4;
+	/// <i>native declaration : src/main/headers/libavutil/avutil.h</i>
+	public static final int LIBAVUTIL_VERSION_MAJOR = 50;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
 	public static final int CODEC_FLAG2_LOCAL_HEADER = 8;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
@@ -1342,6 +1402,8 @@ public interface AvcodecLibrary extends Library {
 	public static final int CH_TOP_CENTER = 2048;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
 	public static final int CODEC_CAP_DR1 = 2;
+	/// <i>native declaration : src/main/headers/libavcodec/opt.h</i>
+	public static final int AV_OPT_FLAG_SUBTITLE_PARAM = 32;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
 	public static final int FF_PROFILE_H264_HIGH_10 = 110;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
@@ -1376,6 +1438,8 @@ public interface AvcodecLibrary extends Library {
 	public static final int FF_IDCT_WMV2 = 19;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
 	public static final int FF_AA_INT = 2;
+	/// <i>native declaration : src/main/headers/libavcodec/opt.h</i>
+	public static final int AV_OPT_FLAG_AUDIO_PARAM = 8;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
 	public static final int FF_COMPLIANCE_STRICT = 1;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
@@ -1546,6 +1610,8 @@ public interface AvcodecLibrary extends Library {
 	public static final int CODEC_FLAG_LOOP_FILTER = 2048;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
 	public static final int FF_CMP_DCTMAX = 13;
+	/// <i>native declaration : src/main/headers/libavutil/avutil.h</i>
+	public static final int LIBAVUTIL_VERSION_MINOR = 15;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
 	public static final int FF_IDCT_SIMPLE = 2;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
@@ -1560,6 +1626,8 @@ public interface AvcodecLibrary extends Library {
 	public static final int CODEC_CAP_PARSE_ONLY = 4;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
 	public static final int CODEC_FLAG2_DROP_FRAME_TIMECODE = 8192;
+	/// <i>native declaration : src/main/headers/libavutil/avutil.h</i>
+	public static final String LIBAVUTIL_IDENT = "Lavu";
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
 	public static final int FF_DCT_FASTINT = 1;
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
@@ -1615,6 +1683,335 @@ public interface AvcodecLibrary extends Library {
 		/// @param op @see AVLockOp
 		int apply(PointerByReference mutex, int op);
 	};
+	/**
+	 * Returns the LIBAVUTIL_VERSION_INT constant.<br>
+	 * Original signature : <code>avutil_version()</code><br>
+	 * <i>native declaration : src/main/headers/libavutil/avutil.h:59</i>
+	 */
+	@Mangling({"_Z14avutil_versionv", "?avutil_version@@YAXXZ"}) 
+	int avutil_version();
+	/**
+	 * Returns the libavutil build-time configuration.<br>
+	 * Original signature : <code>char* avutil_configuration()</code><br>
+	 * <i>native declaration : src/main/headers/libavutil/avutil.h:64</i>
+	 */
+	@Mangling({"_Z20avutil_configurationv", "?avutil_configuration@@YAQBDXZ"}) 
+	String avutil_configuration();
+	/**
+	 * Returns the libavutil license.<br>
+	 * Original signature : <code>char* avutil_license()</code><br>
+	 * <i>native declaration : src/main/headers/libavutil/avutil.h:69</i>
+	 */
+	@Mangling({"_Z14avutil_licensev", "?avutil_license@@YAQBDXZ"}) 
+	String avutil_license();
+	/**
+	 * Looks for an option in obj. Looks only for the options which<br>
+	 * have the flags set as specified in mask and flags (that is,<br>
+	 * for which it is the case that opt->flags & mask == flags).<br>
+	 * * @param[in] obj a pointer to a struct whose first element is a<br>
+	 * pointer to an AVClass<br>
+	 * @param[in] name the name of the option to look for<br>
+	 * @param[in] unit the unit of the option to look for, or any if NULL<br>
+	 * @return a pointer to the option found, or NULL if no option<br>
+	 * has been found<br>
+	 * Original signature : <code>AVOption* av_find_opt(void*, const char*, const char*, int, int)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:152</i><br>
+	 * @deprecated use the safer methods {@link #av_find_opt(com.sun.jna.Pointer, java.lang.String, java.lang.String, int, int)} and {@link #av_find_opt(com.sun.jna.Pointer, com.sun.jna.Pointer, com.sun.jna.Pointer, int, int)} instead
+	 */
+	@Mangling({"_Z11av_find_optPvPKcPKcii", "?av_find_opt@@YAQBUAVOption@@PAXPADPADHH@Z"}) 
+	@Deprecated 
+	AVOption av_find_opt(Pointer obj, Pointer name, Pointer unit, int mask, int flags);
+	/**
+	 * Looks for an option in obj. Looks only for the options which<br>
+	 * have the flags set as specified in mask and flags (that is,<br>
+	 * for which it is the case that opt->flags & mask == flags).<br>
+	 * * @param[in] obj a pointer to a struct whose first element is a<br>
+	 * pointer to an AVClass<br>
+	 * @param[in] name the name of the option to look for<br>
+	 * @param[in] unit the unit of the option to look for, or any if NULL<br>
+	 * @return a pointer to the option found, or NULL if no option<br>
+	 * has been found<br>
+	 * Original signature : <code>AVOption* av_find_opt(void*, const char*, const char*, int, int)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:152</i>
+	 */
+	@Mangling({"_Z11av_find_optPvPKcPKcii", "?av_find_opt@@YAQBUAVOption@@PAXPADPADHH@Z"}) 
+	AVOption av_find_opt(Pointer obj, String name, String unit, int mask, int flags);
+	/**
+	 * @see av_set_string2()<br>
+	 * Original signature : <code>AVOption* av_set_string(void*, const char*, const char*)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:158</i><br>
+	 * @deprecated use the safer methods {@link #av_set_string(com.sun.jna.Pointer, java.lang.String, java.lang.String)} and {@link #av_set_string(com.sun.jna.Pointer, com.sun.jna.Pointer, com.sun.jna.Pointer)} instead
+	 */
+	@Mangling({"_Z13av_set_stringPvPKcPKc", "?av_set_string@@YAQBUAVOption@@PAXPADPAD@Z"}) 
+	@Deprecated 
+	AVOption av_set_string(Pointer obj, Pointer name, Pointer val);
+	/**
+	 * @see av_set_string2()<br>
+	 * Original signature : <code>AVOption* av_set_string(void*, const char*, const char*)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:158</i>
+	 */
+	@Mangling({"_Z13av_set_stringPvPKcPKc", "?av_set_string@@YAQBUAVOption@@PAXPADPAD@Z"}) 
+	AVOption av_set_string(Pointer obj, String name, String val);
+	/**
+	 * @return a pointer to the AVOption corresponding to the field set or<br>
+	 * NULL if no matching AVOption exists, or if the value val is not<br>
+	 * valid<br>
+	 * @see av_set_string3()<br>
+	 * Original signature : <code>AVOption* av_set_string2(void*, const char*, const char*, int)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:166</i><br>
+	 * @deprecated use the safer methods {@link #av_set_string2(com.sun.jna.Pointer, java.lang.String, java.lang.String, int)} and {@link #av_set_string2(com.sun.jna.Pointer, com.sun.jna.Pointer, com.sun.jna.Pointer, int)} instead
+	 */
+	@Mangling({"_Z14av_set_string2PvPKcPKci", "?av_set_string2@@YAQBUAVOption@@PAXPADPADH@Z"}) 
+	@Deprecated 
+	AVOption av_set_string2(Pointer obj, Pointer name, Pointer val, int alloc);
+	/**
+	 * @return a pointer to the AVOption corresponding to the field set or<br>
+	 * NULL if no matching AVOption exists, or if the value val is not<br>
+	 * valid<br>
+	 * @see av_set_string3()<br>
+	 * Original signature : <code>AVOption* av_set_string2(void*, const char*, const char*, int)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:166</i>
+	 */
+	@Mangling({"_Z14av_set_string2PvPKcPKci", "?av_set_string2@@YAQBUAVOption@@PAXPADPADH@Z"}) 
+	AVOption av_set_string2(Pointer obj, String name, String val, int alloc);
+	/**
+	 * Sets the field of obj with the given name to value.<br>
+	 * * @param[in] obj A struct whose first element is a pointer to an<br>
+	 * AVClass.<br>
+	 * @param[in] name the name of the field to set<br>
+	 * @param[in] val The value to set. If the field is not of a string<br>
+	 * type, then the given string is parsed.<br>
+	 * SI postfixes and some named scalars are supported.<br>
+	 * If the field is of a numeric type, it has to be a numeric or named<br>
+	 * scalar. Behavior with more than one scalar and +- infix operators<br>
+	 * is undefined.<br>
+	 * If the field is of a flags type, it has to be a sequence of numeric<br>
+	 * scalars or named flags separated by '+' or '-'. Prefixing a flag<br>
+	 * with '+' causes it to be set without affecting the other flags;<br>
+	 * similarly, '-' unsets a flag.<br>
+	 * @param[out] o_out if non-NULL put here a pointer to the AVOption<br>
+	 * found<br>
+	 * @param alloc when 1 then the old value will be av_freed() and the<br>
+	 *                     new av_strduped()<br>
+	 *              when 0 then no av_free() nor av_strdup() will be used<br>
+	 * @return 0 if the value has been set, or an AVERROR code in case of<br>
+	 * error:<br>
+	 * AVERROR(ENOENT) if no matching option exists<br>
+	 * AVERROR(ERANGE) if the value is out of range<br>
+	 * AVERROR(EINVAL) if the value is not valid<br>
+	 * Original signature : <code>int av_set_string3(void*, const char*, const char*, int, const AVOption**)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:196</i><br>
+	 * @deprecated use the safer methods {@link #av_set_string3(com.sun.jna.Pointer, java.lang.String, java.lang.String, int, avcodec.AVOption.ByReference[])} and {@link #av_set_string3(com.sun.jna.Pointer, com.sun.jna.Pointer, com.sun.jna.Pointer, int, avcodec.AVOption.ByReference[])} instead
+	 */
+	@Mangling({"_Z14av_set_string3PvPKcPKciPPK8AVOption", "?av_set_string3@@YAHPAXPADPADHPAPAUAVOption@@@Z"}) 
+	@Deprecated 
+	int av_set_string3(Pointer obj, Pointer name, Pointer val, int alloc, PointerByReference o_out);
+	/**
+	 * Sets the field of obj with the given name to value.<br>
+	 * * @param[in] obj A struct whose first element is a pointer to an<br>
+	 * AVClass.<br>
+	 * @param[in] name the name of the field to set<br>
+	 * @param[in] val The value to set. If the field is not of a string<br>
+	 * type, then the given string is parsed.<br>
+	 * SI postfixes and some named scalars are supported.<br>
+	 * If the field is of a numeric type, it has to be a numeric or named<br>
+	 * scalar. Behavior with more than one scalar and +- infix operators<br>
+	 * is undefined.<br>
+	 * If the field is of a flags type, it has to be a sequence of numeric<br>
+	 * scalars or named flags separated by '+' or '-'. Prefixing a flag<br>
+	 * with '+' causes it to be set without affecting the other flags;<br>
+	 * similarly, '-' unsets a flag.<br>
+	 * @param[out] o_out if non-NULL put here a pointer to the AVOption<br>
+	 * found<br>
+	 * @param alloc when 1 then the old value will be av_freed() and the<br>
+	 *                     new av_strduped()<br>
+	 *              when 0 then no av_free() nor av_strdup() will be used<br>
+	 * @return 0 if the value has been set, or an AVERROR code in case of<br>
+	 * error:<br>
+	 * AVERROR(ENOENT) if no matching option exists<br>
+	 * AVERROR(ERANGE) if the value is out of range<br>
+	 * AVERROR(EINVAL) if the value is not valid<br>
+	 * Original signature : <code>int av_set_string3(void*, const char*, const char*, int, const AVOption**)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:196</i>
+	 */
+	@Mangling({"_Z14av_set_string3PvPKcPKciPPK8AVOption", "?av_set_string3@@YAHPAXPADPADHPAPAUAVOption@@@Z"}) 
+	int av_set_string3(Pointer obj, String name, String val, int alloc, AVOption.ByReference o_out[]);
+	/**
+	 * Sets the field of obj with the given name to value.<br>
+	 * * @param[in] obj A struct whose first element is a pointer to an<br>
+	 * AVClass.<br>
+	 * @param[in] name the name of the field to set<br>
+	 * @param[in] val The value to set. If the field is not of a string<br>
+	 * type, then the given string is parsed.<br>
+	 * SI postfixes and some named scalars are supported.<br>
+	 * If the field is of a numeric type, it has to be a numeric or named<br>
+	 * scalar. Behavior with more than one scalar and +- infix operators<br>
+	 * is undefined.<br>
+	 * If the field is of a flags type, it has to be a sequence of numeric<br>
+	 * scalars or named flags separated by '+' or '-'. Prefixing a flag<br>
+	 * with '+' causes it to be set without affecting the other flags;<br>
+	 * similarly, '-' unsets a flag.<br>
+	 * @param[out] o_out if non-NULL put here a pointer to the AVOption<br>
+	 * found<br>
+	 * @param alloc when 1 then the old value will be av_freed() and the<br>
+	 *                     new av_strduped()<br>
+	 *              when 0 then no av_free() nor av_strdup() will be used<br>
+	 * @return 0 if the value has been set, or an AVERROR code in case of<br>
+	 * error:<br>
+	 * AVERROR(ENOENT) if no matching option exists<br>
+	 * AVERROR(ERANGE) if the value is out of range<br>
+	 * AVERROR(EINVAL) if the value is not valid<br>
+	 * Original signature : <code>int av_set_string3(void*, const char*, const char*, int, const AVOption**)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:196</i>
+	 */
+	@Mangling({"_Z14av_set_string3PvPKcPKciPPK8AVOption", "?av_set_string3@@YAHPAXPADPADHPAPAUAVOption@@@Z"}) 
+	int av_set_string3(Pointer obj, Pointer name, Pointer val, int alloc, AVOption.ByReference o_out[]);
+	/**
+	 * Original signature : <code>AVOption* av_set_double(void*, const char*, double)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:198</i><br>
+	 * @deprecated use the safer methods {@link #av_set_double(com.sun.jna.Pointer, java.lang.String, double)} and {@link #av_set_double(com.sun.jna.Pointer, com.sun.jna.Pointer, double)} instead
+	 */
+	@Mangling({"_Z13av_set_doublePvPKcd", "?av_set_double@@YAQBUAVOption@@PAXPADN@Z"}) 
+	@Deprecated 
+	AVOption av_set_double(Pointer obj, Pointer name, double n);
+	/**
+	 * Original signature : <code>AVOption* av_set_double(void*, const char*, double)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:198</i>
+	 */
+	@Mangling({"_Z13av_set_doublePvPKcd", "?av_set_double@@YAQBUAVOption@@PAXPADN@Z"}) 
+	AVOption av_set_double(Pointer obj, String name, double n);
+	/**
+	 * Original signature : <code>AVOption* av_set_q(void*, const char*, AVRational)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:199</i><br>
+	 * @deprecated use the safer methods {@link #av_set_q(com.sun.jna.Pointer, java.lang.String, avutil.AVRational.ByValue)} and {@link #av_set_q(com.sun.jna.Pointer, com.sun.jna.Pointer, avutil.AVRational.ByValue)} instead
+	 */
+	@Mangling({"_Z8av_set_qPvPKc10AVRational", "?av_set_q@@YAQBUAVOption@@PAXPADUAVRational@@@Z"}) 
+	@Deprecated 
+	AVOption av_set_q(Pointer obj, Pointer name, AVRational.ByValue n);
+	/**
+	 * Original signature : <code>AVOption* av_set_q(void*, const char*, AVRational)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:199</i>
+	 */
+	@Mangling({"_Z8av_set_qPvPKc10AVRational", "?av_set_q@@YAQBUAVOption@@PAXPADUAVRational@@@Z"}) 
+	AVOption av_set_q(Pointer obj, String name, AVRational.ByValue n);
+	/**
+	 * Original signature : <code>AVOption* av_set_int(void*, const char*, int64_t)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:200</i><br>
+	 * @deprecated use the safer methods {@link #av_set_int(com.sun.jna.Pointer, java.lang.String, long)} and {@link #av_set_int(com.sun.jna.Pointer, com.sun.jna.Pointer, long)} instead
+	 */
+	@Mangling({"_Z10av_set_intPvPKc7int64_t", "?av_set_int@@YAQBUAVOption@@PAXPAD7int64_t@Z"}) 
+	@Deprecated 
+	AVOption av_set_int(Pointer obj, Pointer name, long n);
+	/**
+	 * Original signature : <code>AVOption* av_set_int(void*, const char*, int64_t)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:200</i>
+	 */
+	@Mangling({"_Z10av_set_intPvPKc7int64_t", "?av_set_int@@YAQBUAVOption@@PAXPAD7int64_t@Z"}) 
+	AVOption av_set_int(Pointer obj, String name, long n);
+	/**
+	 * Original signature : <code>double av_get_double(void*, const char*, const AVOption**)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:201</i><br>
+	 * @deprecated use the safer methods {@link #av_get_double(com.sun.jna.Pointer, java.lang.String, avcodec.AVOption.ByReference[])} and {@link #av_get_double(com.sun.jna.Pointer, com.sun.jna.Pointer, avcodec.AVOption.ByReference[])} instead
+	 */
+	@Mangling({"_Z13av_get_doublePvPKcPPK8AVOption", "?av_get_double@@YANPAXPADPAPAUAVOption@@@Z"}) 
+	@Deprecated 
+	double av_get_double(Pointer obj, Pointer name, PointerByReference o_out);
+	/**
+	 * Original signature : <code>double av_get_double(void*, const char*, const AVOption**)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:201</i>
+	 */
+	@Mangling({"_Z13av_get_doublePvPKcPPK8AVOption", "?av_get_double@@YANPAXPADPAPAUAVOption@@@Z"}) 
+	double av_get_double(Pointer obj, String name, AVOption.ByReference o_out[]);
+	/**
+	 * Original signature : <code>double av_get_double(void*, const char*, const AVOption**)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:201</i>
+	 */
+	@Mangling({"_Z13av_get_doublePvPKcPPK8AVOption", "?av_get_double@@YANPAXPADPAPAUAVOption@@@Z"}) 
+	double av_get_double(Pointer obj, Pointer name, AVOption.ByReference o_out[]);
+	/**
+	 * Original signature : <code>AVRational av_get_q(void*, const char*, const AVOption**)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:202</i><br>
+	 * @deprecated use the safer methods {@link #av_get_q(com.sun.jna.Pointer, java.lang.String, avcodec.AVOption.ByReference[])} and {@link #av_get_q(com.sun.jna.Pointer, com.sun.jna.Pointer, avcodec.AVOption.ByReference[])} instead
+	 */
+	@Mangling({"_Z8av_get_qPvPKcPPK8AVOption", "?av_get_q@@YAUAVRational@@PAXPADPAPAUAVOption@@@Z"}) 
+	@Deprecated 
+	AVRational.ByValue av_get_q(Pointer obj, Pointer name, PointerByReference o_out);
+	/**
+	 * Original signature : <code>AVRational av_get_q(void*, const char*, const AVOption**)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:202</i>
+	 */
+	@Mangling({"_Z8av_get_qPvPKcPPK8AVOption", "?av_get_q@@YAUAVRational@@PAXPADPAPAUAVOption@@@Z"}) 
+	AVRational.ByValue av_get_q(Pointer obj, String name, AVOption.ByReference o_out[]);
+	/**
+	 * Original signature : <code>AVRational av_get_q(void*, const char*, const AVOption**)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:202</i>
+	 */
+	@Mangling({"_Z8av_get_qPvPKcPPK8AVOption", "?av_get_q@@YAUAVRational@@PAXPADPAPAUAVOption@@@Z"}) 
+	AVRational.ByValue av_get_q(Pointer obj, Pointer name, AVOption.ByReference o_out[]);
+	/**
+	 * Original signature : <code>int64_t av_get_int(void*, const char*, const AVOption**)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:203</i><br>
+	 * @deprecated use the safer methods {@link #av_get_int(com.sun.jna.Pointer, java.lang.String, avcodec.AVOption.ByReference[])} and {@link #av_get_int(com.sun.jna.Pointer, com.sun.jna.Pointer, avcodec.AVOption.ByReference[])} instead
+	 */
+	@Mangling({"_Z10av_get_intPvPKcPPK8AVOption", "?av_get_int@@YA7int64_tPAXPADPAPAUAVOption@@@Z"}) 
+	@Deprecated 
+	long av_get_int(Pointer obj, Pointer name, PointerByReference o_out);
+	/**
+	 * Original signature : <code>int64_t av_get_int(void*, const char*, const AVOption**)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:203</i>
+	 */
+	@Mangling({"_Z10av_get_intPvPKcPPK8AVOption", "?av_get_int@@YA7int64_tPAXPADPAPAUAVOption@@@Z"}) 
+	long av_get_int(Pointer obj, String name, AVOption.ByReference o_out[]);
+	/**
+	 * Original signature : <code>int64_t av_get_int(void*, const char*, const AVOption**)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:203</i>
+	 */
+	@Mangling({"_Z10av_get_intPvPKcPPK8AVOption", "?av_get_int@@YA7int64_tPAXPADPAPAUAVOption@@@Z"}) 
+	long av_get_int(Pointer obj, Pointer name, AVOption.ByReference o_out[]);
+	/**
+	 * Original signature : <code>char* av_get_string(void*, const char*, const AVOption**, char*, int)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:204</i><br>
+	 * @deprecated use the safer methods {@link #av_get_string(com.sun.jna.Pointer, java.lang.String, avcodec.AVOption.ByReference[], java.nio.ByteBuffer, int)} and {@link #av_get_string(com.sun.jna.Pointer, com.sun.jna.Pointer, avcodec.AVOption.ByReference[], com.sun.jna.Pointer, int)} instead
+	 */
+	@Mangling({"_Z13av_get_stringPvPKcPPK8AVOptionPci", "?av_get_string@@YAQBDPAXPADPAPAUAVOption@@PADH@Z"}) 
+	@Deprecated 
+	String av_get_string(Pointer obj, Pointer name, PointerByReference o_out, Pointer buf, int buf_len);
+	/**
+	 * Original signature : <code>char* av_get_string(void*, const char*, const AVOption**, char*, int)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:204</i>
+	 */
+	@Mangling({"_Z13av_get_stringPvPKcPPK8AVOptionPci", "?av_get_string@@YAQBDPAXPADPAPAUAVOption@@PADH@Z"}) 
+	String av_get_string(Pointer obj, String name, AVOption.ByReference o_out[], ByteBuffer buf, int buf_len);
+	/**
+	 * Original signature : <code>char* av_get_string(void*, const char*, const AVOption**, char*, int)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:204</i>
+	 */
+	@Mangling({"_Z13av_get_stringPvPKcPPK8AVOptionPci", "?av_get_string@@YAQBDPAXPADPAPAUAVOption@@PADH@Z"}) 
+	String av_get_string(Pointer obj, Pointer name, AVOption.ByReference o_out[], Pointer buf, int buf_len);
+	/**
+	 * Original signature : <code>AVOption* av_next_option(void*, const AVOption*)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:205</i>
+	 */
+	@Mangling({"_Z14av_next_optionPvPK8AVOption", "?av_next_option@@YAQBUAVOption@@PAXPAUAVOption@@@Z"}) 
+	AVOption av_next_option(Pointer obj, AVOption last);
+	/**
+	 * Original signature : <code>int av_opt_show(void*, void*)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:206</i>
+	 */
+	@Mangling({"_Z11av_opt_showPvPv", "?av_opt_show@@YAHPAXPAX@Z"}) 
+	int av_opt_show(Pointer obj, Pointer av_log_obj);
+	/**
+	 * Original signature : <code>void av_opt_set_defaults(void*)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:207</i>
+	 */
+	@Mangling({"_Z19av_opt_set_defaultsPv", "?av_opt_set_defaults@@YAXPAX@Z"}) 
+	void av_opt_set_defaults(Pointer s);
+	/**
+	 * Original signature : <code>void av_opt_set_defaults2(void*, int, int)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/opt.h:208</i>
+	 */
+	@Mangling({"_Z20av_opt_set_defaults2Pvii", "?av_opt_set_defaults2@@YAXPAXHH@Z"}) 
+	void av_opt_set_defaults2(Pointer s, int mask, int flags);
 	/**
 	 * @deprecated use NULL instead<br>
 	 * Original signature : <code>void av_destruct_packet_nofree(AVPacket*)</code><br>
@@ -1790,10 +2187,11 @@ public interface AvcodecLibrary extends Library {
 	 * @param height the height of the picture<br>
 	 * @return zero if successful, a negative value if not<br>
 	 * Original signature : <code>int avpicture_alloc(AVPicture*, PixelFormat, int, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3010</i>
+	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3010</i><br>
+	 * @param pix_fmt @see PixelFormat
 	 */
 	@Mangling({"_Z15avpicture_allocP9AVPicture11PixelFormatii", "?avpicture_alloc@@YAHPAUAVPicture@@11PixelFormatHH@Z"}) 
-	int avpicture_alloc(AVPicture picture, PixelFormat pix_fmt, int width, int height);
+	int avpicture_alloc(AVPicture picture, int pix_fmt, int width, int height);
 	/**
 	 * Free a picture previously allocated by avpicture_alloc().<br>
 	 * * @param picture the AVPicture to be freed<br>
@@ -1819,11 +2217,12 @@ public interface AvcodecLibrary extends Library {
 	 * @return size of the image data in bytes<br>
 	 * Original signature : <code>int avpicture_fill(AVPicture*, uint8_t*, PixelFormat, int, int)</code><br>
 	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3036</i><br>
-	 * @deprecated use the safer methods {@link #avpicture_fill(avcodec.AVPicture, java.nio.ByteBuffer, avformat.AvformatLibrary.PixelFormat, int, int)} and {@link #avpicture_fill(avcodec.AVPicture, com.sun.jna.Pointer, avformat.AvformatLibrary.PixelFormat, int, int)} instead
+	 * @deprecated use the safer methods {@link #avpicture_fill(avcodec.AVPicture, java.nio.ByteBuffer, int, int, int)} and {@link #avpicture_fill(avcodec.AVPicture, com.sun.jna.Pointer, int, int, int)} instead<br>
+	 * @param pix_fmt @see PixelFormat
 	 */
 	@Mangling({"_Z14avpicture_fillP9AVPictureP7uint8_t11PixelFormatii", "?avpicture_fill@@YAHPAUAVPicture@@PA7uint8_t11PixelFormatHH@Z"}) 
 	@Deprecated 
-	int avpicture_fill(AVPicture picture, Pointer ptr, PixelFormat pix_fmt, int width, int height);
+	int avpicture_fill(AVPicture picture, Pointer ptr, int pix_fmt, int width, int height);
 	/**
 	 * Fill in the AVPicture fields.<br>
 	 * The fields of the given AVPicture are filled in by using the 'ptr' address<br>
@@ -1840,24 +2239,27 @@ public interface AvcodecLibrary extends Library {
 	 * @param height the height of the image in pixels<br>
 	 * @return size of the image data in bytes<br>
 	 * Original signature : <code>int avpicture_fill(AVPicture*, uint8_t*, PixelFormat, int, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3036</i>
+	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3036</i><br>
+	 * @param pix_fmt @see PixelFormat
 	 */
 	@Mangling({"_Z14avpicture_fillP9AVPictureP7uint8_t11PixelFormatii", "?avpicture_fill@@YAHPAUAVPicture@@PA7uint8_t11PixelFormatHH@Z"}) 
-	int avpicture_fill(AVPicture picture, ByteBuffer ptr, PixelFormat pix_fmt, int width, int height);
+	int avpicture_fill(AVPicture picture, ByteBuffer ptr, int pix_fmt, int width, int height);
 	/**
 	 * Original signature : <code>int avpicture_layout(const AVPicture*, PixelFormat, int, int, unsigned char*, int)</code><br>
 	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3038</i><br>
-	 * @deprecated use the safer methods {@link #avpicture_layout(avcodec.AVPicture, avformat.AvformatLibrary.PixelFormat, int, int, java.nio.ByteBuffer, int)} and {@link #avpicture_layout(avcodec.AVPicture, avformat.AvformatLibrary.PixelFormat, int, int, com.sun.jna.Pointer, int)} instead
+	 * @deprecated use the safer methods {@link #avpicture_layout(avcodec.AVPicture, int, int, int, java.nio.ByteBuffer, int)} and {@link #avpicture_layout(avcodec.AVPicture, int, int, int, com.sun.jna.Pointer, int)} instead<br>
+	 * @param pix_fmt @see PixelFormat
 	 */
 	@Mangling({"_Z16avpicture_layoutPK9AVPicture11PixelFormatiiPhi", "?avpicture_layout@@YAHPAUAVPicture@@11PixelFormatHHPAEH@Z"}) 
 	@Deprecated 
-	int avpicture_layout(AVPicture src, PixelFormat pix_fmt, int width, int height, Pointer dest, int dest_size);
+	int avpicture_layout(AVPicture src, int pix_fmt, int width, int height, Pointer dest, int dest_size);
 	/**
 	 * Original signature : <code>int avpicture_layout(const AVPicture*, PixelFormat, int, int, unsigned char*, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3038</i>
+	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3038</i><br>
+	 * @param pix_fmt @see PixelFormat
 	 */
 	@Mangling({"_Z16avpicture_layoutPK9AVPicture11PixelFormatiiPhi", "?avpicture_layout@@YAHPAUAVPicture@@11PixelFormatHHPAEH@Z"}) 
-	int avpicture_layout(AVPicture src, PixelFormat pix_fmt, int width, int height, ByteBuffer dest, int dest_size);
+	int avpicture_layout(AVPicture src, int pix_fmt, int width, int height, ByteBuffer dest, int dest_size);
 	/**
 	 * Calculate the size in bytes that a picture of the given width and height<br>
 	 * would occupy if stored in the given picture format.<br>
@@ -1869,30 +2271,34 @@ public interface AvcodecLibrary extends Library {
 	 * @param height the height of the image<br>
 	 * @return Image data size in bytes or -1 on error (e.g. too large dimensions).<br>
 	 * Original signature : <code>int avpicture_get_size(PixelFormat, int, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3053</i>
+	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3053</i><br>
+	 * @param pix_fmt @see PixelFormat
 	 */
 	@Mangling({"_Z18avpicture_get_size11PixelFormatii", "?avpicture_get_size@@YAH11PixelFormatHH@Z"}) 
-	int avpicture_get_size(PixelFormat pix_fmt, int width, int height);
+	int avpicture_get_size(int pix_fmt, int width, int height);
 	/**
 	 * Original signature : <code>void avcodec_get_chroma_sub_sample(PixelFormat, int*, int*)</code><br>
 	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3054</i><br>
-	 * @deprecated use the safer methods {@link #avcodec_get_chroma_sub_sample(avformat.AvformatLibrary.PixelFormat, java.nio.IntBuffer, java.nio.IntBuffer)} and {@link #avcodec_get_chroma_sub_sample(avformat.AvformatLibrary.PixelFormat, com.sun.jna.ptr.IntByReference, com.sun.jna.ptr.IntByReference)} instead
+	 * @deprecated use the safer methods {@link #avcodec_get_chroma_sub_sample(int, java.nio.IntBuffer, java.nio.IntBuffer)} and {@link #avcodec_get_chroma_sub_sample(int, com.sun.jna.ptr.IntByReference, com.sun.jna.ptr.IntByReference)} instead<br>
+	 * @param pix_fmt @see PixelFormat
 	 */
 	@Mangling({"_Z29avcodec_get_chroma_sub_sample11PixelFormatPiPi", "?avcodec_get_chroma_sub_sample@@YAX11PixelFormatPAHPAH@Z"}) 
 	@Deprecated 
-	void avcodec_get_chroma_sub_sample(PixelFormat pix_fmt, IntByReference h_shift, IntByReference v_shift);
+	void avcodec_get_chroma_sub_sample(int pix_fmt, IntByReference h_shift, IntByReference v_shift);
 	/**
 	 * Original signature : <code>void avcodec_get_chroma_sub_sample(PixelFormat, int*, int*)</code><br>
-	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3054</i>
+	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3054</i><br>
+	 * @param pix_fmt @see PixelFormat
 	 */
 	@Mangling({"_Z29avcodec_get_chroma_sub_sample11PixelFormatPiPi", "?avcodec_get_chroma_sub_sample@@YAX11PixelFormatPAHPAH@Z"}) 
-	void avcodec_get_chroma_sub_sample(PixelFormat pix_fmt, IntBuffer h_shift, IntBuffer v_shift);
+	void avcodec_get_chroma_sub_sample(int pix_fmt, IntBuffer h_shift, IntBuffer v_shift);
 	/**
 	 * Original signature : <code>char* avcodec_get_pix_fmt_name(PixelFormat)</code><br>
-	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3055</i>
+	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3055</i><br>
+	 * @param pix_fmt @see PixelFormat
 	 */
 	@Mangling({"_Z24avcodec_get_pix_fmt_name11PixelFormat", "?avcodec_get_pix_fmt_name@@YAQBD11PixelFormat@Z"}) 
-	String avcodec_get_pix_fmt_name(PixelFormat pix_fmt);
+	String avcodec_get_pix_fmt_name(int pix_fmt);
 	/**
 	 * Original signature : <code>void avcodec_set_dimensions(AVCodecContext*, int, int)</code><br>
 	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3056</i>
@@ -1914,7 +2320,9 @@ public interface AvcodecLibrary extends Library {
 	 */
 	@Mangling({"_Z19avcodec_get_pix_fmtPKc", "?avcodec_get_pix_fmt@@YA11PixelFormatPAD@Z"}) 
 	@Deprecated 
-	PixelFormat avcodec_get_pix_fmt(Pointer name);
+	/**
+	 * @see PixelFormat
+	 */int avcodec_get_pix_fmt(Pointer name);
 	/**
 	 * Returns the pixel format corresponding to the name name.<br>
 	 * * If there is no pixel format with name name, then looks for a<br>
@@ -1928,16 +2336,19 @@ public interface AvcodecLibrary extends Library {
 	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3072</i>
 	 */
 	@Mangling({"_Z19avcodec_get_pix_fmtPKc", "?avcodec_get_pix_fmt@@YA11PixelFormatPAD@Z"}) 
-	PixelFormat avcodec_get_pix_fmt(String name);
+	/**
+	 * @see PixelFormat
+	 */int avcodec_get_pix_fmt(String name);
 	/**
 	 * Returns a value representing the fourCC code associated to the<br>
 	 * pixel format pix_fmt, or 0 if no associated fourCC code can be<br>
 	 * found.<br>
 	 * Original signature : <code>int avcodec_pix_fmt_to_codec_tag(PixelFormat)</code><br>
-	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3080</i>
+	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3080</i><br>
+	 * @param pix_fmt @see PixelFormat
 	 */
 	@Mangling({"_Z28avcodec_pix_fmt_to_codec_tag11PixelFormat", "?avcodec_pix_fmt_to_codec_tag@@YAI11PixelFormat@Z"}) 
-	int avcodec_pix_fmt_to_codec_tag(PixelFormat pix_fmt);
+	int avcodec_pix_fmt_to_codec_tag(int pix_fmt);
 	/**
 	 * Computes what kind of losses will occur when converting from one specific<br>
 	 * pixel format to another.<br>
@@ -1954,10 +2365,12 @@ public interface AvcodecLibrary extends Library {
 	 * @param[in] has_alpha Whether the source pixel format alpha channel is used.<br>
 	 * @return Combination of flags informing you what kind of losses will occur.<br>
 	 * Original signature : <code>int avcodec_get_pix_fmt_loss(PixelFormat, PixelFormat, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3106</i>
+	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3106</i><br>
+	 * @param dst_pix_fmt @see PixelFormat<br>
+	 * @param src_pix_fmt @see PixelFormat
 	 */
 	@Mangling({"_Z24avcodec_get_pix_fmt_loss11PixelFormat11PixelFormati", "?avcodec_get_pix_fmt_loss@@YAH11PixelFormat11PixelFormatH@Z"}) 
-	int avcodec_get_pix_fmt_loss(PixelFormat dst_pix_fmt, PixelFormat src_pix_fmt, int has_alpha);
+	int avcodec_get_pix_fmt_loss(int dst_pix_fmt, int src_pix_fmt, int has_alpha);
 	/**
 	 * Finds the best pixel format to convert to given a certain source pixel<br>
 	 * format.  When converting from one pixel format to another, information loss<br>
@@ -1979,11 +2392,14 @@ public interface AvcodecLibrary extends Library {
 	 * @return The best pixel format to convert to or -1 if none was found.<br>
 	 * Original signature : <code>PixelFormat avcodec_find_best_pix_fmt(int64_t, PixelFormat, int, int*)</code><br>
 	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3131</i><br>
-	 * @deprecated use the safer methods {@link #avcodec_find_best_pix_fmt(long, avformat.AvformatLibrary.PixelFormat, int, java.nio.IntBuffer)} and {@link #avcodec_find_best_pix_fmt(long, avformat.AvformatLibrary.PixelFormat, int, com.sun.jna.ptr.IntByReference)} instead
+	 * @deprecated use the safer methods {@link #avcodec_find_best_pix_fmt(long, int, int, java.nio.IntBuffer)} and {@link #avcodec_find_best_pix_fmt(long, int, int, com.sun.jna.ptr.IntByReference)} instead<br>
+	 * @param src_pix_fmt @see PixelFormat
 	 */
 	@Mangling({"_Z25avcodec_find_best_pix_fmt7int64_t11PixelFormatiPi", "?avcodec_find_best_pix_fmt@@YA11PixelFormat7int64_t11PixelFormatHPAH@Z"}) 
 	@Deprecated 
-	PixelFormat avcodec_find_best_pix_fmt(long pix_fmt_mask, PixelFormat src_pix_fmt, int has_alpha, IntByReference loss_ptr);
+	/**
+	 * @see PixelFormat
+	 */int avcodec_find_best_pix_fmt(long pix_fmt_mask, int src_pix_fmt, int has_alpha, IntByReference loss_ptr);
 	/**
 	 * Finds the best pixel format to convert to given a certain source pixel<br>
 	 * format.  When converting from one pixel format to another, information loss<br>
@@ -2004,10 +2420,13 @@ public interface AvcodecLibrary extends Library {
 	 * @param[out] loss_ptr Combination of flags informing you what kind of losses will occur.<br>
 	 * @return The best pixel format to convert to or -1 if none was found.<br>
 	 * Original signature : <code>PixelFormat avcodec_find_best_pix_fmt(int64_t, PixelFormat, int, int*)</code><br>
-	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3131</i>
+	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3131</i><br>
+	 * @param src_pix_fmt @see PixelFormat
 	 */
 	@Mangling({"_Z25avcodec_find_best_pix_fmt7int64_t11PixelFormatiPi", "?avcodec_find_best_pix_fmt@@YA11PixelFormat7int64_t11PixelFormatHPAH@Z"}) 
-	PixelFormat avcodec_find_best_pix_fmt(long pix_fmt_mask, PixelFormat src_pix_fmt, int has_alpha, IntBuffer loss_ptr);
+	/**
+	 * @see PixelFormat
+	 */int avcodec_find_best_pix_fmt(long pix_fmt_mask, int src_pix_fmt, int has_alpha, IntBuffer loss_ptr);
 	/**
 	 * Print in buf the string corresponding to the pixel format with<br>
 	 * number pix_fmt, or an header if pix_fmt is negative.<br>
@@ -2018,11 +2437,12 @@ public interface AvcodecLibrary extends Library {
 	 * Meaningful values for obtaining a pixel format info vary from 0 to PIX_FMT_NB -1.<br>
 	 * Original signature : <code>void avcodec_pix_fmt_string(char*, int, PixelFormat)</code><br>
 	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3145</i><br>
-	 * @deprecated use the safer methods {@link #avcodec_pix_fmt_string(java.nio.ByteBuffer, int, avformat.AvformatLibrary.PixelFormat)} and {@link #avcodec_pix_fmt_string(com.sun.jna.Pointer, int, avformat.AvformatLibrary.PixelFormat)} instead
+	 * @deprecated use the safer methods {@link #avcodec_pix_fmt_string(java.nio.ByteBuffer, int, int)} and {@link #avcodec_pix_fmt_string(com.sun.jna.Pointer, int, int)} instead<br>
+	 * @param pix_fmt @see PixelFormat
 	 */
 	@Mangling({"_Z22avcodec_pix_fmt_stringPci11PixelFormat", "?avcodec_pix_fmt_string@@YAXPADH11PixelFormat@Z"}) 
 	@Deprecated 
-	void avcodec_pix_fmt_string(Pointer buf, int buf_size, PixelFormat pix_fmt);
+	void avcodec_pix_fmt_string(Pointer buf, int buf_size, int pix_fmt);
 	/**
 	 * Print in buf the string corresponding to the pixel format with<br>
 	 * number pix_fmt, or an header if pix_fmt is negative.<br>
@@ -2032,25 +2452,28 @@ public interface AvcodecLibrary extends Library {
 	 * a negative value to print the corresponding header.<br>
 	 * Meaningful values for obtaining a pixel format info vary from 0 to PIX_FMT_NB -1.<br>
 	 * Original signature : <code>void avcodec_pix_fmt_string(char*, int, PixelFormat)</code><br>
-	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3145</i>
+	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3145</i><br>
+	 * @param pix_fmt @see PixelFormat
 	 */
 	@Mangling({"_Z22avcodec_pix_fmt_stringPci11PixelFormat", "?avcodec_pix_fmt_string@@YAXPADH11PixelFormat@Z"}) 
-	void avcodec_pix_fmt_string(ByteBuffer buf, int buf_size, PixelFormat pix_fmt);
+	void avcodec_pix_fmt_string(ByteBuffer buf, int buf_size, int pix_fmt);
 	/**
 	 * Tell if an image really has transparent alpha values.<br>
 	 * @return ored mask of FF_ALPHA_xxx constants<br>
 	 * Original signature : <code>int img_get_alpha_info(const AVPicture*, PixelFormat, int, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3154</i>
+	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3154</i><br>
+	 * @param pix_fmt @see PixelFormat
 	 */
 	@Mangling({"_Z18img_get_alpha_infoPK9AVPicture11PixelFormatii", "?img_get_alpha_info@@YAHPAUAVPicture@@11PixelFormatHH@Z"}) 
-	int img_get_alpha_info(AVPicture src, PixelFormat pix_fmt, int width, int height);
+	int img_get_alpha_info(AVPicture src, int pix_fmt, int width, int height);
 	/**
 	 * deinterlace - if not supported return -1<br>
 	 * Original signature : <code>int avpicture_deinterlace(AVPicture*, const AVPicture*, PixelFormat, int, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3159</i>
+	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3159</i><br>
+	 * @param pix_fmt @see PixelFormat
 	 */
 	@Mangling({"_Z21avpicture_deinterlaceP9AVPicturePK9AVPicture11PixelFormatii", "?avpicture_deinterlace@@YAHPAUAVPicture@@PAUAVPicture@@11PixelFormatHH@Z"}) 
-	int avpicture_deinterlace(AVPicture dst, AVPicture src, PixelFormat pix_fmt, int width, int height);
+	int avpicture_deinterlace(AVPicture dst, AVPicture src, int pix_fmt, int width, int height);
 	/**
 	 * If c is NULL, returns the first registered codec,<br>
 	 * if c is non-NULL, returns the next registered codec after c,<br>
@@ -2192,7 +2615,7 @@ public interface AvcodecLibrary extends Library {
 	 *  we WILL change its arguments and name a few times!<br>
 	 * Original signature : <code>void avcodec_get_context_defaults2(AVCodecContext*, AVMediaType)</code><br>
 	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3250</i><br>
-	 * @param arg1 @see avutil.AvutilLibrary#AVMediaType
+	 * @param arg1 @see AVMediaType
 	 */
 	@Mangling({"_Z29avcodec_get_context_defaults2P14AVCodecContext11AVMediaType", "?avcodec_get_context_defaults2@@YAXPAUAVCodecContext@@11AVMediaType@Z"}) 
 	void avcodec_get_context_defaults2(AVCodecContext s, int arg1);
@@ -2211,7 +2634,7 @@ public interface AvcodecLibrary extends Library {
 	 *  we WILL change its arguments and name a few times!<br>
 	 * Original signature : <code>AVCodecContext* avcodec_alloc_context2(AVMediaType)</code><br>
 	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3263</i><br>
-	 * @param arg1 @see avutil.AvutilLibrary#AVMediaType
+	 * @param arg1 @see AVMediaType
 	 */
 	@Mangling({"_Z22avcodec_alloc_context211AVMediaType", "?avcodec_alloc_context2@@YAPAUAVCodecContext@@11AVMediaType@Z"}) 
 	AVCodecContext avcodec_alloc_context2(int arg1);
@@ -2340,10 +2763,22 @@ public interface AvcodecLibrary extends Library {
 	int avcodec_check_dimensions(Pointer av_log_ctx, int w, int h);
 	/**
 	 * Original signature : <code>PixelFormat avcodec_default_get_format(AVCodecContext*, PixelFormat*)</code><br>
+	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3337</i><br>
+	 * @deprecated use the safer methods {@link #avcodec_default_get_format(avcodec.AVCodecContext, java.nio.IntBuffer)} and {@link #avcodec_default_get_format(avcodec.AVCodecContext, com.sun.jna.ptr.IntByReference)} instead
+	 */
+	@Mangling({"_Z26avcodec_default_get_formatP14AVCodecContextP11PixelFormat", "?avcodec_default_get_format@@YA11PixelFormatPAUAVCodecContext@@PA11PixelFormat@Z"}) 
+	@Deprecated 
+	/**
+	 * @see PixelFormat
+	 */int avcodec_default_get_format(AVCodecContext s, IntByReference fmt);
+	/**
+	 * Original signature : <code>PixelFormat avcodec_default_get_format(AVCodecContext*, PixelFormat*)</code><br>
 	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3337</i>
 	 */
 	@Mangling({"_Z26avcodec_default_get_formatP14AVCodecContextP11PixelFormat", "?avcodec_default_get_format@@YA11PixelFormatPAUAVCodecContext@@PA11PixelFormat@Z"}) 
-	PixelFormat avcodec_default_get_format(AVCodecContext s, Pointer fmt);
+	/**
+	 * @see PixelFormat
+	 */int avcodec_default_get_format(AVCodecContext s, IntBuffer fmt);
 	/**
 	 * Original signature : <code>int avcodec_thread_init(AVCodecContext*, int)</code><br>
 	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3339</i>
@@ -3047,33 +3482,37 @@ public interface AvcodecLibrary extends Library {
 	/**
 	 * Copy image 'src' to 'dst'.<br>
 	 * Original signature : <code>void av_picture_copy(AVPicture*, const AVPicture*, PixelFormat, int, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3856</i>
+	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3856</i><br>
+	 * @param pix_fmt @see PixelFormat
 	 */
 	@Mangling({"_Z15av_picture_copyP9AVPicturePK9AVPicture11PixelFormatii", "?av_picture_copy@@YAXPAUAVPicture@@PAUAVPicture@@11PixelFormatHH@Z"}) 
-	void av_picture_copy(AVPicture dst, AVPicture src, PixelFormat pix_fmt, int width, int height);
+	void av_picture_copy(AVPicture dst, AVPicture src, int pix_fmt, int width, int height);
 	/**
 	 * Crop image top and left side.<br>
 	 * Original signature : <code>int av_picture_crop(AVPicture*, const AVPicture*, PixelFormat, int, int)</code><br>
-	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3862</i>
+	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3862</i><br>
+	 * @param pix_fmt @see PixelFormat
 	 */
 	@Mangling({"_Z15av_picture_cropP9AVPicturePK9AVPicture11PixelFormatii", "?av_picture_crop@@YAHPAUAVPicture@@PAUAVPicture@@11PixelFormatHH@Z"}) 
-	int av_picture_crop(AVPicture dst, AVPicture src, PixelFormat pix_fmt, int top_band, int left_band);
+	int av_picture_crop(AVPicture dst, AVPicture src, int pix_fmt, int top_band, int left_band);
 	/**
 	 * Pad image.<br>
 	 * Original signature : <code>int av_picture_pad(AVPicture*, const AVPicture*, int, int, PixelFormat, int, int, int, int, int*)</code><br>
 	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3868</i><br>
-	 * @deprecated use the safer methods {@link #av_picture_pad(avcodec.AVPicture, avcodec.AVPicture, int, int, avformat.AvformatLibrary.PixelFormat, int, int, int, int, java.nio.IntBuffer)} and {@link #av_picture_pad(avcodec.AVPicture, avcodec.AVPicture, int, int, avformat.AvformatLibrary.PixelFormat, int, int, int, int, com.sun.jna.ptr.IntByReference)} instead
+	 * @deprecated use the safer methods {@link #av_picture_pad(avcodec.AVPicture, avcodec.AVPicture, int, int, int, int, int, int, int, java.nio.IntBuffer)} and {@link #av_picture_pad(avcodec.AVPicture, avcodec.AVPicture, int, int, int, int, int, int, int, com.sun.jna.ptr.IntByReference)} instead<br>
+	 * @param pix_fmt @see PixelFormat
 	 */
 	@Mangling({"_Z14av_picture_padP9AVPicturePK9AVPictureii11PixelFormatiiiiPi", "?av_picture_pad@@YAHPAUAVPicture@@PAUAVPicture@@HH11PixelFormatHHHHPAH@Z"}) 
 	@Deprecated 
-	int av_picture_pad(AVPicture dst, AVPicture src, int height, int width, PixelFormat pix_fmt, int padtop, int padbottom, int padleft, int padright, IntByReference color);
+	int av_picture_pad(AVPicture dst, AVPicture src, int height, int width, int pix_fmt, int padtop, int padbottom, int padleft, int padright, IntByReference color);
 	/**
 	 * Pad image.<br>
 	 * Original signature : <code>int av_picture_pad(AVPicture*, const AVPicture*, int, int, PixelFormat, int, int, int, int, int*)</code><br>
-	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3868</i>
+	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3868</i><br>
+	 * @param pix_fmt @see PixelFormat
 	 */
 	@Mangling({"_Z14av_picture_padP9AVPicturePK9AVPictureii11PixelFormatiiiiPi", "?av_picture_pad@@YAHPAUAVPicture@@PAUAVPicture@@HH11PixelFormatHHHHPAH@Z"}) 
-	int av_picture_pad(AVPicture dst, AVPicture src, int height, int width, PixelFormat pix_fmt, int padtop, int padbottom, int padleft, int padright, IntBuffer color);
+	int av_picture_pad(AVPicture dst, AVPicture src, int height, int width, int pix_fmt, int padtop, int padbottom, int padleft, int padright, IntBuffer color);
 	/**
 	 * Encodes extradata length to a buffer. Used by xiph codecs.<br>
 	 * * @param s buffer to write to; must be at least (v/255+1) bytes long<br>

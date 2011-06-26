@@ -1,5 +1,4 @@
 package avcodec;
-import avformat.AvformatLibrary.PixelFormat;
 import com.ochafik.lang.jnaerator.runtime.Structure;
 import com.sun.jna.Callback;
 import com.sun.jna.Pointer;
@@ -20,7 +19,7 @@ public class AVHWAccel extends Structure<AVHWAccel, AVHWAccel.ByValue, AVHWAccel
 	/**
 	 * Type of codec implemented by the hardware accelerator.<br>
 	 * * See AVMEDIA_TYPE_xxx<br>
-	 * @see avutil.AvutilLibrary#AVMediaType<br>
+	 * @see AVMediaType<br>
 	 * C type : AVMediaType
 	 */
 	public int type;
@@ -34,9 +33,10 @@ public class AVHWAccel extends Structure<AVHWAccel, AVHWAccel.ByValue, AVHWAccel
 	/**
 	 * Supported pixel format.<br>
 	 * * Only hardware accelerated formats are supported here.<br>
+	 * @see PixelFormat<br>
 	 * C type : PixelFormat
 	 */
-	public PixelFormat pix_fmt;
+	public int pix_fmt;
 	/**
 	 * Hardware accelerated codec capabilities.<br>
 	 * see FF_HWACCEL_CODEC_CAP_*

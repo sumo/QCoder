@@ -4,6 +4,7 @@ import com.ochafik.lang.jnaerator.runtime.LibraryExtractor;
 import com.ochafik.lang.jnaerator.runtime.MangledFunctionMapper;
 import com.ochafik.lang.jnaerator.runtime.Mangling;
 import com.ochafik.lang.jnaerator.runtime.NativeSize;
+import com.sun.jna.Callback;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
@@ -22,60 +23,91 @@ public interface AvutilLibrary extends Library {
 	public static final NativeLibrary JNA_NATIVE_LIB = NativeLibrary.getInstance(avutil.AvutilLibrary.JNA_LIBRARY_NAME, com.ochafik.lang.jnaerator.runtime.MangledFunctionMapper.DEFAULT_OPTIONS);
 	public static final AvutilLibrary INSTANCE = (AvutilLibrary)Native.loadLibrary(avutil.AvutilLibrary.JNA_LIBRARY_NAME, avutil.AvutilLibrary.class, com.ochafik.lang.jnaerator.runtime.MangledFunctionMapper.DEFAULT_OPTIONS);
 	/**
-	 * <i>native declaration : src/main/headers/libavutil/avutil.h:71</i><br>
-	 * enum values
-	 */
-	public static interface AVMediaType {
-		/// <i>native declaration : src/main/headers/libavutil/avutil.h:72</i>
-		public static final int AVMEDIA_TYPE_UNKNOWN = -1;
-		/// <i>native declaration : src/main/headers/libavutil/avutil.h:73</i>
-		public static final int AVMEDIA_TYPE_VIDEO = 0;
-		/// <i>native declaration : src/main/headers/libavutil/avutil.h:74</i>
-		public static final int AVMEDIA_TYPE_AUDIO = 1;
-		/// <i>native declaration : src/main/headers/libavutil/avutil.h:75</i>
-		public static final int AVMEDIA_TYPE_DATA = 2;
-		/// <i>native declaration : src/main/headers/libavutil/avutil.h:76</i>
-		public static final int AVMEDIA_TYPE_SUBTITLE = 3;
-		/// <i>native declaration : src/main/headers/libavutil/avutil.h:77</i>
-		public static final int AVMEDIA_TYPE_ATTACHMENT = 4;
-		/// <i>native declaration : src/main/headers/libavutil/avutil.h:78</i>
-		public static final int AVMEDIA_TYPE_NB = 5;
-	};
-	/**
 	 * Conversion Error : a.num<br>
 	 * SKIPPED:<br>
 	 * <i>native declaration : src/main/headers/libavutil/rational.h</i><br>
 	 * const int64_t tmp = a.num * (int64_t)b.den - b.num * (int64_t)a.den;
 	 */
-	/// <i>native declaration : src/main/headers/libavutil/avutil.h</i>
-	public static final int LIBAVUTIL_VERSION_MICRO = 1;
-	/// <i>native declaration : src/main/headers/libavutil/avutil.h</i>
-	public static final int LIBAVUTIL_VERSION_MAJOR = 50;
-	/// <i>native declaration : src/main/headers/libavutil/avutil.h</i>
-	public static final int LIBAVUTIL_VERSION_MINOR = 15;
-	/// <i>native declaration : src/main/headers/libavutil/avutil.h</i>
-	public static final String LIBAVUTIL_IDENT = "Lavu";
+	/// <i>native declaration : src/main/headers/libavutil/log.h</i>
+	public static final int AV_LOG_PANIC = 0;
+	/// <i>native declaration : src/main/headers/libavutil/log.h</i>
+	public static final int AV_LOG_DEBUG = 48;
+	/// <i>native declaration : src/main/headers/libavutil/log.h</i>
+	public static final int AV_LOG_WARNING = 24;
+	/// <i>native declaration : src/main/headers/libavutil/log.h</i>
+	public static final int AV_LOG_VERBOSE = 40;
+	/// <i>native declaration : src/main/headers/libavutil/log.h</i>
+	public static final int AV_LOG_INFO = 32;
+	/// <i>native declaration : src/main/headers/libavutil/log.h</i>
+	public static final int AV_LOG_QUIET = -8;
+	/// <i>native declaration : src/main/headers/libavutil/log.h</i>
+	public static final int AV_LOG_ERROR = 16;
+	/// <i>native declaration : src/main/headers/libavutil/log.h</i>
+	public static final int AV_LOG_FATAL = 8;
+	/// <i>native declaration : src/main/headers/libavutil/log.h:119</i>
+	public interface av_log_set_callback_arg1_callback extends Callback {
+		void apply(Pointer voidPtr1, int int1, Pointer charPtr1);
+	};
 	/**
-	 * Returns the LIBAVUTIL_VERSION_INT constant.<br>
-	 * Original signature : <code>avutil_version()</code><br>
-	 * <i>native declaration : src/main/headers/libavutil/avutil.h:59</i>
+	 * Original signature : <code>void av_log(void*, int, const char*, null)</code><br>
+	 * <i>native declaration : src/main/headers/libavutil/log.h:111</i><br>
+	 * @deprecated use the safer methods {@link #av_log(com.sun.jna.Pointer, int, java.lang.String, java.lang.Object)} and {@link #av_log(com.sun.jna.Pointer, int, com.sun.jna.Pointer, java.lang.Object)} instead
 	 */
-	@Mangling({"_Z14avutil_versionv", "?avutil_version@@YAXXZ"}) 
-	int avutil_version();
+	@Mangling({"_Z6av_logPviPKcv", "?av_log@@YAXPAXHPADX@Z"}) 
+	@Deprecated 
+	void av_log(Pointer voidPtr1, int level, Pointer fmt, Object... varargs);
 	/**
-	 * Returns the libavutil build-time configuration.<br>
-	 * Original signature : <code>char* avutil_configuration()</code><br>
-	 * <i>native declaration : src/main/headers/libavutil/avutil.h:64</i>
+	 * Original signature : <code>void av_log(void*, int, const char*, null)</code><br>
+	 * <i>native declaration : src/main/headers/libavutil/log.h:111</i>
 	 */
-	@Mangling({"_Z20avutil_configurationv", "?avutil_configuration@@YAQBDXZ"}) 
-	String avutil_configuration();
+	@Mangling({"_Z6av_logPviPKcv", "?av_log@@YAXPAXHPADX@Z"}) 
+	void av_log(Pointer voidPtr1, int level, String fmt, Object... varargs);
 	/**
-	 * Returns the libavutil license.<br>
-	 * Original signature : <code>char* avutil_license()</code><br>
-	 * <i>native declaration : src/main/headers/libavutil/avutil.h:69</i>
+	 * Original signature : <code>void av_vlog(void*, int, const char*)</code><br>
+	 * <i>native declaration : src/main/headers/libavutil/log.h:116</i><br>
+	 * @deprecated use the safer methods {@link #av_vlog(com.sun.jna.Pointer, int, java.lang.String)} and {@link #av_vlog(com.sun.jna.Pointer, int, com.sun.jna.Pointer)} instead
 	 */
-	@Mangling({"_Z14avutil_licensev", "?avutil_license@@YAQBDXZ"}) 
-	String avutil_license();
+	@Mangling({"_Z7av_vlogPviPKc", "?av_vlog@@YAXPAXHPAD@Z"}) 
+	@Deprecated 
+	void av_vlog(Pointer voidPtr1, int level, Pointer fmt);
+	/**
+	 * Original signature : <code>void av_vlog(void*, int, const char*)</code><br>
+	 * <i>native declaration : src/main/headers/libavutil/log.h:116</i>
+	 */
+	@Mangling({"_Z7av_vlogPviPKc", "?av_vlog@@YAXPAXHPAD@Z"}) 
+	void av_vlog(Pointer voidPtr1, int level, String fmt);
+	/**
+	 * Original signature : <code>int av_log_get_level()</code><br>
+	 * <i>native declaration : src/main/headers/libavutil/log.h:117</i>
+	 */
+	@Mangling({"_Z16av_log_get_levelv", "?av_log_get_level@@YAHXZ"}) 
+	int av_log_get_level();
+	/**
+	 * Original signature : <code>void av_log_set_level(int)</code><br>
+	 * <i>native declaration : src/main/headers/libavutil/log.h:118</i>
+	 */
+	@Mangling({"_Z16av_log_set_leveli", "?av_log_set_level@@YAXH@Z"}) 
+	void av_log_set_level(int int1);
+	/**
+	 * Original signature : <code>void av_log_set_callback(av_log_set_callback_arg1_callback)</code><br>
+	 * <i>native declaration : src/main/headers/libavutil/log.h:119</i>
+	 */
+	@Mangling({"_Z19av_log_set_callbackPFvPviPKcE", "?av_log_set_callback@@YAXPFXPAXHPAD@E@Z"}) 
+	void av_log_set_callback(AvutilLibrary.av_log_set_callback_arg1_callback arg1);
+	/**
+	 * Original signature : <code>void av_log_default_callback(void*, int, const char*, va_list)</code><br>
+	 * <i>native declaration : src/main/headers/libavutil/log.h:120</i><br>
+	 * @deprecated use the safer methods {@link #av_log_default_callback(com.sun.jna.Pointer, int, java.lang.String, avutil.AvutilLibrary.__builtin_va_list)} and {@link #av_log_default_callback(com.sun.jna.Pointer, int, com.sun.jna.Pointer, avutil.AvutilLibrary.__builtin_va_list)} instead
+	 */
+	@Mangling({"_Z23av_log_default_callbackPviPKc17__builtin_va_list", "?av_log_default_callback@@YAXPAXHPAD17__builtin_va_list@Z"}) 
+	@Deprecated 
+	void av_log_default_callback(Pointer ptr, int level, Pointer fmt, AvutilLibrary.__builtin_va_list vl);
+	/**
+	 * Original signature : <code>void av_log_default_callback(void*, int, const char*, va_list)</code><br>
+	 * <i>native declaration : src/main/headers/libavutil/log.h:120</i>
+	 */
+	@Mangling({"_Z23av_log_default_callbackPviPKc17__builtin_va_list", "?av_log_default_callback@@YAXPAXHPAD17__builtin_va_list@Z"}) 
+	void av_log_default_callback(Pointer ptr, int level, String fmt, AvutilLibrary.__builtin_va_list vl);
 	/**
 	 * Reduces a fraction.<br>
 	 * This is useful for framerate calculations.<br>
@@ -201,4 +233,25 @@ public interface AvutilLibrary extends Library {
 	 */
 	@Mangling({"_Z11av_strerroriPc6size_t", "?av_strerror@@YAHHPAD6size_t@Z"}) 
 	int av_strerror(int errnum, ByteBuffer errbuf, NativeSize errbuf_size);
+	/// misc math functions
+	public static final class ff_log2_tab {
+		private static Pointer ff_log2_tab;
+		public static synchronized Pointer get() {
+			if (ff_log2_tab == null) 
+				ff_log2_tab = AvutilLibrary.JNA_NATIVE_LIB.getGlobalVariableAddress("ff_log2_tab");
+			return ff_log2_tab;
+		}
+	};
+	public static final class av_reverse {
+		private static Pointer av_reverse;
+		public static synchronized Pointer get() {
+			if (av_reverse == null) 
+				av_reverse = AvutilLibrary.JNA_NATIVE_LIB.getGlobalVariableAddress("av_reverse");
+			return av_reverse;
+		}
+	};
+	/// Undefined type
+	public static interface __builtin_va_list {
+		
+	};
 }

@@ -9,7 +9,7 @@ import com.sun.jna._
 import com.ochafik.lang.jnaerator.runtime._
 import grizzled.slf4j.Logger
 import FFmpegUtils._
-import AvutilLibrary.AVMediaType._
+import AvcodecLibrary.AVMediaType._
 import biz.mediabag.qcoder.domain._
 
 object FFmpegStream {

@@ -1,5 +1,4 @@
 package avcodec;
-import avformat.AvformatLibrary.PixelFormat;
 import avutil.AVRational;
 import com.ochafik.lang.jnaerator.runtime.Structure;
 import com.sun.jna.Callback;
@@ -105,9 +104,10 @@ public class AVCodecContext extends Structure<AVCodecContext, AVCodecContext.ByV
 	 * Pixel format, see PIX_FMT_xxx.<br>
 	 * - encoding: Set by user.<br>
 	 * - decoding: Set by libavcodec.<br>
+	 * @see PixelFormat<br>
 	 * C type : PixelFormat
 	 */
-	public PixelFormat pix_fmt;
+	public int pix_fmt;
 	/**
 	 * Frame rate emulation. If not zero, the lower layer (i.e. format handler)<br>
 	 * has to read frames at native frame rate.<br>
@@ -251,7 +251,7 @@ public class AVCodecContext extends Structure<AVCodecContext, AVCodecContext.ByV
 	/// C type : char[32]
 	public byte[] codec_name = new byte[(32)];
 	/**
-	 * @see avutil.AvutilLibrary#AVMediaType<br>
+	 * @see AVMediaType<br>
 	 * see AVMEDIA_TYPE_xxx<br>
 	 * C type : AVMediaType
 	 */
@@ -1350,7 +1350,9 @@ public class AVCodecContext extends Structure<AVCodecContext, AVCodecContext.ByV
 	};
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
 	public interface get_format_callback extends Callback {
-		PixelFormat apply(AVCodecContext s, Pointer fmt);
+		/**
+		 * @see PixelFormat
+		 */int apply(AVCodecContext s, IntByReference fmt);
 	};
 	/// <i>native declaration : src/main/headers/libavcodec/avcodec.h</i>
 	public interface reget_buffer_callback extends Callback {

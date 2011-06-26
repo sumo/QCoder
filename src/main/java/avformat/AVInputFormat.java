@@ -47,7 +47,7 @@ public class AVInputFormat extends Structure<AVInputFormat, AVInputFormat.ByValu
 	 * or must be freed before returning<br>
 	 * C type : read_packet_callback
 	 */
-	public avformat.ByteIOContext.read_packet_callback read_packet;
+	public AVInputFormat.read_packet_callback read_packet;
 	/**
 	 * Close the stream. The AVFormatContext and AVStreams are not<br>
 	 * freed by this function<br>
@@ -63,7 +63,7 @@ public class AVInputFormat extends Structure<AVInputFormat, AVInputFormat.ByValu
 	 * @return >= 0 on success (but not necessarily the new offset)<br>
 	 * C type : read_seek_callback
 	 */
-	public avformat.ByteIOContext.read_seek_callback read_seek;
+	public AVInputFormat.read_seek_callback read_seek;
 	/**
 	 * Gets the next timestamp in stream[stream_index].time_base units.<br>
 	 * @return the timestamp or AV_NOPTS_VALUE if an error occurred<br>
@@ -92,7 +92,7 @@ public class AVInputFormat extends Structure<AVInputFormat, AVInputFormat.ByValu
 	 * (RTSP).<br>
 	 * C type : read_pause_callback
 	 */
-	public avformat.ByteIOContext.read_pause_callback read_pause;
+	public AVInputFormat.read_pause_callback read_pause;
 	/// C type : AVCodecTag**
 	public PointerByReference codec_tag;
 	/**
@@ -109,7 +109,7 @@ public class AVInputFormat extends Structure<AVInputFormat, AVInputFormat.ByValu
 	 * private fields<br>
 	 * C type : AVInputFormat*
 	 */
-	public AVInputFormat.ByReference next;
+	public Pointer next;
 	/// <i>native declaration : src/main/headers/libavformat/avformat.h</i>
 	public interface read_probe_callback extends Callback {
 		int apply(AVProbeData AVProbeDataPtr1);

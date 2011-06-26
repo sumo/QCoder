@@ -23,7 +23,7 @@ class FFmpegContainerFactory extends ContainerFactory with Logging {
   def loadFrom(is: ReadableByteChannel): FFmpegContainer = {
     val buffer = ByteBuffer.allocateDirect(2 * 2048)
     val size = is.read(buffer)
-    info("Read " + size + " bytes")
+    debug("Read " + size + " bytes")
     buffer.rewind
 
     val memory = new Memory(size)
@@ -33,49 +33,33 @@ class FFmpegContainerFactory extends ContainerFactory with Logging {
     buffer.rewind
 
     val probeData = new AVProbeData(null, memory, size)
-    probeData.filename = "__url_prot"
 
     val inputFmt = FormatLibrary.av_probe_input_format(probeData, 1)
     if (inputFmt == null) {
       error("Probe failed");
       null
     } else {
-      info("Probe successful: %s, %s".format(inputFmt.name.getString(0),
+      debug("Probe successful: %s, %s".format(inputFmt.name.getString(0),
         inputFmt.long_name.getString(0)));
       inputFmt.flags |= AVFMT_NOFILE
       //      val bioContext = new ByteIOContext
-      info("FormatLibrary.url_open_buf")
-      //      FFmpegCall {
-      //        //    	  FormatLibrary.url_open_buf(Array(bioContext), buffer, size, URL_RDONLY)
-      //        FormatLibrary.init_put_byte(bioContext, buffer, size, AvformatLibrary.URL_RDONLY, null,
-      //          new ReadFunc(is), null, null)
-      //        //          null, null, null)
-      //      }
       val bioContext = FFmpegCallObject { FormatLibrary.av_alloc_put_byte(buffer, size, AvformatLibrary.URL_RDONLY, null, new ReadFunc(is), null, null) };
-      info("/FormatLibrary.url_open_buf")
       bioContext.is_streamed = 1
-      //      info(inputFmt)
-      //      info(bioContext)
-      //      info(probeData)
-
       val formatCtxArray: Array[AVFormatContext.ByReference] = new Array(1)
-      val formatParams = new AVFormatParameters
-      formatParams.prealloced_context = 0
-
-      info("FormatLibrary.av_open_input_stream")
+      debug("FormatLibrary.av_open_input_stream")
       FFmpegCall {
-        FormatLibrary.av_open_input_stream(formatCtxArray, bioContext, probeData.filename, inputFmt, null)
+        FormatLibrary.av_open_input_stream(formatCtxArray, bioContext, "", inputFmt, null)
       }
-      info("/FormatLibrary.av_open_input_stream")
+      debug("/FormatLibrary.av_open_input_stream")
 
-      info("FormatLibrary.av_open_find_stream_info")
-      info(formatCtxArray(0))
+      debug("FormatLibrary.av_find_stream_info")
       val formatCtx = formatCtxArray(0)
       FFmpegCall { FormatLibrary.av_find_stream_info(formatCtx) }
-      info("FormatLibrary.av_open_find_stream_info")
-      info("FormatLibrary.dump_format")
+      debug("/FormatLibrary.av_find_stream_info")
+      formatCtx.write
+      debug("FormatLibrary.dump_format")
       FormatLibrary.dump_format(formatCtx, 0, "stream", 0)
-      info("/FormatLibrary.dump_format")
+      debug("/FormatLibrary.dump_format")
       new FFmpegContainer(formatCtx, false)
     }
   }
@@ -87,7 +71,7 @@ class FFmpegContainerFactory extends ContainerFactory with Logging {
         val buffer = buf.getByteBuffer(0, bufSize)
         try {
           val size = is.read(buffer)
-          info("Read " + size + "/" + bufSize + " bytes")
+          debug("Read " + size + "/" + bufSize + " bytes")
           size
         } catch {
           case e: Exception => {
@@ -114,12 +98,12 @@ class FFmpegContainerFactory extends ContainerFactory with Logging {
     extractStreams
 
     private def extractStreams: Unit = {
-      info(formatCtx)
-      val streamPtr = formatCtx.streams.getValue
-      val streamPtrs = streamPtr.getPointerArray(0, formatCtx.nb_streams - 1)
       for (streamIdx <- 0 until formatCtx.nb_streams) {
-        val avStream = new AVStream()
-        avStream.use(streamPtrs(streamIdx))
+        val streamPointer = formatCtx.streams(streamIdx)
+        debug(streamPointer)
+        val avStream = new AVStream
+        avStream.use(streamPointer)
+        debug("Created AVStream " + avStream)
         streamsList = FFmpegStream(avStream) :: streamsList
       }
     }

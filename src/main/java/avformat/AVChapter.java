@@ -20,6 +20,11 @@ public class AVChapter extends Structure<AVChapter, AVChapter.ByValue, AVChapter
 	public long start;
 	/// < chapter start/end time in time_base units
 	public long end;
+	/**
+	 * < chapter title<br>
+	 * C type : char*
+	 */
+	public Pointer title;
 	/// C type : AVMetadata*
 	public Pointer metadata;
 	public AVChapter() {
@@ -27,7 +32,7 @@ public class AVChapter extends Structure<AVChapter, AVChapter.ByValue, AVChapter
 		initFieldOrder();
 	}
 	protected void initFieldOrder() {
-		setFieldOrder(new java.lang.String[]{"id", "time_base", "start", "end", "metadata"});
+		setFieldOrder(new java.lang.String[]{"id", "time_base", "start", "end", "title", "metadata"});
 	}
 	/**
 	 * @param id < unique ID to identify the chapter<br>
@@ -35,14 +40,17 @@ public class AVChapter extends Structure<AVChapter, AVChapter.ByValue, AVChapter
 	 * C type : AVRational<br>
 	 * @param start < chapter start/end time in time_base units<br>
 	 * @param end < chapter start/end time in time_base units<br>
+	 * @param title < chapter title<br>
+	 * C type : char*<br>
 	 * @param metadata C type : AVMetadata*
 	 */
-	public AVChapter(int id, AVRational time_base, long start, long end, Pointer metadata) {
+	public AVChapter(int id, AVRational time_base, long start, long end, Pointer title, Pointer metadata) {
 		super();
 		this.id = id;
 		this.time_base = time_base;
 		this.start = start;
 		this.end = end;
+		this.title = title;
 		this.metadata = metadata;
 		initFieldOrder();
 	}

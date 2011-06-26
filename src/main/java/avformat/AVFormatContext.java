@@ -1,4 +1,5 @@
 package avformat;
+import avcodec.AVPacket;
 import com.ochafik.lang.jnaerator.runtime.Structure;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.PointerByReference;
@@ -27,7 +28,7 @@ public class AVFormatContext extends Structure<AVFormatContext, AVFormatContext.
 	public avformat.ByteIOContext.ByReference pb;
 	public int nb_streams;
 	/// C type : AVStream*[20]
-	public PointerByReference streams;
+	public Pointer[] streams = new Pointer[20];
 	/**
 	 * < input or output filename<br>
 	 * C type : char[1024]
@@ -35,6 +36,25 @@ public class AVFormatContext extends Structure<AVFormatContext, AVFormatContext.
 	public byte[] filename = new byte[(1024)];
 	/// stream info
 	public long timestamp;
+	/// C type : char[512]
+	public byte[] title = new byte[(512)];
+	/// C type : char[512]
+	public byte[] author = new byte[(512)];
+	/// C type : char[512]
+	public byte[] copyright = new byte[(512)];
+	/// C type : char[512]
+	public byte[] comment = new byte[(512)];
+	/// C type : char[512]
+	public byte[] album = new byte[(512)];
+	/// < ID3 year, 0 if none
+	public int year;
+	/// < track number, 0 if none
+	public int track;
+	/**
+	 * < ID3 genre<br>
+	 * C type : char[32]
+	 */
+	public byte[] genre = new byte[(32)];
 	/// < Format-specific flags, see AVFMTCTX_xx
 	public int ctx_flags;
 	/**
@@ -70,6 +90,11 @@ public class AVFormatContext extends Structure<AVFormatContext, AVFormatContext.
 	 * C type : AVStream*
 	 */
 	public avformat.AVStream.ByReference cur_st;
+	/// C type : const uint8_t*
+	public Pointer cur_ptr_deprecated;
+	public int cur_len_deprecated;
+	/// C type : AVPacket
+	public AVPacket cur_pkt_deprecated;
 	/**
 	 * av_seek_frame() support<br>
 	 * offset of the first packet
@@ -167,7 +192,7 @@ public class AVFormatContext extends Structure<AVFormatContext, AVFormatContext.
 		initFieldOrder();
 	}
 	protected void initFieldOrder() {
-		setFieldOrder(new java.lang.String[]{"av_class", "iformat", "oformat", "priv_data", "pb", "nb_streams", "streams", "filename", "timestamp", "ctx_flags", "packet_buffer", "start_time", "duration", "file_size", "bit_rate", "cur_st", "data_offset", "index_built", "mux_rate", "packet_size", "preload", "max_delay", "loop_output", "flags", "loop_input", "probesize", "max_analyze_duration", "key", "keylen", "nb_programs", "programs", "video_codec_id", "audio_codec_id", "subtitle_codec_id", "max_index_size", "max_picture_buffer", "nb_chapters", "chapters", "debug", "raw_packet_buffer", "raw_packet_buffer_end", "packet_buffer_end", "metadata", "raw_packet_buffer_remaining_size", "start_time_realtime"});
+		setFieldOrder(new java.lang.String[]{"av_class", "iformat", "oformat", "priv_data", "pb", "nb_streams", "streams", "filename", "timestamp", "title", "author", "copyright", "comment", "album", "year", "track", "genre", "ctx_flags", "packet_buffer", "start_time", "duration", "file_size", "bit_rate", "cur_st", "cur_ptr_deprecated", "cur_len_deprecated", "cur_pkt_deprecated", "data_offset", "index_built", "mux_rate", "packet_size", "preload", "max_delay", "loop_output", "flags", "loop_input", "probesize", "max_analyze_duration", "key", "keylen", "nb_programs", "programs", "video_codec_id", "audio_codec_id", "subtitle_codec_id", "max_index_size", "max_picture_buffer", "nb_chapters", "chapters", "debug", "raw_packet_buffer", "raw_packet_buffer_end", "packet_buffer_end", "metadata", "raw_packet_buffer_remaining_size", "start_time_realtime"});
 	}
 	protected ByReference newByReference() { return new ByReference(); }
 	protected ByValue newByValue() { return new ByValue(); }

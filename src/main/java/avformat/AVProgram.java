@@ -10,6 +10,16 @@ import com.sun.jna.ptr.IntByReference;
  */
 public class AVProgram extends Structure<AVProgram, AVProgram.ByValue, AVProgram.ByReference > {
 	public int id;
+	/**
+	 * < network name for DVB streams<br>
+	 * C type : char*
+	 */
+	public Pointer provider_name;
+	/**
+	 * < service name for DVB streams<br>
+	 * C type : char*
+	 */
+	public Pointer name;
 	public int flags;
 	/**
 	 * @see avcodec.AvcodecLibrary#AVDiscard<br>
@@ -27,18 +37,24 @@ public class AVProgram extends Structure<AVProgram, AVProgram.ByValue, AVProgram
 		initFieldOrder();
 	}
 	protected void initFieldOrder() {
-		setFieldOrder(new java.lang.String[]{"id", "flags", "discard", "stream_index", "nb_stream_indexes", "metadata"});
+		setFieldOrder(new java.lang.String[]{"id", "provider_name", "name", "flags", "discard", "stream_index", "nb_stream_indexes", "metadata"});
 	}
 	/**
+	 * @param provider_name < network name for DVB streams<br>
+	 * C type : char*<br>
+	 * @param name < service name for DVB streams<br>
+	 * C type : char*<br>
 	 * @param discard @see avcodec.AvcodecLibrary#AVDiscard<br>
 	 * < selects which program to discard and which to feed to the caller<br>
 	 * C type : AVDiscard<br>
 	 * @param stream_index C type : unsigned int*<br>
 	 * @param metadata C type : AVMetadata*
 	 */
-	public AVProgram(int id, int flags, int discard, IntByReference stream_index, int nb_stream_indexes, Pointer metadata) {
+	public AVProgram(int id, Pointer provider_name, Pointer name, int flags, int discard, IntByReference stream_index, int nb_stream_indexes, Pointer metadata) {
 		super();
 		this.id = id;
+		this.provider_name = provider_name;
+		this.name = name;
 		this.flags = flags;
 		this.discard = discard;
 		this.stream_index = stream_index;

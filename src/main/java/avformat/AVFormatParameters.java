@@ -1,6 +1,5 @@
 package avformat;
 import avutil.AVRational;
-
 import com.ochafik.lang.jnaerator.runtime.Bits;
 import com.ochafik.lang.jnaerator.runtime.Structure;
 import com.sun.jna.Pointer;
@@ -17,7 +16,10 @@ public class AVFormatParameters extends Structure<AVFormatParameters, AVFormatPa
 	public int channels;
 	public int width;
 	public int height;
-	/// C type : PixelFormat
+	/**
+	 * @see avcodec.AvcodecLibrary#PixelFormat<br>
+	 * C type : PixelFormat
+	 */
 	public int pix_fmt;
 	/// < Used to select DV channel.
 	public int channel;
@@ -44,12 +46,22 @@ public class AVFormatParameters extends Structure<AVFormatParameters, AVFormatPa
 	public byte initial_pause;
 	@Bits(1) 
 	public byte prealloced_context;
+	/**
+	 * @see avcodec.AvcodecLibrary#CodecID<br>
+	 * C type : CodecID
+	 */
+	public int video_codec_id;
+	/**
+	 * @see avcodec.AvcodecLibrary#CodecID<br>
+	 * C type : CodecID
+	 */
+	public int audio_codec_id;
 	public AVFormatParameters() {
 		super();
 		initFieldOrder();
 	}
 	protected void initFieldOrder() {
-		setFieldOrder(new java.lang.String[]{"time_base", "sample_rate", "channels", "width", "height", "pix_fmt", "channel", "standard", "mpeg2ts_raw", "mpeg2ts_compute_pcr", "initial_pause", "prealloced_context"});
+		setFieldOrder(new java.lang.String[]{"time_base", "sample_rate", "channels", "width", "height", "pix_fmt", "channel", "standard", "mpeg2ts_raw", "mpeg2ts_compute_pcr", "initial_pause", "prealloced_context", "video_codec_id", "audio_codec_id"});
 	}
 	protected ByReference newByReference() { return new ByReference(); }
 	protected ByValue newByValue() { return new ByValue(); }
