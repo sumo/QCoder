@@ -26,7 +26,7 @@ public class AVChapter extends Structure<AVChapter, AVChapter.ByValue, AVChapter
 	 */
 	public Pointer title;
 	/// C type : AVMetadata*
-	public Pointer metadata;
+	public avformat.AVMetadata.ByReference metadata;
 	public AVChapter() {
 		super();
 		initFieldOrder();
@@ -44,7 +44,7 @@ public class AVChapter extends Structure<AVChapter, AVChapter.ByValue, AVChapter
 	 * C type : char*<br>
 	 * @param metadata C type : AVMetadata*
 	 */
-	public AVChapter(int id, AVRational time_base, long start, long end, Pointer title, Pointer metadata) {
+	public AVChapter(int id, AVRational time_base, long start, long end, Pointer title, avformat.AVMetadata.ByReference metadata) {
 		super();
 		this.id = id;
 		this.time_base = time_base;

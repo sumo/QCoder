@@ -1,5 +1,6 @@
 package avformat;
 import avcodec.AVPacket;
+
 import com.ochafik.lang.jnaerator.runtime.Structure;
 import com.sun.jna.Callback;
 import com.sun.jna.Pointer;
@@ -12,21 +13,21 @@ import com.sun.jna.ptr.PointerByReference;
  */
 public class AVOutputFormat extends Structure<AVOutputFormat, AVOutputFormat.ByValue, AVOutputFormat.ByReference > {
 	/// C type : const char*
-	public Pointer name;
+	public String name;
 	/**
 	 * Descriptive name for the format, meant to be more human-readable<br>
 	 * than name. You should use the NULL_IF_CONFIG_SMALL() macro<br>
 	 * to define it.<br>
 	 * C type : const char*
 	 */
-	public Pointer long_name;
+	public String long_name;
 	/// C type : const char*
-	public Pointer mime_type;
+	public String mime_type;
 	/**
 	 * < comma-separated filename extensions<br>
 	 * C type : const char*
 	 */
-	public Pointer extensions;
+	public String extensions;
 	/// size of private data so that it can be allocated in the wrapper
 	public int priv_data_size;
 	/**
@@ -75,7 +76,7 @@ public class AVOutputFormat extends Structure<AVOutputFormat, AVOutputFormat.ByV
 	 * private fields<br>
 	 * C type : AVOutputFormat*
 	 */
-	public AVOutputFormat.ByReference next;
+	public Pointer next;
 	/// <i>native declaration : src/main/headers/libavformat/avformat.h</i>
 	public interface write_header_callback extends Callback {
 		int apply(AVFormatContext AVFormatContextPtr1);

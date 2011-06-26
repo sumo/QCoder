@@ -31,7 +31,7 @@ public class AVProgram extends Structure<AVProgram, AVProgram.ByValue, AVProgram
 	public IntByReference stream_index;
 	public int nb_stream_indexes;
 	/// C type : AVMetadata*
-	public Pointer metadata;
+	public avformat.AVMetadata.ByReference metadata;
 	public AVProgram() {
 		super();
 		initFieldOrder();
@@ -50,7 +50,7 @@ public class AVProgram extends Structure<AVProgram, AVProgram.ByValue, AVProgram
 	 * @param stream_index C type : unsigned int*<br>
 	 * @param metadata C type : AVMetadata*
 	 */
-	public AVProgram(int id, Pointer provider_name, Pointer name, int flags, int discard, IntByReference stream_index, int nb_stream_indexes, Pointer metadata) {
+	public AVProgram(int id, Pointer provider_name, Pointer name, int flags, int discard, IntByReference stream_index, int nb_stream_indexes, avformat.AVMetadata.ByReference metadata) {
 		super();
 		this.id = id;
 		this.provider_name = provider_name;

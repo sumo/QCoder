@@ -126,7 +126,7 @@ public class AVStream extends Structure<AVStream, AVStream.ByValue, AVStream.ByR
 	 */
 	public AVRational sample_aspect_ratio;
 	/// C type : AVMetadata*
-	public Pointer metadata;
+	public avformat.AVMetadata.ByReference metadata;
 	/**
 	 * av_read_frame() support<br>
 	 * C type : const uint8_t*

@@ -18,7 +18,7 @@ public class AVCodec extends Structure<AVCodec, AVCodec.ByValue, AVCodec.ByRefer
 	 * This is the primary way to find a codec from the user perspective.<br>
 	 * C type : const char*
 	 */
-	public Pointer name;
+	public String name;
 	/**
 	 * @see AVMediaType<br>
 	 * C type : AVMediaType
@@ -44,7 +44,7 @@ public class AVCodec extends Structure<AVCodec, AVCodec.ByValue, AVCodec.ByRefer
 	 */
 	public int capabilities;
 	/// C type : AVCodec*
-	public AVCodec.ByReference next;
+	public Pointer next;
 	/**
 	 * Flush buffers.<br>
 	 * Will be called when seeking<br>
@@ -55,7 +55,7 @@ public class AVCodec extends Structure<AVCodec, AVCodec.ByValue, AVCodec.ByRefer
 	 * < array of supported framerates, or NULL if any, array is terminated by {0,0}<br>
 	 * C type : const AVRational*
 	 */
-	public avutil.AVRational.ByReference supported_framerates;
+	public Pointer supported_framerates;
 	/**
 	 * < array of supported pixel formats, or NULL if unknown, array is terminated by -1<br>
 	 * C type : PixelFormat*

@@ -39,27 +39,28 @@ class FFmpegContainerFactory extends ContainerFactory with Logging {
       error("Probe failed");
       null
     } else {
-      debug("Probe successful: %s, %s".format(inputFmt.name.getString(0),
-        inputFmt.long_name.getString(0)));
+      debug("Probe successful: %s, %s".format(inputFmt.name,
+        inputFmt.long_name));
+      trace(inputFmt)
       inputFmt.flags |= AVFMT_NOFILE
-      //      val bioContext = new ByteIOContext
+
       val bioContext = FFmpegCallObject { FormatLibrary.av_alloc_put_byte(buffer, size, AvformatLibrary.URL_RDONLY, null, new ReadFunc(is), null, null) };
       bioContext.is_streamed = 1
+      trace(bioContext)
       val formatCtxArray: Array[AVFormatContext.ByReference] = new Array(1)
-      debug("FormatLibrary.av_open_input_stream")
+      trace("FormatLibrary.av_open_input_stream")
       FFmpegCall {
         FormatLibrary.av_open_input_stream(formatCtxArray, bioContext, "", inputFmt, null)
       }
-      debug("/FormatLibrary.av_open_input_stream")
+      trace("/FormatLibrary.av_open_input_stream")
 
-      debug("FormatLibrary.av_find_stream_info")
+      trace("FormatLibrary.av_find_stream_info")
       val formatCtx = formatCtxArray(0)
       FFmpegCall { FormatLibrary.av_find_stream_info(formatCtx) }
-      debug("/FormatLibrary.av_find_stream_info")
-      formatCtx.write
-      debug("FormatLibrary.dump_format")
+      trace("/FormatLibrary.av_find_stream_info")
+      trace("FormatLibrary.dump_format")
       FormatLibrary.dump_format(formatCtx, 0, "stream", 0)
-      debug("/FormatLibrary.dump_format")
+      trace("/FormatLibrary.dump_format")
       new FFmpegContainer(formatCtx, false)
     }
   }
@@ -98,12 +99,15 @@ class FFmpegContainerFactory extends ContainerFactory with Logging {
     extractStreams
 
     private def extractStreams: Unit = {
+      trace(formatCtx)
       for (streamIdx <- 0 until formatCtx.nb_streams) {
         val streamPointer = formatCtx.streams(streamIdx)
-        debug(streamPointer)
+        if (streamPointer == null) {
+          throw new QCoderException("Stream " + streamIdx + " was not valid")
+        }
         val avStream = new AVStream
         avStream.use(streamPointer)
-        debug("Created AVStream " + avStream)
+        trace("Created AVStream " + avStream)
         streamsList = FFmpegStream(avStream) :: streamsList
       }
     }

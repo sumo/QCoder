@@ -18,7 +18,15 @@ object FFmpegUtils extends Logging {
   val CodecLibrary = AvcodecLibrary.INSTANCE
   CodecLibrary.avcodec_init
   CodecLibrary.avcodec_register_all
+  lazy val codecs = buildCodecList(null)
+  lazy val iFormats = buildFormatList(null.asInstanceOf[AVInputFormat])
+  lazy val oFormats = buildFormatList(null.asInstanceOf[AVOutputFormat])
+  
   log.info("AvcodecLibrary: " + CodecLibrary.avcodec_configuration)
+  log.info("Codecs are " + codecs)
+  log.info("Input formats are " + iFormats)
+  log.info("Output formats are " + oFormats)
+  
   val UtilLibrary = AvutilLibrary.INSTANCE
 
   implicit def convertToMemory(str: String): Memory = {
@@ -26,6 +34,33 @@ object FFmpegUtils extends Logging {
     val mem = new Memory(str.length)
     mem.write(0, str.getBytes(), 0, str.length());
     mem
+  }
+  
+  def buildCodecList(codec:AVCodec):List[String] = {
+    val ac = CodecLibrary.av_codec_next(codec)
+    if (ac == null) {
+      Nil
+    } else {
+      ac.name :: buildCodecList(ac)
+    }
+  }
+  
+  def buildFormatList(format:AVInputFormat):List[String] = {
+    val ac = FormatLibrary.av_iformat_next(format)
+    if (ac == null) {
+      Nil
+    } else {
+      ac.name :: buildFormatList(ac)
+    }
+  }
+  
+  def buildFormatList(format:AVOutputFormat):List[String] = {
+    val ac = FormatLibrary.av_oformat_next(format)
+    if (ac == null) {
+      Nil
+    } else {
+      ac.name :: buildFormatList(ac)
+    }
   }
 
   implicit def convertToString(pointer: Pointer): String = {

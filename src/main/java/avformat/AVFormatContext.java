@@ -177,7 +177,7 @@ public class AVFormatContext extends Structure<AVFormatContext, AVFormatContext.
 	/// C type : AVPacketList*
 	public avformat.AVPacketList.ByReference packet_buffer_end;
 	/// C type : AVMetadata*
-	public Pointer metadata;
+	public avformat.AVMetadata.ByReference metadata;
 	public int raw_packet_buffer_remaining_size;
 	/**
 	 * Start time of the stream in real world time, in microseconds<br>
