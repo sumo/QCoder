@@ -1,23 +1,25 @@
 package biz.mediabag.qcoder.domain
 
+
 object Codec extends Enumeration {
   type Codec = Value
-  val Video = Value("Video")
-  val Audio = Value("Audio") 
-  val Subtitle = Value("Subtitle")
+  val audio, video, subtitle = Value
 }
-
-import Codec._
-	
+/**
+ * A decoded raw frame of audio or video
+ */
 trait Frame {
-	def codecType:Codec
+
 }
 
 trait AudioFrame extends Frame {
-	override val codecType = Codec.Audio
+  def sample: Int
 }
 
 trait VideoFrame extends Frame {
-	override val codecType = Codec.Video
+  def rgbBytes: Array[Byte]
 }
 
+trait SubtitleFrame extends Frame {
+
+}

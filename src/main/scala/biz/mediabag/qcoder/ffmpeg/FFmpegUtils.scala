@@ -21,22 +21,22 @@ object FFmpegUtils extends Logging {
   lazy val codecs = buildCodecList(null)
   lazy val iFormats = buildFormatList(null.asInstanceOf[AVInputFormat])
   lazy val oFormats = buildFormatList(null.asInstanceOf[AVOutputFormat])
-  
+
   log.info("AvcodecLibrary: " + CodecLibrary.avcodec_configuration)
   log.info("Codecs are " + codecs)
   log.info("Input formats are " + iFormats)
   log.info("Output formats are " + oFormats)
-  
-  val UtilLibrary = AvutilLibrary.INSTANCE
 
+  val UtilLibrary = AvutilLibrary.INSTANCE
+  UtilLibrary.av_log_set_level(AvutilLibrary.AV_LOG_DEBUG)
   implicit def convertToMemory(str: String): Memory = {
     assert(str.length > 0, "String length needs to be greater than 0")
     val mem = new Memory(str.length)
     mem.write(0, str.getBytes(), 0, str.length());
     mem
   }
-  
-  def buildCodecList(codec:AVCodec):List[String] = {
+
+  def buildCodecList(codec: AVCodec): List[String] = {
     val ac = CodecLibrary.av_codec_next(codec)
     if (ac == null) {
       Nil
@@ -44,8 +44,8 @@ object FFmpegUtils extends Logging {
       ac.name :: buildCodecList(ac)
     }
   }
-  
-  def buildFormatList(format:AVInputFormat):List[String] = {
+
+  def buildFormatList(format: AVInputFormat): List[String] = {
     val ac = FormatLibrary.av_iformat_next(format)
     if (ac == null) {
       Nil
@@ -53,8 +53,8 @@ object FFmpegUtils extends Logging {
       ac.name :: buildFormatList(ac)
     }
   }
-  
-  def buildFormatList(format:AVOutputFormat):List[String] = {
+
+  def buildFormatList(format: AVOutputFormat): List[String] = {
     val ac = FormatLibrary.av_oformat_next(format)
     if (ac == null) {
       Nil
@@ -63,8 +63,40 @@ object FFmpegUtils extends Logging {
     }
   }
 
-  implicit def convertToString(pointer: Pointer): String = {
+  def convertToString(pointer: Pointer): String = {
     pointer.getString(0)
+  }
+
+  implicit def toZero(buf: ByteBuffer) = {
+    new BufferWrapper(buf)
+  }
+
+  class BufferWrapper(buf: ByteBuffer) {
+    def zero = {
+      for (i <- 0 until buf.capacity) {
+        buf.put(0.asInstanceOf[Byte])
+      }
+      buf.rewind
+    }
+
+    def toCharString = {
+      buf.rewind
+      val bytearr: Array[Byte] = new Array(buf.remaining())
+      buf.get(bytearr);
+      new String(bytearr);
+    }
+
+    def toBytesString = {
+      buf.rewind
+      val bytearr: Array[Byte] = new Array(buf.remaining())
+      buf.get(bytearr);
+      val sb = new StringBuilder
+      bytearr.foreach { b =>
+        sb.append(b.intValue.toString).append(" ")
+      }
+      sb.toString
+    }
+
   }
 
   object FFmpegCall {
