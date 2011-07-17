@@ -4,7 +4,7 @@ import uk.co.rajaconsulting.sbtjna._
 
 class QCoderProject(info: ProjectInfo) extends DefaultProject(info) with Eclipsify with JNAeratorProject {
   override def libraries = List(
-    "avutil" -> List("libavutil/avutil.h", "libavutil/common.h", "libavutil/rational.h", "libavutil/error.h", "libavutil/log.h", "libavcodec/opt.h"),
+    "avutil" -> List("libavutil/avutil.h", "libavutil/common.h", "libavutil/rational.h", "libavutil/mem.h", "libavutil/error.h", "libavutil/log.h", "libavcodec/opt.h"),
     "avformat" -> List("libavformat/avformat.h", "libavutil/avutil.h", "libavformat/metadata.h", "libavformat/avio.h"),
     "avcodec" -> List("libavutil/avutil.h", "libavcodec/opt.h", "libavcodec/avcodec.h"),
     "swscale" -> List("libavutil/avutil.h", "libswscale/swscale.h"))
@@ -23,7 +23,8 @@ class QCoderProject(info: ProjectInfo) extends DefaultProject(info) with Eclipsi
   val sl4j = "org.clapper" %% "grizzled-slf4j" % "0.5"
   val sl4jLog4j = "org.slf4j" % "slf4j-log4j12" % "1.6.1"
   val junit = "junit" % "junit" % "4.7"
-  override val jnaerator = "com.jnaerator" % "jnaerator" % "0.9.7"
+  val jna = "net.java.dev.jna" % "jna" % "3.3.0"
+  override val jnaerator = "com.jnaerator" % "jnaerator" % "0.9.8"
 
   val mavenLocal = "Local Maven Repository" at "file://" + Path.userHome + "/.m2/repository"
 }

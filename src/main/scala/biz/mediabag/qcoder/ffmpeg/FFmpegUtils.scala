@@ -11,10 +11,13 @@ import biz.mediabag.qcoder._
 import grizzled.slf4j.Logging
 
 object FFmpegUtils extends Logging {
-  val log = Logger("FFmpegUtils")
+  val SEEK_SET = 0
+  val SEEK_CUR = 1
+  val SEEK_END = 2
+  val EAGAIN = 11
   val FormatLibrary = AvformatLibrary.INSTANCE
   FormatLibrary.av_register_all
-  log.info("AvformatLibrary " + AvformatLibrary.JNA_LIBRARY_NAME + ": " + FormatLibrary.avformat_configuration)
+  info("AvformatLibrary " + AvformatLibrary.JNA_LIBRARY_NAME + ": " + FormatLibrary.avformat_configuration)
   val CodecLibrary = AvcodecLibrary.INSTANCE
   CodecLibrary.avcodec_init
   CodecLibrary.avcodec_register_all
@@ -22,10 +25,10 @@ object FFmpegUtils extends Logging {
   lazy val iFormats = buildFormatList(null.asInstanceOf[AVInputFormat])
   lazy val oFormats = buildFormatList(null.asInstanceOf[AVOutputFormat])
 
-  log.info("AvcodecLibrary: " + CodecLibrary.avcodec_configuration)
-  log.info("Codecs are " + codecs)
-  log.info("Input formats are " + iFormats)
-  log.info("Output formats are " + oFormats)
+  info("AvcodecLibrary: " + CodecLibrary.avcodec_configuration)
+  info("Codecs are " + codecs)
+  info("Input formats are " + iFormats)
+  info("Output formats are " + oFormats)
 
   val UtilLibrary = AvutilLibrary.INSTANCE
   UtilLibrary.av_log_set_level(AvutilLibrary.AV_LOG_DEBUG)
@@ -41,7 +44,7 @@ object FFmpegUtils extends Logging {
     if (ac == null) {
       Nil
     } else {
-      ac.name :: buildCodecList(ac)
+      ac.name.getString(0) :: buildCodecList(ac)
     }
   }
 
@@ -50,7 +53,7 @@ object FFmpegUtils extends Logging {
     if (ac == null) {
       Nil
     } else {
-      ac.name :: buildFormatList(ac)
+      ac.name.getString(0) :: buildFormatList(ac)
     }
   }
 
@@ -108,7 +111,7 @@ object FFmpegUtils extends Logging {
         val success = UtilLibrary.av_strerror(code, errBuf, errBufSize);
         throw new QCoderException(code, new String(errBuf.array))
       } else {
-        info("Call result= " + code)
+        trace("Call result= " + code)
         code
       }
     }

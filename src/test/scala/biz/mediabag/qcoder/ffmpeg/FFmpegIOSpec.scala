@@ -35,7 +35,7 @@ class FFmpegIOSuite extends FunSuite {
   
   test("Container factory runs decode loop") {
     val x = new FFmpegDecodingContainerFactory
-    val c = x.loadFrom(new File("src/test/data/test.mp4"))
+    val c = x.loadFrom(new File("src/test/data/preview.mp4"))
     c.runDecodeLoop
   }
 

@@ -1,4 +1,6 @@
 package biz.mediabag.qcoder.ffmpeg
+
+import grizzled.slf4j.Logging
 import biz.mediabag.qcoder._
 import java.io._
 import java.nio._
@@ -11,28 +13,31 @@ import FFmpegUtils._
 import biz.mediabag.qcoder.domain._
 import scala.collection.immutable.Queue
 
-abstract class FFmpegStream(val avStream: AVStream) {
+abstract class FFmpegStream(val avStream: AVStream) extends Logging {
 
-  private val codec = CodecLibrary.avcodec_find_decoder(avStream.codec.codec_id);
+  val codecCtx: AVCodecContext = avStream.codec
+  private val codec = CodecLibrary.avcodec_find_decoder(avStream.codec.codec_id)
   if (codec == null) {
     throw new QCoderException("Decoder with id " + avStream.codec.codec_id + " not found for stream with index " + avStream.index)
   }
+  private val codecName = new String(codec.name.getString(0))
+  private val codecLongName = new String(codec.long_name.getString(0))
+  private val codecType = codecCtx.codec_type
+  private val codecHeight = codecCtx.height
+  private val codecWidth = codecCtx.width
+  private val codecHasBFrames = codecCtx.has_b_frames
+  trace("CodecLibrary.avcodec_open")
   FFmpegCall {
     CodecLibrary.avcodec_open(avStream.codec, codec)
   }
+  trace("/CodecLibrary.avcodec_open")
+  trace("Created stream " + toString)
 
-  val codecCtx: AVCodecContext = avStream.codec
   override def toString = {
-    val dec = codecCtx.codec
     var ret = ":[codecName="
-    if (dec != null) {
-      ret += dec.name + ";codecLongName=" + dec.long_name
-    } else {
-      ret += "unknown"
-    }
-
-    ret += ";codecType=" + codecCtx.codec_type //+ ";codecTimeBase=%d/%d".format(codecCtx.time_base.num, codeCtx.time_base.den)
-    ret += ";width=%d;height=%d;hasBFrames=%d".format(codecCtx.width, codecCtx.height, codecCtx.has_b_frames)
+    ret += codecName + "; codecLongName=" + codecLongName
+    ret += "; codecType=" + codecType
+    ret += "; width=%d; height=%d; hasBFrames=%d]".format(codecWidth, codecHeight, codecHasBFrames)
     ret
   }
 
@@ -70,5 +75,6 @@ case class FFmpegAudioFrame(samples: ShortBuffer) extends AudioFrame {
   override def sample = -1
 }
 case class FFmpegVideoFrame(ffmpegFrame: AVFrame) extends VideoFrame {
+  val pts = ffmpegFrame.pts
   override def rgbBytes: Array[Byte] = Nil.toArray
 }

@@ -36,7 +36,7 @@ public class AVPacket extends Structure<AVPacket, AVPacket.ByValue, AVPacket.ByR
 	 */
 	public int duration;
 	/// C type : destruct_callback
-	public AVPacket.destruct_callback destruct;
+	public Pointer destruct;
 	/// C type : void*
 	public Pointer priv;
 	/// < byte position in stream, -1 if unknown

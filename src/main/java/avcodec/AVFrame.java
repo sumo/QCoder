@@ -44,7 +44,7 @@ public class AVFrame extends Structure<AVFrame, AVFrame.ByValue, AVFrame.ByRefer
 	public int interlaced_frame;
 	public int top_field_first;
 	/// C type : AVPanScan*
-	public avcodec.AVPanScan.ByReference pan_scan;
+	public Pointer pan_scan;
 	public int palette_has_changed;
 	public int buffer_hints;
 	/// C type : short*

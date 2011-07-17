@@ -13,14 +13,14 @@ import com.sun.jna.ptr.PointerByReference;
  */
 public class AVInputFormat extends Structure<AVInputFormat, AVInputFormat.ByValue, AVInputFormat.ByReference > {
 	/// C type : const char*
-	public String name;
+	public Pointer name;
 	/**
 	 * Descriptive name for the format, meant to be more human-readable<br>
 	 * than name. You should use the NULL_IF_CONFIG_SMALL() macro<br>
 	 * to define it.<br>
 	 * C type : const char*
 	 */
-	public String long_name;
+	public Pointer long_name;
 	/// Size of private data so that it can be allocated in the wrapper.
 	public int priv_data_size;
 	/**

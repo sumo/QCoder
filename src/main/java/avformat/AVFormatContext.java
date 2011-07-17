@@ -206,4 +206,9 @@ public class AVFormatContext extends Structure<AVFormatContext, AVFormatContext.
 	public static class ByValue extends AVFormatContext implements Structure.ByValue {
 		
 	};
+	
+	@Override
+	public void finalize() {
+		System.out.println(this.getClass() + " garbaged");
+	}
 }

@@ -145,6 +145,91 @@ public interface AvutilLibrary extends Library {
 	@Mangling({"_Z21av_find_nearest_q_idx10AVRationalPK10AVRational", "?av_find_nearest_q_idx@@YAHUAVRational@@PAUAVRational@@@Z"}) 
 	int av_find_nearest_q_idx(AVRational.ByValue q, AVRational q_list);
 	/**
+	 * Allocates a block of size bytes with alignment suitable for all<br>
+	 * memory accesses (including vectors if available on the CPU).<br>
+	 * @param size Size in bytes for the memory block to be allocated.<br>
+	 * @return Pointer to the allocated block, NULL if the block cannot<br>
+	 * be allocated.<br>
+	 * @see av_mallocz()<br>
+	 * Original signature : <code>void* av_malloc(unsigned int)</code><br>
+	 * <i>native declaration : src/main/headers/libavutil/mem.h:71</i>
+	 */
+	@Mangling({"_Z9av_mallocj", "?av_malloc@@YAPAXI@Z"}) 
+	Pointer av_malloc(int size);
+	/**
+	 * Allocates or reallocates a block of memory.<br>
+	 * If ptr is NULL and size > 0, allocates a new block. If<br>
+	 * size is zero, frees the memory block pointed to by ptr.<br>
+	 * @param size Size in bytes for the memory block to be allocated or<br>
+	 * reallocated.<br>
+	 * @param ptr Pointer to a memory block already allocated with<br>
+	 * av_malloc(z)() or av_realloc() or NULL.<br>
+	 * @return Pointer to a newly reallocated block or NULL if the block<br>
+	 * cannot be reallocated or the function is used to free the memory block.<br>
+	 * @see av_fast_realloc()<br>
+	 * Original signature : <code>void* av_realloc(void*, unsigned int)</code><br>
+	 * <i>native declaration : src/main/headers/libavutil/mem.h:85</i>
+	 */
+	@Mangling({"_Z10av_reallocPvj", "?av_realloc@@YAPAXPAXI@Z"}) 
+	Pointer av_realloc(Pointer ptr, int size);
+	/**
+	 * Frees a memory block which has been allocated with av_malloc(z)() or<br>
+	 * av_realloc().<br>
+	 * @param ptr Pointer to the memory block which should be freed.<br>
+	 * @note ptr = NULL is explicitly allowed.<br>
+	 * @note It is recommended that you use av_freep() instead.<br>
+	 * @see av_freep()<br>
+	 * Original signature : <code>void av_free(void*)</code><br>
+	 * <i>native declaration : src/main/headers/libavutil/mem.h:95</i>
+	 */
+	@Mangling({"_Z7av_freePv", "?av_free@@YAXPAX@Z"}) 
+	void av_free(Pointer ptr);
+	/**
+	 * Allocates a block of size bytes with alignment suitable for all<br>
+	 * memory accesses (including vectors if available on the CPU) and<br>
+	 * zeroes all the bytes of the block.<br>
+	 * @param size Size in bytes for the memory block to be allocated.<br>
+	 * @return Pointer to the allocated block, NULL if it cannot be allocated.<br>
+	 * @see av_malloc()<br>
+	 * Original signature : <code>void* av_mallocz(unsigned int)</code><br>
+	 * <i>native declaration : src/main/headers/libavutil/mem.h:105</i>
+	 */
+	@Mangling({"_Z10av_malloczj", "?av_mallocz@@YAPAXI@Z"}) 
+	Pointer av_mallocz(int size);
+	/**
+	 * Duplicates the string s.<br>
+	 * @param s string to be duplicated<br>
+	 * @return Pointer to a newly allocated string containing a<br>
+	 * copy of s or NULL if the string cannot be allocated.<br>
+	 * Original signature : <code>char* av_strdup(const char*)</code><br>
+	 * <i>native declaration : src/main/headers/libavutil/mem.h:113</i><br>
+	 * @deprecated use the safer methods {@link #av_strdup(java.lang.String)} and {@link #av_strdup(com.sun.jna.Pointer)} instead
+	 */
+	@Mangling({"_Z9av_strdupPKc", "?av_strdup@@YAPADPAD@Z"}) 
+	@Deprecated 
+	Pointer av_strdup(Pointer s);
+	/**
+	 * Duplicates the string s.<br>
+	 * @param s string to be duplicated<br>
+	 * @return Pointer to a newly allocated string containing a<br>
+	 * copy of s or NULL if the string cannot be allocated.<br>
+	 * Original signature : <code>char* av_strdup(const char*)</code><br>
+	 * <i>native declaration : src/main/headers/libavutil/mem.h:113</i>
+	 */
+	@Mangling({"_Z9av_strdupPKc", "?av_strdup@@YAPADPAD@Z"}) 
+	Pointer av_strdup(String s);
+	/**
+	 * Frees a memory block which has been allocated with av_malloc(z)() or<br>
+	 * av_realloc() and set the pointer pointing to it to NULL.<br>
+	 * @param ptr Pointer to the pointer to the memory block which should<br>
+	 * be freed.<br>
+	 * @see av_free()<br>
+	 * Original signature : <code>void av_freep(void*)</code><br>
+	 * <i>native declaration : src/main/headers/libavutil/mem.h:122</i>
+	 */
+	@Mangling({"_Z8av_freepPv", "?av_freep@@YAXPAX@Z"}) 
+	void av_freep(Pointer ptr);
+	/**
 	 * Puts a description of the AVERROR code errnum in errbuf.<br>
 	 * In case of failure the global variable errno is set to indicate the<br>
 	 * error. Even in case of failure av_strerror() will print a generic<br>
