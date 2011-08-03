@@ -66,6 +66,34 @@ class InputChannelRewinderSuite extends FunSuite with ShouldMatchers {
     }
     subject.close
   }
+  
+  test("Seek works correctly") {
+    buf.rewind
+    val chan = new FileInputStream("src/test/data/preview.mp4").getChannel
+    val subject = new InputChannelRewinder(chan)
+    subject.read(buf)
+    buf.rewind
+    buf.position(2223)
+    val controlArray:Array[Byte] = new Array(500)
+    buf.get(controlArray)
+
+    subject.seek(2223)
+    val tempBuf = ByteBuffer.allocate(500)
+    subject.read(tempBuf)
+    val array:Array[Byte] = new Array(500)
+    tempBuf.rewind
+    tempBuf.get(array)
+    array should equal(controlArray)
+    
+    subject.rewind
+    subject.seek(2223)
+    val tempBuf2 = ByteBuffer.allocate(500)
+    subject.read(tempBuf)
+    val array2:Array[Byte] = new Array(500)
+    tempBuf.rewind
+    tempBuf.get(array2)
+    array2 should equal(controlArray)
+  }
 
   test("Test on short.avi") {
     buf.rewind

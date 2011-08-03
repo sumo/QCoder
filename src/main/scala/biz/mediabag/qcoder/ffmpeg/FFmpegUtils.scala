@@ -15,6 +15,7 @@ object FFmpegUtils extends Logging {
   val SEEK_CUR = 1
   val SEEK_END = 2
   val EAGAIN = 11
+  
   val FormatLibrary = AvformatLibrary.INSTANCE
   FormatLibrary.av_register_all
   info("AvformatLibrary " + AvformatLibrary.JNA_LIBRARY_NAME + ": " + FormatLibrary.avformat_configuration)
@@ -33,9 +34,10 @@ object FFmpegUtils extends Logging {
   val UtilLibrary = AvutilLibrary.INSTANCE
   UtilLibrary.av_log_set_level(AvutilLibrary.AV_LOG_DEBUG)
   implicit def convertToMemory(str: String): Memory = {
-    assert(str.length > 0, "String length needs to be greater than 0")
-    val mem = new Memory(str.length)
-    mem.write(0, str.getBytes(), 0, str.length());
+    val length = if (str.length ==0) 1 else str.length
+    val bytes:Array[Byte] = if (str.length ==0) Array(0) else str.getBytes
+    val mem = new Memory(length)
+    mem.write(0, bytes, 0, length);
     mem
   }
 
@@ -70,8 +72,19 @@ object FFmpegUtils extends Logging {
     pointer.getString(0)
   }
 
-  implicit def toZero(buf: ByteBuffer) = {
+  implicit def wrap(buf: ByteBuffer) = {
     new BufferWrapper(buf)
+  }
+
+  implicit def wrap(mem: Memory) = {
+    new MemoryZeroWrapper(mem)
+  }
+
+  class MemoryZeroWrapper(mem: Memory) {
+    def zero(offset: Int, len: Int) = {
+      val zero = List.fill(len)(0.asInstanceOf[Byte])
+      mem.write(offset, zero.toArray, 0, len)
+    }
   }
 
   class BufferWrapper(buf: ByteBuffer) {

@@ -13,7 +13,7 @@ trait Frame {
 }
 
 trait AudioFrame extends Frame {
-  def sample: Int
+  def samples: Array[Byte]
 }
 
 trait VideoFrame extends Frame {

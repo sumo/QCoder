@@ -2912,10 +2912,9 @@ public interface AvcodecLibrary extends Library {
 	 * used or zero if no frame data was decompressed (used) from the input AVPacket.<br>
 	 * Original signature : <code>int avcodec_decode_audio3(AVCodecContext*, int16_t*, int*, AVPacket*)</code><br>
 	 * <i>native declaration : src/main/headers/libavcodec/avcodec.h:3432</i><br>
-	 * @deprecated use the safer methods {@link #avcodec_decode_audio3(avcodec.AVCodecContext, java.nio.ShortBuffer, java.nio.IntBuffer, avcodec.AVPacket)} and {@link #avcodec_decode_audio3(avcodec.AVCodecContext, com.sun.jna.ptr.ShortByReference, com.sun.jna.ptr.IntByReference, avcodec.AVPacket)} instead
 	 */
 	@Mangling({"_Z21avcodec_decode_audio3P14AVCodecContextP7int16_tPiP8AVPacket", "?avcodec_decode_audio3@@YAHPAUAVCodecContext@@PA7int16_tPAHPAUAVPacket@@@Z"}) 
-	@Deprecated 
+	// Removed deprecation as the buffers here need to be aligned so need to work with native JNA operations
 	int avcodec_decode_audio3(AVCodecContext avctx, ShortByReference samples, IntByReference frame_size_ptr, AVPacket avpkt);
 	/**
 	 * Decodes the audio frame of size avpkt->size from avpkt->data into samples.<br>

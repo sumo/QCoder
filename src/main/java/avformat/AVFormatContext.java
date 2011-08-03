@@ -207,8 +207,4 @@ public class AVFormatContext extends Structure<AVFormatContext, AVFormatContext.
 		
 	};
 	
-	@Override
-	public void finalize() {
-		System.out.println(this.getClass() + " garbaged");
-	}
 }

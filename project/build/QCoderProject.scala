@@ -19,11 +19,11 @@ class QCoderProject(info: ProjectInfo) extends DefaultProject(info) with Eclipsi
   override lazy val scalaOut = false
   override lazy val runtime = JNAeratorRuntime.JNAerator
 
-  val scalatest = "org.scalatest" %% "scalatest" % "1.6.1"
-  val sl4j = "org.clapper" %% "grizzled-slf4j" % "0.5"
+  val scalatest = "org.scalatest" % "scalatest_2.9.0" % "1.6.1"
+  val sl4j = "org.clapper" % "grizzled-slf4j_2.9.0" % "0.5"
   val sl4jLog4j = "org.slf4j" % "slf4j-log4j12" % "1.6.1"
   val junit = "junit" % "junit" % "4.7"
-  val jna = "net.java.dev.jna" % "jna" % "3.3.0"
+  //val jna = "net.java.dev.jna" % "jna" % "3.3.0"
   override val jnaerator = "com.jnaerator" % "jnaerator" % "0.9.8"
 
   val mavenLocal = "Local Maven Repository" at "file://" + Path.userHome + "/.m2/repository"
