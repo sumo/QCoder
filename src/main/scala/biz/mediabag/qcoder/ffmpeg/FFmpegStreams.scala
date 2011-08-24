@@ -13,9 +13,9 @@ import biz.mediabag.qcoder.domain._
 import scala.collection.immutable.Queue
 import java.math.BigInteger
 
-abstract class FFmpegStream(private val avStream: AVStream) extends Logging {
+abstract class FFmpegStream(val avStream: AVStream) extends Logging {
 
-  val codecCtx: AVCodecContext = avStream.codec
+  private val codecCtx: AVCodecContext = avStream.codec
   private val codec = CodecLibrary.avcodec_find_decoder(codecCtx.codec_id)
   if (codec == null) {
     throw new QCoderException("Decoder with id " + avStream.codec.codec_id + " not found for stream with index " + avStream.index)
@@ -28,7 +28,7 @@ abstract class FFmpegStream(private val avStream: AVStream) extends Logging {
   private val codecHasBFrames = codecCtx.has_b_frames
   trace("CodecLibrary.avcodec_open")
   FFmpegCall {
-    CodecLibrary.avcodec_open(codecCtx, codec)
+    CodecLibrary.avcodec_open(avStream.codec, codec)
   }
   trace("/CodecLibrary.avcodec_open")
   codecCtx.debug = 1
@@ -44,7 +44,7 @@ abstract class FFmpegStream(private val avStream: AVStream) extends Logging {
 
 }
 
-abstract case class FFmpegDecodingStream[FTYPE <: Frame](val avStream: AVStream, val streamIdx: Int) extends FFmpegStream(avStream) with DecodingStream[FTYPE] {
+abstract case class FFmpegDecodingStream[FTYPE <: Frame](override val avStream: AVStream, val streamIdx: Int) extends FFmpegStream(avStream) with DecodingStream[FTYPE] {
   def <<(frame: FTYPE)
   def EOFReached
 }
